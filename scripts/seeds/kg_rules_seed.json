@@ -1,0 +1,40 @@
+[
+  {
+    "match_terms": ["váy", "đầm", "dress", "ITEM_DRESS"],
+    "preferred_item_types": ["midi_dress", "cocktail_dress", "heels", "clutch", "earrings"],
+    "avoided_item_types": ["formal_trousers", "hoodie"],
+    "preferred_colors": ["black", "red", "metallic"],
+    "style_rules": [
+      {"rule": "Dress-based outfits should keep the dress as the main visual piece.", "weight": 0.9},
+      {"rule": "Pair party dresses with refined shoes and small accessories.", "weight": 0.85}
+    ]
+  },
+  {
+    "match_terms": ["đi tiệc", "party", "OCCASION_PARTY"],
+    "preferred_item_types": ["cocktail_dress", "midi_dress", "heels", "clutch", "earrings"],
+    "avoided_item_types": ["sneakers", "hoodie", "flip_flops"],
+    "preferred_colors": ["black", "red", "metallic", "champagne"],
+    "occasion_rules": [
+      {"rule": "Party outfits should look polished and intentional.", "weight": 0.9},
+      {"rule": "Metallic accents can elevate evening party outfits.", "weight": 0.8}
+    ]
+  },
+  {
+    "match_terms": ["áo sơ mi", "shirt", "ITEM_SHIRT"],
+    "preferred_item_types": ["linen_pants", "wide_leg_pants", "shorts"],
+    "avoided_item_types": ["bodycon_skirt"],
+    "preferred_colors": ["white", "beige", "light_blue"],
+    "style_rules": [
+      {"rule": "Shirts pair well with relaxed bottoms for beach or smart casual contexts.", "weight": 0.8}
+    ]
+  },
+  {
+    "match_terms": ["đi biển", "beach", "OCCASION_BEACH"],
+    "preferred_item_types": ["linen_pants", "shorts", "sandals", "sunglasses", "hat"],
+    "avoided_item_types": ["thick_denim", "heavy_jacket"],
+    "preferred_colors": ["white", "beige", "light_blue"],
+    "occasion_rules": [
+      {"rule": "Beach outfits should prioritize breathable fabric and relaxed silhouettes.", "weight": 0.9}
+    ]
+  }
+]

@@ -1,0 +1,450 @@
+-- ============================================================
+-- PostgreSQL Init: DDL + Seed Data
+-- Runs automatically on first "docker compose up" (empty volume)
+-- ============================================================
+
+-- Extensions
+CREATE EXTENSION IF NOT EXISTS vector;
+
+-- ============================================================
+-- DDL
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS concepts (
+    id          VARCHAR(100) PRIMARY KEY,
+    name        VARCHAR(255) NOT NULL,
+    type        VARCHAR(50)  NOT NULL,
+    description TEXT,
+    embedding   vector(3072)
+);
+CREATE INDEX IF NOT EXISTS ix_concepts_type ON concepts (type);
+
+CREATE TABLE IF NOT EXISTS concept_aliases (
+    id         UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
+    concept_id VARCHAR(100) NOT NULL REFERENCES concepts(id) ON DELETE CASCADE,
+    alias      VARCHAR(255) NOT NULL,
+    language   VARCHAR(20)  NOT NULL
+);
+CREATE INDEX IF NOT EXISTS ix_concept_aliases_concept_id ON concept_aliases (concept_id);
+CREATE INDEX IF NOT EXISTS ix_concept_aliases_alias      ON concept_aliases (alias);
+
+CREATE TABLE IF NOT EXISTS concept_edges (
+    id                  UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
+    source_concept_id   VARCHAR(100) NOT NULL REFERENCES concepts(id) ON DELETE CASCADE,
+    target_concept_id   VARCHAR(100) NOT NULL REFERENCES concepts(id) ON DELETE CASCADE,
+    relation_type       VARCHAR(50)  NOT NULL,
+    weight              DOUBLE PRECISION NOT NULL DEFAULT 1.0,
+    explanation         TEXT
+);
+CREATE INDEX IF NOT EXISTS ix_concept_edges_source_concept_id ON concept_edges (source_concept_id);
+CREATE INDEX IF NOT EXISTS ix_concept_edges_relation_type     ON concept_edges (relation_type);
+
+CREATE TABLE IF NOT EXISTS concept_rules (
+    id           UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
+    concept_id   VARCHAR(100) NOT NULL REFERENCES concepts(id) ON DELETE CASCADE,
+    rule_type    VARCHAR(50)  NOT NULL,
+    rule_payload JSONB        NOT NULL,
+    priority     DOUBLE PRECISION NOT NULL DEFAULT 1.0
+);
+CREATE INDEX IF NOT EXISTS ix_concept_rules_concept_id ON concept_rules (concept_id);
+
+CREATE TABLE IF NOT EXISTS chat_sessions (
+    id         UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id    VARCHAR(100) NOT NULL,
+    title      VARCHAR(255),
+    created_at TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ  NOT NULL DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS ix_chat_sessions_user_id ON chat_sessions (user_id);
+
+CREATE TABLE IF NOT EXISTS messages (
+    id         UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
+    session_id UUID         NOT NULL REFERENCES chat_sessions(id) ON DELETE CASCADE,
+    role       VARCHAR(20)  NOT NULL,
+    content    TEXT         NOT NULL,
+    intent     VARCHAR(50),
+    metadata   JSONB,
+    created_at TIMESTAMPTZ  NOT NULL DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS ix_messages_session_id ON messages (session_id);
+
+-- ============================================================
+-- Seed: Fashion Concepts
+-- ============================================================
+
+INSERT INTO concepts (id, name, type, description) VALUES
+('STYLE_KOREAN_CASUAL',    'Korean Casual',         'style',            'Minimal, soft, clean Korean-inspired casual style'),
+('STYLE_STREETWEAR',       'Streetwear',            'style',            'Urban street fashion with bold silhouettes'),
+('STYLE_BOHO',             'Boho / Bohemian',       'style',            'Free-spirited, flowy, earthy bohemian style'),
+('STYLE_MINIMALIST',       'Minimalist',            'style',            'Clean lines, neutral palette, no excess'),
+('BODY_PETITE',            'Petite / Short',        'body_context',     'User has short or slightly short height'),
+('BODY_TALL',              'Tall',                  'body_context',     'User is taller than average'),
+('BODY_CURVY',             'Curvy / Plus',          'body_context',     'User has curvy or plus-size body type'),
+('OCCASION_BEACH_TRAVEL',  'Beach Travel',          'occasion',         'Travel to coastal or beach destination'),
+('OCCASION_OFFICE',        'Office / Work',         'occasion',         'Professional workplace setting'),
+('OCCASION_DATE',          'Date Night',            'occasion',         'Romantic evening or casual date'),
+('OCCASION_CASUAL_DAILY',  'Casual Daily',          'occasion',         'Everyday casual activities'),
+('PREF_MODEST',            'Modest Coverage',       'preference',       'Preference for not too revealing clothes'),
+('PREF_SEXY',              'Confident / Sexy',      'preference',       'Preference for figure-flattering or revealing styles'),
+('FABRIC_BREATHABLE',      'Breathable Fabric',     'material_property','Lightweight and cool fabric for hot weather'),
+('FABRIC_WARM',            'Warm Fabric',           'material_property','Thick fabric for cold weather'),
+('COLOR_NEUTRAL',          'Neutral Colors',        'color',            'Beige, white, cream, grey, camel tones'),
+('COLOR_PASTEL',           'Pastel Colors',         'color',            'Soft light pink, lavender, sky blue, mint'),
+('COLOR_BOLD',             'Bold / Vibrant Colors', 'color',            'Red, cobalt, emerald, mustard'),
+('FIT_HIGH_WAIST',         'High Waist',            'fit',              'High-waisted cut that elongates legs'),
+('ITEM_WIDE_LEG_PANTS',    'Wide Leg Pants',        'item_type',        'Wide-leg trousers'),
+('ITEM_MIDI_SKIRT',        'Midi Skirt',            'item_type',        'Skirt that hits mid-calf'),
+('ITEM_MINI_SKIRT',        'Mini Skirt',            'item_type',        'Short skirt above the knee'),
+('ITEM_OVERSIZED_SHIRT',   'Oversized Shirt',       'item_type',        'Loose, baggy shirts'),
+('ITEM_CROPPED_TOP',       'Cropped Top',           'item_type',        'Short tops that show midriff'),
+('ITEM_SANDAL',            'Sandal',                'item_type',        'Open sandals, suitable for beach/summer'),
+('NECKLINE_DEEP_V',        'Deep V Neckline',       'neckline',         'Deep V-neck that shows cleavage'),
+-- New items
+('ITEM_BLAZER',            'Blazer',                'item_type',        'Structured jacket for polished looks'),
+('ITEM_JEANS',             'Jeans',                 'item_type',        'Denim pants for casual or smart-casual'),
+('ITEM_HEELS',             'High Heels',            'item_type',        'High-heeled shoes for formal or night out'),
+('ITEM_BOOTS',             'Boots',                 'item_type',        'Ankle or knee-high boots'),
+('ITEM_HOODIE',            'Hoodie',                'item_type',        'Casual hooded sweatshirt'),
+('ITEM_WRAP_DRESS',        'Wrap Dress',            'item_type',        'Wrap-style dress that flatters all body types'),
+('ITEM_MAXI_DRESS',        'Maxi Dress',            'item_type',        'Floor-length dress, elegant and flowy'),
+('ITEM_CARGO_PANTS',       'Cargo Pants',           'item_type',        'Utility pants with side pockets'),
+('ITEM_TURTLENECK',        'Turtleneck',            'item_type',        'High-neck top for minimal and academic styles'),
+('ITEM_BODYSUIT',          'Bodysuit',              'item_type',        'Form-fitting one-piece top'),
+('ITEM_SNEAKERS',          'Sneakers',              'item_type',        'Casual athletic-style shoes'),
+('ITEM_SHORTS',            'Shorts',                'item_type',        'Short pants for casual or sport use'),
+-- New fits
+('FIT_A_LINE',             'A-Line Silhouette',     'fit',              'Fitted at top, flares at bottom — flatters most body types'),
+('FIT_FITTED',             'Fitted / Form-fitting', 'fit',              'Closely follows body contours'),
+('FIT_LOOSE',              'Loose / Oversized',     'fit',              'Relaxed, baggy silhouette'),
+-- New colors
+('COLOR_DARK',             'Dark Colors',           'color',            'Black, navy, dark grey, deep burgundy'),
+('COLOR_EARTH_TONE',       'Earth Tones',           'color',            'Camel, terracotta, olive, mustard, warm brown'),
+-- New occasions
+('OCCASION_PARTY',         'Party / Night Out',     'occasion',         'Evening party, club, night out with friends'),
+('OCCASION_SPORT',         'Sport / Gym',           'occasion',         'Gym workout, outdoor sport, active activities'),
+('OCCASION_WEDDING_GUEST', 'Wedding Guest',         'occasion',         'Attending a wedding as a guest'),
+-- New styles
+('STYLE_OLD_MONEY',        'Old Money',             'style',            'Quiet luxury, classic tailoring, understated wealth'),
+('STYLE_SPORTY',           'Sporty',                'style',            'Athletic-inspired casual fashion'),
+('STYLE_FEMININE',         'Feminine',              'style',            'Soft, delicate, romantic feminine style'),
+('STYLE_DARK_ACADEMIA',    'Dark Academia',         'style',            'Intellectual, dark, vintage-inspired academic aesthetic'),
+-- New body / preference
+('BODY_ATHLETIC',          'Athletic',              'body_context',     'Toned, athletic build with defined shoulders'),
+('PREF_COMFORTABLE',       'Comfortable / Casual',  'preference',       'Preference for relaxed, easy-to-wear clothing')
+ON CONFLICT (id) DO NOTHING;
+
+-- ============================================================
+-- Seed: Concept Aliases
+-- ============================================================
+
+INSERT INTO concept_aliases (id, concept_id, alias, language) VALUES
+(gen_random_uuid(), 'STYLE_KOREAN_CASUAL',  'style Hàn',            'vi'),
+(gen_random_uuid(), 'STYLE_KOREAN_CASUAL',  'phong cách Hàn',       'vi'),
+(gen_random_uuid(), 'STYLE_KOREAN_CASUAL',  'gu Hàn Quốc',          'vi'),
+(gen_random_uuid(), 'STYLE_KOREAN_CASUAL',  'phong cách Hàn Quốc',  'vi'),
+(gen_random_uuid(), 'STYLE_KOREAN_CASUAL',  'ulzzang',               'ko'),
+(gen_random_uuid(), 'STYLE_KOREAN_CASUAL',  'korean style',          'en'),
+(gen_random_uuid(), 'STYLE_KOREAN_CASUAL',  'korean casual',         'en'),
+(gen_random_uuid(), 'STYLE_STREETWEAR',     'streetwear',            'en'),
+(gen_random_uuid(), 'STYLE_STREETWEAR',     'street style',          'en'),
+(gen_random_uuid(), 'STYLE_STREETWEAR',     'phong cách đường phố',  'vi'),
+(gen_random_uuid(), 'STYLE_BOHO',           'boho',                  'en'),
+(gen_random_uuid(), 'STYLE_BOHO',           'bohemian',              'en'),
+(gen_random_uuid(), 'STYLE_BOHO',           'phong cách boho',       'vi'),
+(gen_random_uuid(), 'STYLE_MINIMALIST',     'minimalist',            'en'),
+(gen_random_uuid(), 'STYLE_MINIMALIST',     'tối giản',              'vi'),
+(gen_random_uuid(), 'BODY_PETITE',          'hơi thấp',              'vi'),
+(gen_random_uuid(), 'BODY_PETITE',          'thấp',                  'vi'),
+(gen_random_uuid(), 'BODY_PETITE',          'người thấp',            'vi'),
+(gen_random_uuid(), 'BODY_PETITE',          'petite',                'en'),
+(gen_random_uuid(), 'BODY_TALL',            'cao',                   'vi'),
+(gen_random_uuid(), 'BODY_TALL',            'người cao',             'vi'),
+(gen_random_uuid(), 'BODY_TALL',            'tall',                  'en'),
+(gen_random_uuid(), 'BODY_CURVY',           'đầy đặn',               'vi'),
+(gen_random_uuid(), 'BODY_CURVY',           'plus size',             'en'),
+(gen_random_uuid(), 'BODY_CURVY',           'curvy',                 'en'),
+(gen_random_uuid(), 'OCCASION_BEACH_TRAVEL','đi biển',               'vi'),
+(gen_random_uuid(), 'OCCASION_BEACH_TRAVEL','du lịch biển',          'vi'),
+(gen_random_uuid(), 'OCCASION_BEACH_TRAVEL','biển',                  'vi'),
+(gen_random_uuid(), 'OCCASION_BEACH_TRAVEL','Vũng Tàu',              'vi'),
+(gen_random_uuid(), 'OCCASION_BEACH_TRAVEL','Nha Trang',             'vi'),
+(gen_random_uuid(), 'OCCASION_BEACH_TRAVEL','Phú Quốc',              'vi'),
+(gen_random_uuid(), 'OCCASION_BEACH_TRAVEL','beach travel',          'en'),
+(gen_random_uuid(), 'OCCASION_BEACH_TRAVEL','coastal trip',          'en'),
+(gen_random_uuid(), 'OCCASION_OFFICE',      'đi làm',                'vi'),
+(gen_random_uuid(), 'OCCASION_OFFICE',      'công sở',               'vi'),
+(gen_random_uuid(), 'OCCASION_OFFICE',      'văn phòng',             'vi'),
+(gen_random_uuid(), 'OCCASION_OFFICE',      'office',                'en'),
+(gen_random_uuid(), 'OCCASION_DATE',        'hẹn hò',                'vi'),
+(gen_random_uuid(), 'OCCASION_DATE',        'đi hẹn',                'vi'),
+(gen_random_uuid(), 'OCCASION_DATE',        'date night',            'en'),
+(gen_random_uuid(), 'OCCASION_CASUAL_DAILY','đi chơi',               'vi'),
+(gen_random_uuid(), 'OCCASION_CASUAL_DAILY','dạo phố',               'vi'),
+(gen_random_uuid(), 'OCCASION_CASUAL_DAILY','everyday',              'en'),
+(gen_random_uuid(), 'PREF_MODEST',          'không quá hở',          'vi'),
+(gen_random_uuid(), 'PREF_MODEST',          'kín đáo',               'vi'),
+(gen_random_uuid(), 'PREF_MODEST',          'modest',                'en'),
+(gen_random_uuid(), 'PREF_SEXY',            'gợi cảm',               'vi'),
+(gen_random_uuid(), 'PREF_SEXY',            'sexy',                  'en'),
+(gen_random_uuid(), 'FABRIC_BREATHABLE',    'mát',                   'vi'),
+(gen_random_uuid(), 'FABRIC_BREATHABLE',    'thoáng',                'vi'),
+(gen_random_uuid(), 'FABRIC_BREATHABLE',    'thoáng mát',            'vi'),
+(gen_random_uuid(), 'FABRIC_BREATHABLE',    'breathable',            'en'),
+(gen_random_uuid(), 'FABRIC_WARM',          'ấm',                    'vi'),
+(gen_random_uuid(), 'FABRIC_WARM',          'giữ ấm',                'vi'),
+(gen_random_uuid(), 'FABRIC_WARM',          'warm',                  'en'),
+-- New item aliases
+(gen_random_uuid(), 'ITEM_BLAZER',          'blazer',                'en'),
+(gen_random_uuid(), 'ITEM_BLAZER',          'áo blazer',             'vi'),
+(gen_random_uuid(), 'ITEM_BLAZER',          'áo vest',               'vi'),
+(gen_random_uuid(), 'ITEM_JEANS',           'jeans',                 'en'),
+(gen_random_uuid(), 'ITEM_JEANS',           'quần jeans',            'vi'),
+(gen_random_uuid(), 'ITEM_JEANS',           'quần denim',            'vi'),
+(gen_random_uuid(), 'ITEM_HEELS',           'heels',                 'en'),
+(gen_random_uuid(), 'ITEM_HEELS',           'high heels',            'en'),
+(gen_random_uuid(), 'ITEM_HEELS',           'giày cao gót',          'vi'),
+(gen_random_uuid(), 'ITEM_HEELS',           'cao gót',               'vi'),
+(gen_random_uuid(), 'ITEM_BOOTS',           'boots',                 'en'),
+(gen_random_uuid(), 'ITEM_BOOTS',           'giày bốt',              'vi'),
+(gen_random_uuid(), 'ITEM_BOOTS',           'bốt',                   'vi'),
+(gen_random_uuid(), 'ITEM_HOODIE',          'hoodie',                'en'),
+(gen_random_uuid(), 'ITEM_HOODIE',          'áo hoodie',             'vi'),
+(gen_random_uuid(), 'ITEM_HOODIE',          'áo nỉ có mũ',           'vi'),
+(gen_random_uuid(), 'ITEM_WRAP_DRESS',      'wrap dress',            'en'),
+(gen_random_uuid(), 'ITEM_WRAP_DRESS',      'váy wrap',              'vi'),
+(gen_random_uuid(), 'ITEM_WRAP_DRESS',      'đầm quấn',              'vi'),
+(gen_random_uuid(), 'ITEM_MAXI_DRESS',      'maxi dress',            'en'),
+(gen_random_uuid(), 'ITEM_MAXI_DRESS',      'váy maxi',              'vi'),
+(gen_random_uuid(), 'ITEM_MAXI_DRESS',      'đầm dài',               'vi'),
+(gen_random_uuid(), 'ITEM_CARGO_PANTS',     'cargo pants',           'en'),
+(gen_random_uuid(), 'ITEM_CARGO_PANTS',     'quần cargo',            'vi'),
+(gen_random_uuid(), 'ITEM_CARGO_PANTS',     'quần túi hộp',          'vi'),
+(gen_random_uuid(), 'ITEM_TURTLENECK',      'turtleneck',            'en'),
+(gen_random_uuid(), 'ITEM_TURTLENECK',      'áo cổ lọ',              'vi'),
+(gen_random_uuid(), 'ITEM_TURTLENECK',      'cổ lọ',                 'vi'),
+(gen_random_uuid(), 'ITEM_BODYSUIT',        'bodysuit',              'en'),
+(gen_random_uuid(), 'ITEM_BODYSUIT',        'áo bodysuit',           'vi'),
+(gen_random_uuid(), 'ITEM_SNEAKERS',        'sneakers',              'en'),
+(gen_random_uuid(), 'ITEM_SNEAKERS',        'giày sneaker',          'vi'),
+(gen_random_uuid(), 'ITEM_SNEAKERS',        'giày thể thao',         'vi'),
+(gen_random_uuid(), 'ITEM_SHORTS',          'shorts',                'en'),
+(gen_random_uuid(), 'ITEM_SHORTS',          'quần short',            'vi'),
+(gen_random_uuid(), 'ITEM_SHORTS',          'quần đùi',              'vi'),
+-- New fit aliases
+(gen_random_uuid(), 'FIT_A_LINE',           'a-line',                'en'),
+(gen_random_uuid(), 'FIT_A_LINE',           'chữ A',                 'vi'),
+(gen_random_uuid(), 'FIT_A_LINE',           'dáng chữ A',            'vi'),
+(gen_random_uuid(), 'FIT_FITTED',           'fitted',                'en'),
+(gen_random_uuid(), 'FIT_FITTED',           'ôm',                    'vi'),
+(gen_random_uuid(), 'FIT_FITTED',           'dáng ôm',               'vi'),
+(gen_random_uuid(), 'FIT_LOOSE',            'loose',                 'en'),
+(gen_random_uuid(), 'FIT_LOOSE',            'rộng',                  'vi'),
+(gen_random_uuid(), 'FIT_LOOSE',            'oversized',             'en'),
+-- New color aliases
+(gen_random_uuid(), 'COLOR_DARK',           'dark',                  'en'),
+(gen_random_uuid(), 'COLOR_DARK',           'màu tối',               'vi'),
+(gen_random_uuid(), 'COLOR_DARK',           'đen',                   'vi'),
+(gen_random_uuid(), 'COLOR_DARK',           'navy',                  'en'),
+(gen_random_uuid(), 'COLOR_EARTH_TONE',     'earth tone',            'en'),
+(gen_random_uuid(), 'COLOR_EARTH_TONE',     'earth tones',           'en'),
+(gen_random_uuid(), 'COLOR_EARTH_TONE',     'màu đất',               'vi'),
+(gen_random_uuid(), 'COLOR_EARTH_TONE',     'camel',                 'en'),
+(gen_random_uuid(), 'COLOR_EARTH_TONE',     'terracotta',            'en'),
+(gen_random_uuid(), 'COLOR_EARTH_TONE',     'olive',                 'en'),
+-- New occasion aliases
+(gen_random_uuid(), 'OCCASION_PARTY',       'tiệc',                  'vi'),
+(gen_random_uuid(), 'OCCASION_PARTY',       'đi tiệc',               'vi'),
+(gen_random_uuid(), 'OCCASION_PARTY',       'party',                 'en'),
+(gen_random_uuid(), 'OCCASION_PARTY',       'night out',             'en'),
+(gen_random_uuid(), 'OCCASION_PARTY',       'đi club',               'vi'),
+(gen_random_uuid(), 'OCCASION_SPORT',       'gym',                   'en'),
+(gen_random_uuid(), 'OCCASION_SPORT',       'tập gym',               'vi'),
+(gen_random_uuid(), 'OCCASION_SPORT',       'thể thao',              'vi'),
+(gen_random_uuid(), 'OCCASION_SPORT',       'tập thể dục',           'vi'),
+(gen_random_uuid(), 'OCCASION_SPORT',       'sport',                 'en'),
+(gen_random_uuid(), 'OCCASION_WEDDING_GUEST','đám cưới',             'vi'),
+(gen_random_uuid(), 'OCCASION_WEDDING_GUEST','dự đám cưới',          'vi'),
+(gen_random_uuid(), 'OCCASION_WEDDING_GUEST','wedding',              'en'),
+(gen_random_uuid(), 'OCCASION_WEDDING_GUEST','wedding guest',        'en'),
+-- New style aliases
+(gen_random_uuid(), 'STYLE_OLD_MONEY',      'old money',             'en'),
+(gen_random_uuid(), 'STYLE_OLD_MONEY',      'quiet luxury',          'en'),
+(gen_random_uuid(), 'STYLE_OLD_MONEY',      'old money aesthetic',   'en'),
+(gen_random_uuid(), 'STYLE_OLD_MONEY',      'sang trọng nhẹ nhàng',  'vi'),
+(gen_random_uuid(), 'STYLE_SPORTY',         'sporty',                'en'),
+(gen_random_uuid(), 'STYLE_SPORTY',         'thể thao',              'vi'),
+(gen_random_uuid(), 'STYLE_SPORTY',         'phong cách thể thao',   'vi'),
+(gen_random_uuid(), 'STYLE_FEMININE',       'feminine',              'en'),
+(gen_random_uuid(), 'STYLE_FEMININE',       'nữ tính',               'vi'),
+(gen_random_uuid(), 'STYLE_FEMININE',       'phong cách nữ tính',    'vi'),
+(gen_random_uuid(), 'STYLE_FEMININE',       'dịu dàng',              'vi'),
+(gen_random_uuid(), 'STYLE_DARK_ACADEMIA',  'dark academia',         'en'),
+(gen_random_uuid(), 'STYLE_DARK_ACADEMIA',  'học thuật tối',         'vi'),
+-- New body / preference aliases
+(gen_random_uuid(), 'BODY_ATHLETIC',        'athletic',              'en'),
+(gen_random_uuid(), 'BODY_ATHLETIC',        'thể thao',              'vi'),
+(gen_random_uuid(), 'BODY_ATHLETIC',        'vạm vỡ',                'vi'),
+(gen_random_uuid(), 'PREF_COMFORTABLE',     'comfortable',           'en'),
+(gen_random_uuid(), 'PREF_COMFORTABLE',     'thoải mái',             'vi'),
+(gen_random_uuid(), 'PREF_COMFORTABLE',     'dễ mặc',                'vi')
+ON CONFLICT DO NOTHING;
+
+-- ============================================================
+-- Seed: Concept Edges (Knowledge Graph)
+-- ============================================================
+
+INSERT INTO concept_edges (id, source_concept_id, target_concept_id, relation_type, weight, explanation) VALUES
+(gen_random_uuid(), 'STYLE_KOREAN_CASUAL',   'ITEM_WIDE_LEG_PANTS',  'prefers',       0.85, 'Wide-leg pants are staple in Korean casual'),
+(gen_random_uuid(), 'STYLE_KOREAN_CASUAL',   'ITEM_OVERSIZED_SHIRT', 'prefers',       0.80, 'Oversized shirts common in Korean casual'),
+(gen_random_uuid(), 'STYLE_KOREAN_CASUAL',   'ITEM_MIDI_SKIRT',      'prefers',       0.75, 'Midi skirts fit Korean minimal aesthetic'),
+(gen_random_uuid(), 'STYLE_KOREAN_CASUAL',   'COLOR_NEUTRAL',        'prefers',       0.90, 'Neutral colors dominate Korean casual'),
+(gen_random_uuid(), 'STYLE_KOREAN_CASUAL',   'COLOR_PASTEL',         'prefers',       0.80, 'Pastels are popular in Korean fashion'),
+(gen_random_uuid(), 'STYLE_KOREAN_CASUAL',   'STYLE_MINIMALIST',     'compatible_with',0.85,'Korean casual overlaps with minimalist'),
+(gen_random_uuid(), 'BODY_PETITE',           'FIT_HIGH_WAIST',       'prefers',       0.95, 'High waist elongates legs for petite body'),
+(gen_random_uuid(), 'BODY_PETITE',           'ITEM_MIDI_SKIRT',      'prefers',       0.80, 'Midi skirts with heels work for petite'),
+(gen_random_uuid(), 'BODY_PETITE',           'ITEM_CROPPED_TOP',     'prefers',       0.85, 'Cropped tops create proportion'),
+(gen_random_uuid(), 'BODY_PETITE',           'ITEM_OVERSIZED_SHIRT', 'avoids',        0.85, 'Long oversized tops make petite look shorter'),
+(gen_random_uuid(), 'BODY_PETITE',           'COLOR_NEUTRAL',        'prefers',       0.70, 'Monochrome neutral tones elongate silhouette'),
+(gen_random_uuid(), 'OCCASION_BEACH_TRAVEL', 'FABRIC_BREATHABLE',    'prefers',       0.95, 'Breathable fabrics needed for beach heat'),
+(gen_random_uuid(), 'OCCASION_BEACH_TRAVEL', 'ITEM_SANDAL',          'prefers',       0.90, 'Sandals are ideal for beach travel'),
+(gen_random_uuid(), 'OCCASION_BEACH_TRAVEL', 'FABRIC_WARM',          'avoids',        0.90, 'Warm/thick fabrics unsuitable for beach'),
+(gen_random_uuid(), 'OCCASION_BEACH_TRAVEL', 'COLOR_PASTEL',         'prefers',       0.70, 'Pastels suit beach vibes'),
+(gen_random_uuid(), 'PREF_MODEST',           'NECKLINE_DEEP_V',      'avoids',        0.95, 'Deep V conflicts with modest preference'),
+(gen_random_uuid(), 'PREF_MODEST',           'ITEM_MINI_SKIRT',      'avoids',        0.90, 'Mini skirts conflict with modest preference'),
+(gen_random_uuid(), 'PREF_MODEST',           'ITEM_CROPPED_TOP',     'avoids',        0.70, 'Cropped tops may conflict with modest preference'),
+(gen_random_uuid(), 'PREF_MODEST',           'ITEM_MIDI_SKIRT',      'prefers',       0.85, 'Midi skirts provide good coverage'),
+-- STYLE_STREETWEAR
+(gen_random_uuid(), 'STYLE_STREETWEAR',     'ITEM_HOODIE',          'prefers',       0.90, 'Hoodie is core streetwear piece'),
+(gen_random_uuid(), 'STYLE_STREETWEAR',     'ITEM_CARGO_PANTS',     'prefers',       0.85, 'Cargo pants are streetwear staple'),
+(gen_random_uuid(), 'STYLE_STREETWEAR',     'ITEM_SNEAKERS',        'prefers',       0.95, 'Sneakers essential for streetwear'),
+(gen_random_uuid(), 'STYLE_STREETWEAR',     'ITEM_OVERSIZED_SHIRT', 'prefers',       0.85, 'Oversized fits define streetwear'),
+(gen_random_uuid(), 'STYLE_STREETWEAR',     'FIT_LOOSE',            'prefers',       0.85, 'Loose fits are streetwear hallmark'),
+(gen_random_uuid(), 'STYLE_STREETWEAR',     'ITEM_HEELS',           'avoids',        0.80, 'Heels clash with streetwear aesthetic'),
+-- STYLE_BOHO
+(gen_random_uuid(), 'STYLE_BOHO',           'ITEM_MAXI_DRESS',      'prefers',       0.95, 'Maxi dresses epitomize boho style'),
+(gen_random_uuid(), 'STYLE_BOHO',           'ITEM_WIDE_LEG_PANTS',  'prefers',       0.80, 'Wide-leg flowy pants fit boho'),
+(gen_random_uuid(), 'STYLE_BOHO',           'COLOR_EARTH_TONE',     'prefers',       0.90, 'Earth tones dominate boho palette'),
+(gen_random_uuid(), 'STYLE_BOHO',           'FIT_LOOSE',            'prefers',       0.80, 'Loose, flowy silhouettes for boho'),
+-- STYLE_MINIMALIST
+(gen_random_uuid(), 'STYLE_MINIMALIST',     'COLOR_NEUTRAL',        'prefers',       0.95, 'Neutrals are the minimalist palette'),
+(gen_random_uuid(), 'STYLE_MINIMALIST',     'ITEM_TURTLENECK',      'prefers',       0.85, 'Clean turtleneck is minimalist icon'),
+(gen_random_uuid(), 'STYLE_MINIMALIST',     'ITEM_BLAZER',          'prefers',       0.80, 'Structured blazer suits minimalism'),
+(gen_random_uuid(), 'STYLE_MINIMALIST',     'COLOR_BOLD',           'avoids',        0.85, 'Bold colors contradict minimalism'),
+-- STYLE_OLD_MONEY
+(gen_random_uuid(), 'STYLE_OLD_MONEY',      'ITEM_BLAZER',          'prefers',       0.95, 'Blazer is cornerstone of old money'),
+(gen_random_uuid(), 'STYLE_OLD_MONEY',      'ITEM_TURTLENECK',      'prefers',       0.85, 'Turtleneck signals understated luxury'),
+(gen_random_uuid(), 'STYLE_OLD_MONEY',      'COLOR_NEUTRAL',        'prefers',       0.90, 'Neutrals define quiet luxury'),
+(gen_random_uuid(), 'STYLE_OLD_MONEY',      'COLOR_EARTH_TONE',     'prefers',       0.85, 'Earth tones fit old money palette'),
+(gen_random_uuid(), 'STYLE_OLD_MONEY',      'ITEM_HOODIE',          'avoids',        0.85, 'Hoodies are too casual for old money'),
+(gen_random_uuid(), 'STYLE_OLD_MONEY',      'ITEM_CARGO_PANTS',     'avoids',        0.90, 'Cargo pants conflict with refinement'),
+-- STYLE_SPORTY
+(gen_random_uuid(), 'STYLE_SPORTY',         'ITEM_SNEAKERS',        'prefers',       0.95, 'Sneakers define sporty style'),
+(gen_random_uuid(), 'STYLE_SPORTY',         'ITEM_SHORTS',          'prefers',       0.90, 'Shorts are sporty essential'),
+(gen_random_uuid(), 'STYLE_SPORTY',         'FABRIC_BREATHABLE',    'prefers',       0.95, 'Breathable fabric for active lifestyle'),
+(gen_random_uuid(), 'STYLE_SPORTY',         'ITEM_HEELS',           'avoids',        0.95, 'Heels incompatible with sporty'),
+-- STYLE_FEMININE
+(gen_random_uuid(), 'STYLE_FEMININE',       'ITEM_WRAP_DRESS',      'prefers',       0.90, 'Wrap dress is feminine icon'),
+(gen_random_uuid(), 'STYLE_FEMININE',       'ITEM_MIDI_SKIRT',      'prefers',       0.90, 'Midi skirts are classic feminine'),
+(gen_random_uuid(), 'STYLE_FEMININE',       'FIT_A_LINE',           'prefers',       0.85, 'A-line silhouette flatters femininity'),
+(gen_random_uuid(), 'STYLE_FEMININE',       'COLOR_PASTEL',         'prefers',       0.85, 'Pastels reinforce feminine aesthetic'),
+(gen_random_uuid(), 'STYLE_FEMININE',       'ITEM_CARGO_PANTS',     'avoids',        0.80, 'Cargo pants conflict with feminine'),
+-- STYLE_DARK_ACADEMIA
+(gen_random_uuid(), 'STYLE_DARK_ACADEMIA',  'ITEM_BLAZER',          'prefers',       0.95, 'Blazer is dark academia uniform'),
+(gen_random_uuid(), 'STYLE_DARK_ACADEMIA',  'ITEM_TURTLENECK',      'prefers',       0.90, 'Turtleneck fits intellectual aesthetic'),
+(gen_random_uuid(), 'STYLE_DARK_ACADEMIA',  'ITEM_BOOTS',           'prefers',       0.90, 'Boots complete dark academia look'),
+(gen_random_uuid(), 'STYLE_DARK_ACADEMIA',  'COLOR_DARK',           'prefers',       0.95, 'Dark palette defines the aesthetic'),
+(gen_random_uuid(), 'STYLE_DARK_ACADEMIA',  'COLOR_BOLD',           'avoids',        0.80, 'Bold colors break dark academia mood'),
+-- BODY_TALL
+(gen_random_uuid(), 'BODY_TALL',            'ITEM_MAXI_DRESS',      'prefers',       0.90, 'Maxi dress drapes beautifully on tall'),
+(gen_random_uuid(), 'BODY_TALL',            'ITEM_WIDE_LEG_PANTS',  'prefers',       0.85, 'Wide legs look proportional on tall'),
+(gen_random_uuid(), 'BODY_TALL',            'ITEM_BLAZER',          'prefers',       0.85, 'Blazers showcase tall silhouette'),
+(gen_random_uuid(), 'BODY_TALL',            'FIT_FITTED',           'prefers',       0.80, 'Fitted clothes highlight tall frame'),
+-- BODY_CURVY
+(gen_random_uuid(), 'BODY_CURVY',           'ITEM_WRAP_DRESS',      'prefers',       0.95, 'Wrap dress flatters curves perfectly'),
+(gen_random_uuid(), 'BODY_CURVY',           'FIT_A_LINE',           'prefers',       0.90, 'A-line flows over curves gracefully'),
+(gen_random_uuid(), 'BODY_CURVY',           'FIT_HIGH_WAIST',       'prefers',       0.90, 'High waist defines curves'),
+(gen_random_uuid(), 'BODY_CURVY',           'ITEM_MIDI_SKIRT',      'prefers',       0.85, 'Midi skirt balances curvy proportions'),
+(gen_random_uuid(), 'BODY_CURVY',           'FIT_LOOSE',            'avoids',        0.70, 'Loose fits can obscure natural shape'),
+(gen_random_uuid(), 'BODY_CURVY',           'ITEM_CARGO_PANTS',     'avoids',        0.65, 'Cargo pockets add bulk at hips'),
+-- BODY_ATHLETIC
+(gen_random_uuid(), 'BODY_ATHLETIC',        'ITEM_BODYSUIT',        'prefers',       0.85, 'Bodysuit shows off toned physique'),
+(gen_random_uuid(), 'BODY_ATHLETIC',        'FIT_FITTED',           'prefers',       0.85, 'Fitted clothes complement athletic build'),
+(gen_random_uuid(), 'BODY_ATHLETIC',        'ITEM_WIDE_LEG_PANTS',  'prefers',       0.80, 'Wide legs add femininity to athletic'),
+(gen_random_uuid(), 'BODY_ATHLETIC',        'ITEM_WRAP_DRESS',      'prefers',       0.80, 'Wrap dress softens athletic silhouette'),
+-- OCCASION_OFFICE
+(gen_random_uuid(), 'OCCASION_OFFICE',      'ITEM_BLAZER',          'prefers',       0.95, 'Blazer is office essential'),
+(gen_random_uuid(), 'OCCASION_OFFICE',      'ITEM_WIDE_LEG_PANTS',  'prefers',       0.85, 'Tailored wide-leg pants for office'),
+(gen_random_uuid(), 'OCCASION_OFFICE',      'ITEM_MIDI_SKIRT',      'prefers',       0.90, 'Midi skirt is professional'),
+(gen_random_uuid(), 'OCCASION_OFFICE',      'COLOR_NEUTRAL',        'prefers',       0.85, 'Neutrals are office-appropriate'),
+(gen_random_uuid(), 'OCCASION_OFFICE',      'ITEM_SHORTS',          'avoids',        0.90, 'Shorts are too casual for office'),
+(gen_random_uuid(), 'OCCASION_OFFICE',      'ITEM_CROPPED_TOP',     'avoids',        0.90, 'Cropped tops are unprofessional'),
+(gen_random_uuid(), 'OCCASION_OFFICE',      'ITEM_HOODIE',          'avoids',        0.80, 'Hoodies are not office-appropriate'),
+-- OCCASION_DATE
+(gen_random_uuid(), 'OCCASION_DATE',        'ITEM_WRAP_DRESS',      'prefers',       0.90, 'Wrap dress is classic date outfit'),
+(gen_random_uuid(), 'OCCASION_DATE',        'ITEM_HEELS',           'prefers',       0.85, 'Heels elevate date look'),
+(gen_random_uuid(), 'OCCASION_DATE',        'COLOR_BOLD',           'prefers',       0.75, 'Bold color for confidence on a date'),
+-- OCCASION_CASUAL_DAILY
+(gen_random_uuid(), 'OCCASION_CASUAL_DAILY','ITEM_JEANS',           'prefers',       0.90, 'Jeans are everyday staple'),
+(gen_random_uuid(), 'OCCASION_CASUAL_DAILY','ITEM_SNEAKERS',        'prefers',       0.85, 'Sneakers for daily comfort'),
+(gen_random_uuid(), 'OCCASION_CASUAL_DAILY','ITEM_OVERSIZED_SHIRT', 'prefers',       0.80, 'Oversized shirt for relaxed daily look'),
+-- OCCASION_PARTY
+(gen_random_uuid(), 'OCCASION_PARTY',       'ITEM_HEELS',           'prefers',       0.90, 'Heels for party confidence'),
+(gen_random_uuid(), 'OCCASION_PARTY',       'ITEM_MINI_SKIRT',      'prefers',       0.80, 'Mini skirt for party energy'),
+(gen_random_uuid(), 'OCCASION_PARTY',       'COLOR_BOLD',           'prefers',       0.85, 'Bold colors stand out at parties'),
+(gen_random_uuid(), 'OCCASION_PARTY',       'ITEM_HOODIE',          'avoids',        0.85, 'Hoodies too casual for party'),
+-- OCCASION_SPORT
+(gen_random_uuid(), 'OCCASION_SPORT',       'ITEM_SNEAKERS',        'prefers',       0.95, 'Sneakers mandatory for sport'),
+(gen_random_uuid(), 'OCCASION_SPORT',       'ITEM_SHORTS',          'prefers',       0.90, 'Shorts allow freedom of movement'),
+(gen_random_uuid(), 'OCCASION_SPORT',       'FABRIC_BREATHABLE',    'prefers',       0.95, 'Breathable fabric for active use'),
+(gen_random_uuid(), 'OCCASION_SPORT',       'ITEM_HEELS',           'avoids',        0.99, 'Heels dangerous for sport'),
+(gen_random_uuid(), 'OCCASION_SPORT',       'ITEM_JEANS',           'avoids',        0.80, 'Jeans restrict movement'),
+-- OCCASION_WEDDING_GUEST
+(gen_random_uuid(), 'OCCASION_WEDDING_GUEST','ITEM_MAXI_DRESS',     'prefers',       0.90, 'Maxi dress elegant for weddings'),
+(gen_random_uuid(), 'OCCASION_WEDDING_GUEST','ITEM_MIDI_SKIRT',     'prefers',       0.85, 'Midi skirt is wedding-appropriate'),
+(gen_random_uuid(), 'OCCASION_WEDDING_GUEST','ITEM_HEELS',          'prefers',       0.85, 'Heels dressy enough for wedding'),
+(gen_random_uuid(), 'OCCASION_WEDDING_GUEST','COLOR_PASTEL',        'prefers',       0.80, 'Pastels suit wedding atmosphere'),
+(gen_random_uuid(), 'OCCASION_WEDDING_GUEST','ITEM_HOODIE',         'avoids',        0.95, 'Hoodie highly inappropriate for wedding'),
+(gen_random_uuid(), 'OCCASION_WEDDING_GUEST','ITEM_SHORTS',         'avoids',        0.90, 'Shorts too casual for wedding'),
+-- PREF_MODEST (additional)
+(gen_random_uuid(), 'PREF_MODEST',          'ITEM_MAXI_DRESS',      'prefers',       0.90, 'Maxi dress provides full coverage'),
+(gen_random_uuid(), 'PREF_MODEST',          'ITEM_TURTLENECK',      'prefers',       0.85, 'Turtleneck is maximally modest'),
+(gen_random_uuid(), 'PREF_MODEST',          'ITEM_BODYSUIT',        'avoids',        0.75, 'Bodysuit can be too revealing'),
+(gen_random_uuid(), 'PREF_MODEST',          'ITEM_SHORTS',          'avoids',        0.80, 'Shorts conflict with modest preference'),
+-- PREF_SEXY
+(gen_random_uuid(), 'PREF_SEXY',            'ITEM_BODYSUIT',        'prefers',       0.90, 'Bodysuit is figure-flattering'),
+(gen_random_uuid(), 'PREF_SEXY',            'ITEM_MINI_SKIRT',      'prefers',       0.85, 'Mini skirt is confident and sexy'),
+(gen_random_uuid(), 'PREF_SEXY',            'NECKLINE_DEEP_V',      'prefers',       0.90, 'Deep V neckline is alluring'),
+(gen_random_uuid(), 'PREF_SEXY',            'FIT_FITTED',           'prefers',       0.85, 'Fitted clothes accentuate figure'),
+(gen_random_uuid(), 'PREF_SEXY',            'ITEM_HEELS',           'prefers',       0.85, 'Heels elongate and add confidence'),
+(gen_random_uuid(), 'PREF_SEXY',            'FIT_LOOSE',            'avoids',        0.80, 'Loose fits hide the figure'),
+-- PREF_COMFORTABLE
+(gen_random_uuid(), 'PREF_COMFORTABLE',     'ITEM_SNEAKERS',        'prefers',       0.90, 'Sneakers are most comfortable footwear'),
+(gen_random_uuid(), 'PREF_COMFORTABLE',     'ITEM_HOODIE',          'prefers',       0.85, 'Hoodies are relaxed and cozy'),
+(gen_random_uuid(), 'PREF_COMFORTABLE',     'FIT_LOOSE',            'prefers',       0.85, 'Loose fits prioritize comfort'),
+(gen_random_uuid(), 'PREF_COMFORTABLE',     'ITEM_HEELS',           'avoids',        0.85, 'Heels sacrifice comfort')
+ON CONFLICT DO NOTHING;
+
+-- ============================================================
+-- Seed: Concept Rules
+-- ============================================================
+
+INSERT INTO concept_rules (id, concept_id, rule_type, rule_payload, priority) VALUES
+(gen_random_uuid(), 'OCCASION_BEACH_TRAVEL', 'hard_constraint', '{"fabric_property": ["breathable","lightweight"], "excluded_fabric": ["wool","leather","thick_denim"]}', 0.9),
+(gen_random_uuid(), 'OCCASION_BEACH_TRAVEL', 'hard_constraint', '{"occasion_tags": ["travel","beach","casual"]}', 0.9),
+(gen_random_uuid(), 'PREF_MODEST',           'hard_constraint', '{"excluded_neckline": ["deep_v","strapless"], "excluded_length": ["very_short"], "coverage_level": ["medium","high"]}', 0.9),
+(gen_random_uuid(), 'BODY_PETITE',           'soft_preference', '{"fit": ["high_waist"], "avoid_fit": ["oversized_long"], "prefer_items": ["cropped_top","tucked_in"]}', 0.8),
+(gen_random_uuid(), 'STYLE_KOREAN_CASUAL',   'soft_preference', '{"style_tags": ["korean_casual","minimal","soft_feminine"], "color": ["white","cream","beige","pastel_blue","light_pink"]}', 0.8),
+(gen_random_uuid(), 'FABRIC_BREATHABLE',     'hard_constraint', '{"fabric_tags": ["breathable","lightweight","linen","cotton"]}', 0.85),
+(gen_random_uuid(), 'OCCASION_OFFICE',      'hard_constraint', '{"excluded_items": ["shorts","mini_skirt","cropped_top","hoodie"], "required_formality": "business_casual"}', 0.9),
+(gen_random_uuid(), 'OCCASION_SPORT',       'hard_constraint', '{"excluded_items": ["heels","blazer","midi_skirt"], "fabric_tags": ["breathable","stretch","moisture_wicking"]}', 0.95),
+(gen_random_uuid(), 'OCCASION_WEDDING_GUEST','hard_constraint','{"excluded_items": ["hoodie","shorts","sneakers"], "min_formality": "semi_formal"}', 0.9),
+(gen_random_uuid(), 'OCCASION_PARTY',       'soft_preference', '{"prefer_items": ["heels","bodysuit","mini_skirt","wrap_dress"], "color_energy": "bold_or_dark"}', 0.8),
+(gen_random_uuid(), 'STYLE_OLD_MONEY',      'soft_preference', '{"style_tags": ["quiet_luxury","classic","refined"], "color": ["cream","camel","navy","taupe","ivory"], "excluded_items": ["hoodie","cargo_pants","sneakers"]}', 0.85),
+(gen_random_uuid(), 'STYLE_DARK_ACADEMIA',  'soft_preference', '{"style_tags": ["dark_academia","intellectual","vintage"], "color": ["black","dark_brown","forest_green","burgundy","dark_grey"]}', 0.85),
+(gen_random_uuid(), 'STYLE_FEMININE',       'soft_preference', '{"style_tags": ["feminine","romantic","soft"], "prefer_items": ["wrap_dress","midi_skirt","maxi_dress"], "color": ["pastel","blush","lavender","dusty_rose"]}', 0.8),
+(gen_random_uuid(), 'BODY_TALL',            'soft_preference', '{"prefer_items": ["maxi_dress","wide_leg_pants","blazer"], "fit": ["fitted"], "color_tip": "can_wear_all_colors"}', 0.8),
+(gen_random_uuid(), 'BODY_CURVY',           'soft_preference', '{"prefer_items": ["wrap_dress","a_line_skirt","midi_skirt"], "fit": ["a_line","high_waist"], "avoid_fit": ["boxy","cargo"]}', 0.85),
+(gen_random_uuid(), 'BODY_ATHLETIC',        'soft_preference', '{"prefer_items": ["bodysuit","wrap_dress","wide_leg_pants"], "fit": ["fitted","a_line"], "tip": "add_feminine_silhouette"}', 0.8),
+(gen_random_uuid(), 'PREF_SEXY',            'soft_preference', '{"prefer_items": ["bodysuit","mini_skirt","wrap_dress"], "neckline": ["deep_v","off_shoulder"], "fit": ["fitted"], "excluded_fit": ["oversized"]}', 0.85),
+(gen_random_uuid(), 'PREF_COMFORTABLE',     'soft_preference', '{"prefer_items": ["sneakers","jeans","hoodie","oversized_shirt"], "fit": ["loose","relaxed"], "excluded_items": ["heels","bodysuit"]}', 0.8)
+ON CONFLICT DO NOTHING;

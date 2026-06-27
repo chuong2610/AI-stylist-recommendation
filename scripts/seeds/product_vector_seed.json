@@ -1,0 +1,14 @@
+[
+  {"product_id": "P101", "semantic_text": "Elegant black midi party dress for evening events, satin material, polished feminine look."},
+  {"product_id": "P102", "semantic_text": "Red cocktail dress for party, feminine A-line shape, playful but still dressed up."},
+  {"product_id": "P103", "semantic_text": "Champagne silk slip dress for formal dinner party, refined and elegant."},
+  {"product_id": "P104", "semantic_text": "Casual floral babydoll dress for daytime outing, relaxed and cute."},
+  {"product_id": "P201", "semantic_text": "Metallic silver strappy sandals that pair well with party dresses and evening outfits."},
+  {"product_id": "P202", "semantic_text": "Classic black pointed heels for elegant dress outfits, party or work appropriate."},
+  {"product_id": "P203", "semantic_text": "White casual sneakers for school and everyday outfits, not formal party focused."},
+  {"product_id": "P301", "semantic_text": "Small metallic clutch bag for party dresses, polished evening accessory."},
+  {"product_id": "P302", "semantic_text": "Small pearl earrings for elegant party outfit, subtle accessory."},
+  {"product_id": "P401", "semantic_text": "White linen shirt for work or beach, breathable smart casual top."},
+  {"product_id": "P501", "semantic_text": "Beige wide leg linen pants for beach, breathable bottom to pair with a shirt."},
+  {"product_id": "P502", "semantic_text": "White cotton shorts for beach, casual bottom to pair with a shirt."}
+]

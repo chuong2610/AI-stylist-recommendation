@@ -1,0 +1,65 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: ai_stylist_postgres
+    environment:
+      POSTGRES_DB: ai_stylist
+      POSTGRES_USER: stylist
+      POSTGRES_PASSWORD: stylist123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/01_init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U stylist -d ai_stylist"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  neo4j:
+    image: neo4j:5-community
+    container_name: ai_stylist_neo4j
+    environment:
+      NEO4J_AUTH: neo4j/stylist123
+      NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_dbms_security_procedures_unrestricted: apoc.*
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j_data:/data
+    healthcheck:
+      test: ["CMD", "wget", "-O", "/dev/null", "-q", "http://localhost:7474"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  neo4j-seeder:
+    image: neo4j:5-community
+    container_name: ai_stylist_neo4j_seeder
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    volumes:
+      - ./docker/neo4j/seed.cypher:/seed.cypher:ro
+    entrypoint: >
+      bash -c "
+        echo 'Waiting for Neo4j bolt...';
+        for i in $(seq 1 15); do
+          cypher-shell -a bolt://neo4j:7687 -u neo4j -p stylist123 --file /seed.cypher
+          if [ $? -eq 0 ]; then
+            echo 'Neo4j seeded successfully.';
+            exit 0;
+          fi;
+          echo \"Attempt $i failed, retrying in 5s...\";
+          sleep 5;
+        done;
+        echo 'Neo4j seed failed after 15 attempts.';
+        exit 1;
+      "
+    restart: "no"
+
+volumes:
+  postgres_data:
+  neo4j_data:
