@@ -6,133 +6,295 @@
       "name": "Dress",
       "type": "item_type",
       "description": "One-piece dress or gown used as a main outfit item.",
-      "aliases": ["váy", "đầm", "dress", "váy đầm"]
+      "aliases": [
+        "váy",
+        "đầm",
+        "dress",
+        "váy đầm"
+      ]
     },
     {
       "id": "ITEM_SHIRT",
       "name": "Shirt",
       "type": "item_type",
       "description": "Button-up shirt or structured top.",
-      "aliases": ["áo sơ mi", "shirt", "sơ mi", "áo linen"]
+      "aliases": [
+        "áo sơ mi",
+        "shirt",
+        "sơ mi",
+        "áo linen"
+      ]
     },
     {
       "id": "ITEM_WIDE_LEG_PANTS",
       "name": "Wide Leg Pants",
       "type": "item_type",
       "description": "Wide-leg trousers or linen pants.",
-      "aliases": ["quần ống rộng", "wide leg pants", "quần linen"]
+      "aliases": [
+        "quần ống rộng",
+        "wide leg pants",
+        "quần linen"
+      ]
     },
     {
       "id": "ITEM_SHORTS",
       "name": "Shorts",
       "type": "item_type",
       "description": "Short pants for casual or beach outfits.",
-      "aliases": ["quần short", "shorts", "quần đùi"]
+      "aliases": [
+        "quần short",
+        "shorts",
+        "quần đùi"
+      ]
     },
     {
       "id": "ITEM_SANDAL",
       "name": "Sandal",
       "type": "item_type",
       "description": "Open sandal, often used for beach and summer outfits.",
-      "aliases": ["sandal", "dép sandal", "giày sandal"]
+      "aliases": [
+        "sandal",
+        "dép sandal",
+        "giày sandal"
+      ]
     },
     {
       "id": "ITEM_HEELS",
       "name": "High Heels",
       "type": "item_type",
       "description": "High-heeled shoes for formal or party outfits.",
-      "aliases": ["giày cao gót", "cao gót", "heels"]
+      "aliases": [
+        "giày cao gót",
+        "cao gót",
+        "heels"
+      ]
     },
     {
       "id": "ITEM_SNEAKERS",
       "name": "Sneakers",
       "type": "item_type",
       "description": "Casual athletic-style shoes.",
-      "aliases": ["sneaker", "sneakers", "giày thể thao"]
+      "aliases": [
+        "sneaker",
+        "sneakers",
+        "giày thể thao"
+      ]
     },
     {
       "id": "ITEM_CLUTCH",
       "name": "Clutch",
       "type": "item_type",
       "description": "Small hand-held bag for party outfits.",
-      "aliases": ["clutch", "túi cầm tay", "ví dự tiệc"]
+      "aliases": [
+        "clutch",
+        "túi cầm tay",
+        "ví dự tiệc"
+      ]
     },
     {
       "id": "ITEM_EARRINGS",
       "name": "Earrings",
       "type": "item_type",
       "description": "Earrings or small jewelry accessories.",
-      "aliases": ["bông tai", "khuyên tai", "earrings"]
+      "aliases": [
+        "bông tai",
+        "khuyên tai",
+        "earrings"
+      ]
     },
     {
       "id": "STYLE_KOREAN_CASUAL",
       "name": "Korean Casual",
       "type": "style",
       "description": "Minimal, soft, clean Korean-inspired casual style.",
-      "aliases": ["style Hàn", "phong cách Hàn", "gu Hàn Quốc", "korean casual"]
+      "aliases": [
+        "style Hàn",
+        "phong cách Hàn",
+        "gu Hàn Quốc",
+        "korean casual"
+      ]
+    },
+    {
+      "id": "STYLE_MENS_CASUAL",
+      "name": "Men's Casual",
+      "type": "style",
+      "description": "Relaxed, practical casual styling for men's everyday and travel outfits.",
+      "aliases": [
+        "nam",
+        "đồ nam",
+        "outfit nam",
+        "men casual",
+        "mens casual",
+        "male outfit",
+        "phong cách nam"
+      ]
+    },
+    {
+      "id": "STYLE_CLEAN_RELAXED",
+      "name": "Clean Relaxed",
+      "type": "style",
+      "description": "Simple, neat, light, comfortable styling with regular fits and easy colors.",
+      "aliases": [
+        "nhẹ nhàng",
+        "thoải mái",
+        "clean relaxed",
+        "gọn gàng",
+        "minimal relaxed",
+        "dễ mặc"
+      ]
     },
     {
       "id": "STYLE_FEMININE",
       "name": "Feminine",
       "type": "style",
       "description": "Soft and romantic feminine style.",
-      "aliases": ["nữ tính", "dịu dàng", "feminine"]
+      "aliases": [
+        "nữ tính",
+        "dịu dàng",
+        "feminine"
+      ]
     },
     {
       "id": "OCCASION_PARTY",
       "name": "Party",
       "type": "occasion",
       "description": "Evening party, birthday party, dinner, or night out.",
-      "aliases": ["đi tiệc", "tiệc", "party", "dự tiệc", "sinh nhật"]
+      "aliases": [
+        "đi tiệc",
+        "tiệc",
+        "party",
+        "dự tiệc",
+        "sinh nhật"
+      ]
     },
     {
       "id": "OCCASION_BEACH_TRAVEL",
       "name": "Beach Travel",
       "type": "occasion",
       "description": "Beach or coastal travel setting.",
-      "aliases": ["đi biển", "du lịch biển", "biển", "beach travel", "Vũng Tàu", "Nha Trang", "Phú Quốc"]
+      "aliases": [
+        "đi biển",
+        "du lịch biển",
+        "biển",
+        "beach travel",
+        "Vũng Tàu",
+        "Nha Trang",
+        "Phú Quốc"
+      ]
     },
     {
       "id": "BODY_PETITE",
       "name": "Petite",
       "type": "body_context",
       "description": "Short or petite height context.",
-      "aliases": ["hơi thấp", "thấp", "người thấp", "petite"]
+      "aliases": [
+        "hơi thấp",
+        "thấp",
+        "người thấp",
+        "petite"
+      ]
+    },
+    {
+      "id": "BODY_STOCKY",
+      "name": "Stocky / Solid Build",
+      "type": "body_context",
+      "description": "Solid, broad, or heavier build that benefits from regular fit and clean vertical lines.",
+      "aliases": [
+        "đậm người",
+        "hơi mập",
+        "stocky",
+        "solid build",
+        "1m7 80kg",
+        "80kg"
+      ]
+    },
+    {
+      "id": "USER_MALE",
+      "name": "Male User",
+      "type": "user_context",
+      "description": "The outfit request is for a male user or masculine wardrobe.",
+      "aliases": [
+        "nam",
+        "con trai",
+        "đàn ông",
+        "male",
+        "man",
+        "men"
+      ]
     },
     {
       "id": "PREF_MODEST",
       "name": "Modest Coverage",
       "type": "preference",
       "description": "Preference for not-too-revealing clothes.",
-      "aliases": ["không quá hở", "kín đáo", "modest"]
+      "aliases": [
+        "không quá hở",
+        "kín đáo",
+        "modest"
+      ]
+    },
+    {
+      "id": "PREF_COMFORTABLE",
+      "name": "Comfortable",
+      "type": "preference",
+      "description": "Preference for relaxed, breathable, easy-to-wear clothes that support movement.",
+      "aliases": [
+        "thoải mái",
+        "dễ chịu",
+        "dễ mặc",
+        "comfort",
+        "comfortable",
+        "relaxed fit"
+      ]
     },
     {
       "id": "FABRIC_BREATHABLE",
       "name": "Breathable Fabric",
       "type": "material_property",
       "description": "Lightweight and cool fabric for hot weather.",
-      "aliases": ["mát", "thoáng", "thoáng mát", "breathable"]
+      "aliases": [
+        "mát",
+        "thoáng",
+        "thoáng mát",
+        "breathable"
+      ]
     },
     {
       "id": "COLOR_NEUTRAL",
       "name": "Neutral Colors",
       "type": "color",
       "description": "White, black, beige, cream, grey, and camel tones.",
-      "aliases": ["màu trung tính", "neutral", "trắng", "đen", "be"]
+      "aliases": [
+        "màu trung tính",
+        "neutral",
+        "trắng",
+        "đen",
+        "be"
+      ]
     },
     {
       "id": "COLOR_PASTEL",
       "name": "Pastel Colors",
       "type": "color",
       "description": "Soft light pink, lavender, sky blue, or mint tones.",
-      "aliases": ["pastel", "màu pastel", "hồng nhạt", "xanh nhạt"]
+      "aliases": [
+        "pastel",
+        "màu pastel",
+        "hồng nhạt",
+        "xanh nhạt"
+      ]
     },
     {
       "id": "COLOR_METALLIC",
       "name": "Metallic Colors",
       "type": "color",
       "description": "Silver, gold, champagne, and metallic accents.",
-      "aliases": ["ánh kim", "bạc", "vàng champagne", "metallic"]
+      "aliases": [
+        "ánh kim",
+        "bạc",
+        "vàng champagne",
+        "metallic"
+      ]
     }
   ],
   "edges": [
@@ -268,6 +430,97 @@
       "relation": "AVOIDS",
       "weight": 0.82,
       "explanation": "Shorts may conflict with modest coverage preferences."
+    },
+    {
+      "source": "STYLE_MENS_CASUAL",
+      "target": "ITEM_SHIRT",
+      "relation": "PREFERS",
+      "weight": 0.86,
+      "explanation": "A clean shirt is an easy main item for men casual travel outfits."
+    },
+    {
+      "source": "STYLE_MENS_CASUAL",
+      "target": "ITEM_SHORTS",
+      "relation": "PREFERS",
+      "weight": 0.82,
+      "explanation": "Shorts work well for relaxed men casual beach outfits."
+    },
+    {
+      "source": "STYLE_MENS_CASUAL",
+      "target": "ITEM_SANDAL",
+      "relation": "PREFERS",
+      "weight": 0.78,
+      "explanation": "Sandals keep men beach outfits practical and relaxed."
+    },
+    {
+      "source": "STYLE_MENS_CASUAL",
+      "target": "ITEM_DRESS",
+      "relation": "AVOIDS",
+      "weight": 0.86,
+      "explanation": "Dress products usually do not match a masculine casual outfit request."
+    },
+    {
+      "source": "STYLE_CLEAN_RELAXED",
+      "target": "ITEM_SHIRT",
+      "relation": "PREFERS",
+      "weight": 0.84,
+      "explanation": "Simple shirts support a clean relaxed outfit."
+    },
+    {
+      "source": "STYLE_CLEAN_RELAXED",
+      "target": "COLOR_NEUTRAL",
+      "relation": "PREFERS",
+      "weight": 0.82,
+      "explanation": "Neutral colors keep relaxed outfits clean and easy to wear."
+    },
+    {
+      "source": "STYLE_CLEAN_RELAXED",
+      "target": "FABRIC_BREATHABLE",
+      "relation": "PREFERS",
+      "weight": 0.8,
+      "explanation": "Breathable materials make relaxed outfits comfortable."
+    },
+    {
+      "source": "PREF_COMFORTABLE",
+      "target": "FABRIC_BREATHABLE",
+      "relation": "PREFERS",
+      "weight": 0.92,
+      "explanation": "Comfortable outfits should prioritize breathable fabrics."
+    },
+    {
+      "source": "PREF_COMFORTABLE",
+      "target": "ITEM_SNEAKERS",
+      "relation": "PREFERS",
+      "weight": 0.78,
+      "explanation": "Sneakers are a reliable comfortable footwear choice."
+    },
+    {
+      "source": "PREF_COMFORTABLE",
+      "target": "ITEM_HEELS",
+      "relation": "AVOIDS",
+      "weight": 0.9,
+      "explanation": "Heels reduce comfort for walking-focused outfits."
+    },
+    {
+      "source": "BODY_STOCKY",
+      "target": "ITEM_SHIRT",
+      "relation": "PREFERS",
+      "weight": 0.78,
+      "explanation": "Regular-fit shirts create a clean line for solid builds."
+    },
+    {
+      "source": "BODY_STOCKY",
+      "target": "COLOR_NEUTRAL",
+      "relation": "PREFERS",
+      "weight": 0.72,
+      "explanation": "Neutral color blocking keeps the silhouette clean."
+    },
+    {
+      "source": "USER_MALE",
+      "target": "STYLE_MENS_CASUAL",
+      "relation": "PREFERS",
+      "weight": 0.95,
+      "explanation": "Male outfit requests should prefer masculine casual styling unless the user asks otherwise."
     }
   ],
   "rules": [
@@ -278,10 +531,30 @@
       "priority": 0.95,
       "payload": {
         "targets": [
-          {"item": "dress", "role": "main", "required": true, "priority": 0.95},
-          {"item": "shoes", "role": "support", "required": true, "priority": 0.85},
-          {"item": "bag", "role": "optional", "required": false, "priority": 0.62},
-          {"item": "accessory", "role": "optional", "required": false, "priority": 0.58}
+          {
+            "item": "dress",
+            "role": "main",
+            "required": true,
+            "priority": 0.95
+          },
+          {
+            "item": "shoes",
+            "role": "support",
+            "required": true,
+            "priority": 0.85
+          },
+          {
+            "item": "bag",
+            "role": "optional",
+            "required": false,
+            "priority": 0.62
+          },
+          {
+            "item": "accessory",
+            "role": "optional",
+            "required": false,
+            "priority": 0.58
+          }
         ]
       }
     },
@@ -292,7 +565,13 @@
       "priority": 0.9,
       "payload": {
         "items": [
-          {"when_main": "dress", "exclude": ["top", "bottom"]}
+          {
+            "when_main": "dress",
+            "exclude": [
+              "top",
+              "bottom"
+            ]
+          }
         ]
       }
     },
@@ -312,9 +591,24 @@
       "priority": 0.9,
       "payload": {
         "targets": [
-          {"item": "top", "role": "main", "required": true, "priority": 0.9},
-          {"item": "bottom", "role": "support", "required": true, "priority": 0.85},
-          {"item": "shoes", "role": "optional", "required": false, "priority": 0.55}
+          {
+            "item": "top",
+            "role": "main",
+            "required": true,
+            "priority": 0.9
+          },
+          {
+            "item": "bottom",
+            "role": "support",
+            "required": true,
+            "priority": 0.85
+          },
+          {
+            "item": "shoes",
+            "role": "optional",
+            "required": false,
+            "priority": 0.55
+          }
         ]
       }
     },
@@ -325,7 +619,12 @@
       "priority": 0.78,
       "payload": {
         "items": [
-          {"when_main": "top", "exclude": ["dress"]}
+          {
+            "when_main": "top",
+            "exclude": [
+              "dress"
+            ]
+          }
         ]
       }
     },
@@ -336,10 +635,30 @@
       "priority": 0.88,
       "payload": {
         "targets": [
-          {"item": "dress", "role": "main", "required": true, "priority": 0.88},
-          {"item": "shoes", "role": "support", "required": true, "priority": 0.82},
-          {"item": "bag", "role": "optional", "required": false, "priority": 0.72},
-          {"item": "accessory", "role": "optional", "required": false, "priority": 0.65}
+          {
+            "item": "dress",
+            "role": "main",
+            "required": true,
+            "priority": 0.88
+          },
+          {
+            "item": "shoes",
+            "role": "support",
+            "required": true,
+            "priority": 0.82
+          },
+          {
+            "item": "bag",
+            "role": "optional",
+            "required": false,
+            "priority": 0.72
+          },
+          {
+            "item": "accessory",
+            "role": "optional",
+            "required": false,
+            "priority": 0.65
+          }
         ]
       }
     },
@@ -359,9 +678,24 @@
       "priority": 0.86,
       "payload": {
         "targets": [
-          {"item": "top", "role": "main_or_support", "required": false, "priority": 0.7},
-          {"item": "bottom", "role": "support", "required": true, "priority": 0.82},
-          {"item": "shoes", "role": "support", "required": false, "priority": 0.64}
+          {
+            "item": "top",
+            "role": "main_or_support",
+            "required": false,
+            "priority": 0.7
+          },
+          {
+            "item": "bottom",
+            "role": "support",
+            "required": true,
+            "priority": 0.82
+          },
+          {
+            "item": "shoes",
+            "role": "support",
+            "required": false,
+            "priority": 0.64
+          }
         ]
       }
     },
@@ -390,6 +724,70 @@
       "priority": 0.8,
       "payload": {
         "rule": "For petite users, prefer cleaner vertical lines and avoid heavy oversized proportions."
+      }
+    },
+    {
+      "id": "rule_mens_casual_targets",
+      "concept_id": "STYLE_MENS_CASUAL",
+      "type": "preferred_targets",
+      "priority": 0.88,
+      "payload": {
+        "targets": [
+          {
+            "item": "top",
+            "role": "main",
+            "required": true,
+            "priority": 0.86
+          },
+          {
+            "item": "bottom",
+            "role": "support",
+            "required": true,
+            "priority": 0.84
+          },
+          {
+            "item": "shoes",
+            "role": "support",
+            "required": false,
+            "priority": 0.7
+          }
+        ]
+      }
+    },
+    {
+      "id": "rule_clean_relaxed_style",
+      "concept_id": "STYLE_CLEAN_RELAXED",
+      "type": "style_rule",
+      "priority": 0.84,
+      "payload": {
+        "rule": "Clean relaxed outfits should use simple colors, breathable fabrics, and regular fits rather than overly tight or bulky pieces."
+      }
+    },
+    {
+      "id": "rule_comfortable_preference",
+      "concept_id": "PREF_COMFORTABLE",
+      "type": "preferred_item_types",
+      "priority": 0.84,
+      "payload": {
+        "items": [
+          "shirt",
+          "shorts",
+          "sneakers",
+          "sandal"
+        ],
+        "prefer_items": [
+          "breathable_fabric",
+          "regular_fit"
+        ]
+      }
+    },
+    {
+      "id": "rule_stocky_body",
+      "concept_id": "BODY_STOCKY",
+      "type": "body_rule",
+      "priority": 0.82,
+      "payload": {
+        "rule": "For solid builds, prefer regular fit, clean vertical lines, and avoid overly tight or oversized proportions."
       }
     }
   ]

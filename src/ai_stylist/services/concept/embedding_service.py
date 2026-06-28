@@ -26,6 +26,12 @@ class _IndexedConcept:
     embedding: list[float]
 
 
+@dataclass
+class _IntentTerm:
+    term: str
+    allowed_types: set[str] | None = None
+
+
 class EmbeddingService:
     """Semantic concept lookup from knowledge_graph.json + in-memory vectors."""
 
@@ -47,6 +53,12 @@ class EmbeddingService:
 
     async def resolve_terms(self, terms: list[str]) -> list[ResolvedConcept]:
         """Embed terms and find the closest JSON concept for each via cosine similarity."""
+        return await self._resolve_term_specs([_IntentTerm(term=term) for term in terms if term.strip()])
+
+    async def _resolve_term_specs(self, term_specs: list[_IntentTerm]) -> list[ResolvedConcept]:
+        """Resolve terms with optional concept type constraints."""
+        term_specs = [spec for spec in term_specs if spec.term.strip()]
+        terms = [spec.term for spec in term_specs]
         if not terms:
             return []
 
@@ -58,8 +70,9 @@ class EmbeddingService:
         results: list[ResolvedConcept] = []
         seen_ids: set[str] = set()
 
-        for term, embedding in zip(terms, embeddings):
-            match = _best_match(embedding, concepts, settings.concept_similarity_threshold)
+        for spec, embedding in zip(term_specs, embeddings):
+            candidates = _filter_by_type(concepts, spec.allowed_types)
+            match = _best_match(embedding, candidates, settings.concept_similarity_threshold)
             if match is None:
                 continue
 
@@ -69,7 +82,7 @@ class EmbeddingService:
 
             seen_ids.add(concept.id)
             results.append(ResolvedConcept(
-                input_term=term,
+                input_term=spec.term,
                 concept_id=concept.id,
                 concept_name=concept.name,
                 concept_type=concept.type,
@@ -79,7 +92,7 @@ class EmbeddingService:
         return results
 
     async def resolve_from_intent(self, intent: dict) -> list[ResolvedConcept]:
-        return await self.resolve_terms(_extract_intent_terms(intent))
+        return await self._resolve_term_specs(_extract_intent_terms(intent))
 
     async def index_all(self) -> int:
         """Embed every JSON concept and persist vectors to the local cache."""
@@ -126,26 +139,41 @@ class EmbeddingService:
         return self._concept_vectors or []
 
 
-def _extract_intent_terms(intent: dict) -> list[str]:
-    terms: list[str] = []
+def _extract_intent_terms(intent: dict) -> list[_IntentTerm]:
+    terms: list[_IntentTerm] = []
     if style_prefs := intent.get("style_preferences", []):
-        terms.extend(style_prefs)
+        terms.extend(_term(term, {"style"}) for term in style_prefs)
     if requested_items := intent.get("requested_items", []):
-        terms.extend(requested_items)
+        terms.extend(_term(term, {"item_type"}) for term in requested_items)
     if occasion := intent.get("occasion"):
-        terms.append(occasion)
+        terms.append(_term(occasion, {"occasion"}))
     if destination := intent.get("destination"):
-        terms.append(destination)
+        terms.append(_term(destination, {"occasion"}))
     if body_ctx := intent.get("body_context", {}):
         if h := body_ctx.get("height_group"):
-            terms.append(h)
+            terms.append(_term(h, {"body_context"}))
+        if shape := body_ctx.get("body_shape"):
+            terms.append(_term(shape, {"body_context"}))
+    if gender := intent.get("gender"):
+        terms.append(_term(_gender_query(gender), {"style", "user_context"}))
     if modesty := intent.get("modesty_level"):
-        terms.append(modesty)
+        terms.append(_term(modesty, {"preference"}))
     if comfort := intent.get("comfort_needs", []):
-        terms.extend(comfort)
-    if raw := intent.get("raw_keywords", []):
-        terms.extend(raw)
+        terms.extend(_term(term, {"preference", "material_property", "style"}) for term in comfort)
     return terms
+
+
+def _term(value: Any, allowed_types: set[str]) -> _IntentTerm:
+    return _IntentTerm(term=str(value).strip(), allowed_types=allowed_types)
+
+
+def _gender_query(gender: str) -> str:
+    normalized = gender.strip().lower()
+    if normalized in {"male", "nam", "man", "men"}:
+        return "mens casual male outfit"
+    if normalized in {"female", "nu", "nữ", "woman", "women"}:
+        return "feminine casual female outfit"
+    return gender
 
 
 def _load_json_concepts() -> list[dict[str, Any]]:
@@ -211,6 +239,15 @@ def _best_match(
         if best is None or similarity > best[1]:
             best = (concept, similarity)
     return best
+
+
+def _filter_by_type(
+    concepts: list[_IndexedConcept],
+    allowed_types: set[str] | None,
+) -> list[_IndexedConcept]:
+    if not allowed_types:
+        return concepts
+    return [concept for concept in concepts if concept.type in allowed_types]
 
 
 def _cosine_similarity(left: list[float], right: list[float]) -> float:

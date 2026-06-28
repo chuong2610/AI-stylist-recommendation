@@ -175,6 +175,8 @@ def _append_rule_entry_by_source_type(rules: FashionRules, source_type: str, ent
         rules.occasion_rules.append(entry)
     elif source_type == "preference":
         rules.modesty_rules.append(entry)
+    elif source_type == "user_context":
+        rules.style_rules.append(entry)
 
 
 def _parse_payload(payload_json: Any) -> dict[str, Any] | None:

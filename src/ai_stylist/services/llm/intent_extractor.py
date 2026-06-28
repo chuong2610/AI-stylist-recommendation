@@ -23,6 +23,7 @@ class RequiredOutput(BaseModel):
 class ExtractedIntent(BaseModel):
     intent: str  # outfit_recommendation | general_qa | style_advice
     request_mode: str | None = None  # complete_outfit | outfit_with_main_item
+    gender: str | None = None  # male | female | nonbinary | null
     occasion: str | None = None
     destination: str | None = None
     duration: Duration = Duration()
@@ -59,6 +60,7 @@ Guidelines:
 - "tìm váy đi tiệc" => request_mode=outfit_with_main_item, requested_items=["váy"].
 - "gợi ý outfit đi tiệc" => request_mode=complete_outfit.
 - Vietnamese destinations like Vũng Tàu, Nha Trang, Phú Quốc imply occasion=beach.
+- If the user says nam/con trai/male/men, set gender=male. If the user says nữ/female/women, set gender=female.
 - For modesty_level use: low | medium | medium_high | high.
 - For height_group use: short_or_petite | average | tall."""
 
