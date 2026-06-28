@@ -46,10 +46,7 @@ class RecommendationPipeline:
         rules_dict: dict[str, Any] = {}
 
         kg_svc = KnowledgeGraphService()
-        if self._db is None:
-            raise ValueError("RecommendationPipeline requires a database session for semantic concept resolution")
-
-        resolved = await self._embedding_svc.resolve_from_intent(intent.model_dump(), self._db)
+        resolved = await self._embedding_svc.resolve_from_intent(intent.model_dump())
         resolved_concepts = [r.concept_id for r in resolved]
         rules_dict = _rules_to_dict(await kg_svc.get_rules(resolved))
 

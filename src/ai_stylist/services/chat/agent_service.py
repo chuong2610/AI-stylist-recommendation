@@ -41,7 +41,7 @@ class AgentService:
         Config truyền vào graph:
           thread_id → checkpointer dùng để restore/save short-term state
           user_id   → tools dùng để namespace long-term store
-          db        → tools dùng để query PostgreSQL (concepts, knowledge graph)
+          db        → tools dùng cho request-scoped app data khi cần
 
         Returns:
             { "reply": str, "outfit_plan": dict | None, "tool_used": str | None }

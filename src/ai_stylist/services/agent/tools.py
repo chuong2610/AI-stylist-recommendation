@@ -2,7 +2,7 @@
 LangChain tools cho ReAct agent.
 
 Tool access:
-  - DB session  → config["configurable"]["db"]      (per-request SQLAlchemy session)
+  - DB session  → config["configurable"]["db"]      (per-request SQLAlchemy session for chat data)
   - user_id     → config["configurable"]["user_id"] (để namespace store)
   - Long-term store → InjectedStore() annotation   (LangGraph tự inject)
 """
@@ -128,12 +128,8 @@ async def get_fashion_knowledge(
     hoặc khi user hỏi về nguyên tắc thời trang mà không cần tìm sản phẩm.
     Ví dụ: 'người thấp nên mặc gì', 'màu nào hợp đi biển', 'Korean casual là gì'.
     """
-    db = _get_db(config) if config else None
-    if not db:
-        return json.dumps({"error": "Database not available"}, ensure_ascii=False)
-
     embedding_svc = EmbeddingService(GeminiClient())
-    resolved = await embedding_svc.resolve_terms(terms, db)
+    resolved = await embedding_svc.resolve_terms(terms)
 
     if not resolved:
         return json.dumps({"message": "Không tìm thấy khái niệm phù hợp", "terms": terms}, ensure_ascii=False)

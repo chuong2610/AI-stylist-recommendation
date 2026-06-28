@@ -1,9 +1,7 @@
 import uuid
 
-from fastapi import APIRouter, Depends
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import APIRouter
 
-from ai_stylist.db.postgres import get_db
 from ai_stylist.schemas.recommendation import OutfitRequest, OutfitRecommendationResponse, DayOutfit, OutfitItem
 from ai_stylist.services.llm.gemini_client import GeminiClient
 from ai_stylist.services.llm.intent_extractor import IntentExtractor
@@ -13,12 +11,12 @@ router = APIRouter(prefix="/recommendations", tags=["recommendations"])
 
 
 @router.post("/outfit", response_model=OutfitRecommendationResponse)
-async def recommend_outfit(body: OutfitRequest, db: AsyncSession = Depends(get_db)):
+async def recommend_outfit(body: OutfitRequest):
     gemini = GeminiClient()
     extractor = IntentExtractor(gemini)
     intent = await extractor.extract(body.message)
 
-    pipeline = RecommendationPipeline(db=db)
+    pipeline = RecommendationPipeline()
     result = await pipeline.run(intent, body.message, budget_max=body.budget_max)
 
     outfits: list[DayOutfit] = []

@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: pgvector/pgvector:pg16
+    image: postgres:16
     container_name: ai_stylist_postgres
     environment:
       POSTGRES_DB: ai_stylist
