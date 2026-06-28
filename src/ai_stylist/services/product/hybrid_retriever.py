@@ -43,8 +43,11 @@ class HybridProductRetriever:
         self,
         search_terms: list[TargetSearchTerms],
         limit_per_target: int | None = None,
+        price_min: float | None = None,
+        price_max: float | None = None,
     ) -> dict[str, list[ProductSearchCandidate]]:
         limit = limit_per_target or settings.hybrid_search_limit_per_target
+        search_limit = limit * 3 if price_min is not None or price_max is not None else limit
         queries = [
             (target_terms.item, term)
             for target_terms in search_terms
@@ -59,7 +62,7 @@ class HybridProductRetriever:
 
         async with httpx.AsyncClient(timeout=self._timeout) as qdrant_client:
             tasks = [
-                self._search_one(qdrant_client, target, term, vector, limit)
+                self._search_one(qdrant_client, target, term, vector, search_limit, price_min, price_max)
                 for (target, term), vector in zip(queries, vectors)
             ]
             results = await asyncio.gather(*tasks)
@@ -80,8 +83,10 @@ class HybridProductRetriever:
         term: str,
         vector: list[float],
         limit: int,
+        price_min: float | None,
+        price_max: float | None,
     ) -> tuple[str, list[ProductSearchCandidate]]:
-        qdrant_task = self._search_qdrant(qdrant_client, vector, limit)
+        qdrant_task = self._search_qdrant(qdrant_client, target, vector, limit, price_min, price_max)
         text_task = self._product_client.search_text(term, target, limit)
         qdrant_results, text_results = await asyncio.gather(qdrant_task, text_task)
 
@@ -93,22 +98,34 @@ class HybridProductRetriever:
             _candidate_from_product_service(target, term, hit)
             for hit in text_results
         )
-        return target, candidates
+        return target, [
+            candidate for candidate in candidates
+            if _matches_price(candidate.light_metadata.get("price"), price_min, price_max)
+            and _matches_target(candidate.light_metadata.get("category"), target)
+        ]
 
     async def _search_qdrant(
         self,
         client: httpx.AsyncClient,
+        target: str,
         vector: list[float],
         limit: int,
+        price_min: float | None = None,
+        price_max: float | None = None,
     ) -> list[dict[str, Any]]:
+        body: dict[str, Any] = {
+            "vector": vector,
+            "limit": limit,
+            "with_payload": True,
+            "score_threshold": settings.qdrant_score_threshold,
+        }
+        qdrant_filter = _qdrant_filter(target, price_min, price_max)
+        if qdrant_filter:
+            body["filter"] = qdrant_filter
+
         response = await client.post(
             f"{self._base_url}/collections/{self._collection}/points/search",
-            json={
-                "vector": vector,
-                "limit": limit,
-                "with_payload": True,
-                "score_threshold": settings.qdrant_score_threshold,
-            },
+            json=body,
         )
         response.raise_for_status()
         payload = response.json()
@@ -172,6 +189,64 @@ def _score_candidate(candidate: ProductSearchCandidate) -> None:
         + multi_source_bonus,
         4,
     )
+
+
+def _qdrant_filter(target: str, price_min: float | None, price_max: float | None) -> dict[str, Any] | None:
+    must: list[dict[str, Any]] = []
+
+    categories = _target_categories(target)
+    if categories:
+        must.append({"key": "category", "match": {"any": categories}})
+
+    price_range: dict[str, float] = {}
+    if price_min is not None:
+        price_range["gte"] = float(price_min)
+    if price_max is not None:
+        price_range["lte"] = float(price_max)
+    if price_range:
+        must.append({"key": "price", "range": price_range})
+
+    if not must:
+        return None
+    return {"must": must}
+
+
+def _matches_price(price: Any, price_min: float | None, price_max: float | None) -> bool:
+    if price_min is None and price_max is None:
+        return True
+    if price is None:
+        return False
+    try:
+        value = float(price)
+    except (TypeError, ValueError):
+        return False
+    if price_min is not None and value < price_min:
+        return False
+    if price_max is not None and value > price_max:
+        return False
+    return True
+
+
+def _matches_target(category: Any, target: str) -> bool:
+    categories = _target_categories(target)
+    if not categories:
+        return True
+    return str(category or "").lower() in categories
+
+
+def _target_categories(target: str) -> list[str]:
+    normalized = str(target or "").strip().lower()
+    mapping = {
+        "top": ["top"],
+        "bottom": ["bottom"],
+        "dress": ["dress"],
+        "shoes": ["shoes"],
+        "shoe": ["shoes"],
+        "bag": ["bag"],
+        "accessory": ["accessory"],
+        "accessories": ["accessory"],
+    }
+    return mapping.get(normalized, [])
 
 
 def _light_metadata(product: dict[str, Any]) -> dict[str, Any]:

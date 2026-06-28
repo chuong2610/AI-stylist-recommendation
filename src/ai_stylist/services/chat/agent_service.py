@@ -105,6 +105,8 @@ def _extract_tool_result(messages: list) -> tuple[str | None, dict | None]:
                     return "outfit_recommendation", json.loads(msg.content)
                 except (json.JSONDecodeError, TypeError):
                     return "outfit_recommendation", None
+            if tool_name == "search_products":
+                return "product_search", None
             if tool_name == "get_fashion_knowledge":
                 return "fashion_knowledge", None
             if tool_name == "save_user_style_profile":
@@ -119,6 +121,8 @@ def _infer_tool_name(content: str) -> str | None:
         return None
     if "outfits" in content and "summary" in content:
         return "recommend_outfit"
+    if "products" in content and "query" in content:
+        return "search_products"
     if "resolved_concepts" in content and "style_rules" in content:
         return "get_fashion_knowledge"
     return None

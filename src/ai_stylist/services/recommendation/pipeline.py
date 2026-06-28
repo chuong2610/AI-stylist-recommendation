@@ -1,7 +1,5 @@
 from typing import Any
 
-from sqlalchemy.ext.asyncio import AsyncSession
-
 from ai_stylist.clients.product_client import ProductServiceClient
 from ai_stylist.schemas.product import Product
 from ai_stylist.services.concept.embedding_service import EmbeddingService
@@ -27,8 +25,7 @@ class RecommendationPipeline:
       -> Product Service batch fetch hydrates full product data
     """
 
-    def __init__(self, db: AsyncSession | None = None):
-        self._db = db
+    def __init__(self):
         self._gemini = GeminiClient()
         self._embedding_svc = EmbeddingService(self._gemini)
         self._term_generator = SearchTermGenerator(self._gemini)

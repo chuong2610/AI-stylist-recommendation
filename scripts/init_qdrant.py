@@ -102,6 +102,21 @@ async def _upsert_products(
     response.raise_for_status()
 
 
+async def _create_payload_indexes(client: httpx.AsyncClient, collection: str) -> None:
+    for field_name, field_schema in {
+        "price": "float",
+        "category": "keyword",
+    }.items():
+        response = await client.put(
+            f"{settings.qdrant_url.rstrip('/')}/collections/{collection}/index",
+            json={
+                "field_name": field_name,
+                "field_schema": field_schema,
+            },
+        )
+        response.raise_for_status()
+
+
 async def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--seed", default=settings.product_seed_path)
@@ -121,6 +136,7 @@ async def main() -> None:
     async with httpx.AsyncClient(timeout=settings.qdrant_timeout) as client:
         await _create_collection(client, args.collection, len(vectors[0]), args.recreate)
         await _upsert_products(client, args.collection, products, vectors)
+        await _create_payload_indexes(client, args.collection)
 
     print(f"Initialized Qdrant collection '{args.collection}' with {len(products)} product(s).")
 

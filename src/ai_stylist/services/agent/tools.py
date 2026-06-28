@@ -14,20 +14,18 @@ from langchain_core.tools import tool
 from langchain_core.runnables import RunnableConfig
 from langgraph.prebuilt import InjectedStore
 from langgraph.store.base import BaseStore
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from ai_stylist.services.llm.intent_extractor import IntentExtractor
 from ai_stylist.services.llm.gemini_client import GeminiClient
+from ai_stylist.services.llm.search_term_generator import TargetSearchTerms
 from ai_stylist.services.recommendation.pipeline import RecommendationPipeline
 from ai_stylist.services.concept.embedding_service import EmbeddingService
 from ai_stylist.services.concept.knowledge_graph import KnowledgeGraphService
+from ai_stylist.services.product.hybrid_retriever import HybridProductRetriever, ProductSearchCandidate
+from ai_stylist.clients.product_client import ProductServiceClient
 
 
 # ── helpers ──────────────────────────────────────────────────────────
-def _get_db(config: RunnableConfig) -> AsyncSession | None:
-    return config.get("configurable", {}).get("db")
-
-
 def _get_user_id(config: RunnableConfig) -> str:
     return config.get("configurable", {}).get("user_id", "anonymous")
 
@@ -50,7 +48,6 @@ async def recommend_outfit(
     tìm đồ đi du lịch, đồ đi làm, đồ hẹn hò, v.v.
     Trả về outfit plan chi tiết kèm sản phẩm thật.
     """
-    db = _get_db(config) if config else None
     user_id = _get_user_id(config) if config else "anonymous"
 
     # Lấy user profile từ long-term store để enrich recommendation
@@ -65,7 +62,7 @@ async def recommend_outfit(
     intent = await extractor.extract(user_request + profile_ctx)
     intent.required_output.number_of_days = number_of_days
 
-    pipeline = RecommendationPipeline(db=db)
+    pipeline = RecommendationPipeline()
     result = await pipeline.run(intent, user_request, budget_max=budget_max)
 
     # Lưu outfit history vào long-term store
@@ -114,6 +111,62 @@ async def recommend_outfit(
         })
 
     return json.dumps(output, ensure_ascii=False, indent=2)
+
+
+@tool
+async def search_products(
+    query: Annotated[str, "Specific product search query, e.g. 'white linen shirt'"],
+    target: Annotated[str | None, "Product group: top, bottom, dress, shoes, bag, accessory; None if unknown"] = None,
+    limit: Annotated[int, "Maximum number of products to return"] = 8,
+    price_min: Annotated[float | None, "Minimum price in VND, None if no lower bound"] = None,
+    price_max: Annotated[float | None, "Maximum price in VND, None if no upper bound"] = None,
+    config: RunnableConfig = None,
+    store: Annotated[BaseStore, InjectedStore()] = None,
+) -> str:
+    """
+    Search real products for a specific query without creating a full outfit.
+    Use when the user asks to find/view/buy a concrete product type or filter products by price.
+    """
+    capped_limit = max(1, min(limit, 20))
+    target_key = (target or "product").strip() or "product"
+
+    gemini = GeminiClient()
+    product_client = ProductServiceClient()
+    retriever = HybridProductRetriever(gemini, product_client)
+    search_terms = [
+        TargetSearchTerms(
+            item=target_key,
+            display_name=target_key,
+            terms=[query],
+        )
+    ]
+    candidates_by_target = await retriever.search(
+        search_terms,
+        limit_per_target=capped_limit,
+        price_min=price_min,
+        price_max=price_max,
+    )
+    candidates = candidates_by_target.get(target_key, [])
+    product_ids = [candidate.product_id for candidate in candidates]
+    products = await product_client.batch_fetch(product_ids)
+    product_by_id = {product.product_id: product for product in products}
+
+    output_products = []
+    for candidate in candidates:
+        product = product_by_id.get(candidate.product_id)
+        if not product:
+            continue
+        output_products.append(_product_search_result(product, candidate))
+
+    return json.dumps({
+        "query": query,
+        "target": target_key,
+        "price_filter": {
+            "min": price_min,
+            "max": price_max,
+        },
+        "products": output_products[:capped_limit],
+    }, ensure_ascii=False, indent=2)
 
 
 @tool
@@ -253,8 +306,36 @@ async def get_outfit_history(
 
 ALL_TOOLS = [
     recommend_outfit,
+    search_products,
     get_fashion_knowledge,
     save_user_style_profile,
     get_user_style_profile,
     get_outfit_history,
 ]
+
+
+def _product_search_result(product, candidate: ProductSearchCandidate) -> dict[str, Any]:
+    return {
+        "product_id": product.product_id,
+        "name": product.name,
+        "description": product.description,
+        "category": product.category,
+        "brand": product.brand,
+        "color": product.color,
+        "size": product.size,
+        "material": product.material,
+        "price": product.price,
+        "currency": product.currency,
+        "stock_status": product.stock_status,
+        "rating": product.rating,
+        "review_count": product.review_count,
+        "sales_count": product.sales_count,
+        "image_url": product.image_url,
+        "product_url": product.product_url,
+        "target": candidate.target,
+        "matched_text": candidate.matched_text,
+        "retrieval_score": candidate.retrieval_score,
+        "text_score": candidate.text_score,
+        "vector_score": candidate.vector_score,
+        "sources": candidate.sources,
+    }
