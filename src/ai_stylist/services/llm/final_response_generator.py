@@ -33,7 +33,10 @@ _SYSTEM = (
     "Choose outfit items only from the provided products_by_target. "
     "Use the user's message, intent, and knowledge graph rules to choose items that work together. "
     "Do not invent product IDs. Do not include items that conflict with KG rules. "
-    "If a target has no useful product, skip it or explain the gap clearly."
+    "If a target has no useful product, skip it or explain the gap clearly. "
+    "Use body wording carefully: for male users with a solid or stocky build, say 'solid build', "
+    "'stocky build', or Vietnamese equivalents like 'dáng chắc/đậm người'. Do not use 'curvy' "
+    "for male users unless the user explicitly used that word."
 )
 
 _PROMPT_TEMPLATE = """Create the final outfit response.
@@ -54,7 +57,8 @@ Return JSON matching the schema.
 Use the user's request_mode to decide the shape:
 - complete_outfit: choose enough items to form a coherent outfit.
 - outfit_with_main_item: include the requested/main item when available, then choose compatible support items.
-The outfit should be coherent as a whole, not simply the top scoring product from each target."""
+The outfit should be coherent as a whole, not simply the top scoring product from each target.
+In summary, styling_reason, and item reasons, use the user's gender/body context wording from the intent and KG rules; avoid unsupported body labels."""
 
 
 class FinalResponseGenerator:

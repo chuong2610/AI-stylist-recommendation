@@ -13,6 +13,9 @@ class Duration(BaseModel):
 class BodyContext(BaseModel):
     height_group: str | None = None
     body_shape: str | None = None
+    height_cm: int | None = None
+    weight_kg: int | None = None
+    body_build: str | None = None  # petite | stocky | solid | curvy | athletic | slim | average
 
 
 class RequiredOutput(BaseModel):
@@ -61,6 +64,9 @@ Guidelines:
 - "gợi ý outfit đi tiệc" => request_mode=complete_outfit.
 - Vietnamese destinations like Vũng Tàu, Nha Trang, Phú Quốc imply occasion=beach.
 - If the user says nam/con trai/male/men, set gender=male. If the user says nữ/female/women, set gender=female.
+- Extract height_cm and weight_kg when present, for example "1m7 80kg" => height_cm=170, weight_kg=80.
+- For male users around 170cm and 80kg, set body_build=stocky or solid, not curvy.
+- Use body_shape/body_build="curvy" only when the user explicitly describes a feminine/curvy body context.
 - For modesty_level use: low | medium | medium_high | high.
 - For height_group use: short_or_petite | average | tall."""
 

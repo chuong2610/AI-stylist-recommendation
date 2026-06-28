@@ -154,6 +154,11 @@ def _extract_intent_terms(intent: dict) -> list[_IntentTerm]:
             terms.append(_term(h, {"body_context"}))
         if shape := body_ctx.get("body_shape"):
             terms.append(_term(shape, {"body_context"}))
+        if build := body_ctx.get("body_build"):
+            terms.append(_term(_body_build_query(build, intent), {"body_context"}))
+        measurement_query = _measurement_query(body_ctx, intent)
+        if measurement_query:
+            terms.append(_term(measurement_query, {"body_context"}))
     if gender := intent.get("gender"):
         terms.append(_term(_gender_query(gender), {"style", "user_context"}))
     if modesty := intent.get("modesty_level"):
@@ -174,6 +179,36 @@ def _gender_query(gender: str) -> str:
     if normalized in {"female", "nu", "nữ", "woman", "women"}:
         return "feminine casual female outfit"
     return gender
+
+
+def _body_build_query(body_build: str, intent: dict) -> str:
+    normalized = body_build.strip().lower()
+    gender = str(intent.get("gender") or "").strip().lower()
+    if normalized in {"stocky", "solid", "đậm người", "dam nguoi"}:
+        return "stocky solid build"
+    if normalized == "curvy" and gender in {"male", "nam", "man", "men"}:
+        return "stocky solid build"
+    return body_build
+
+
+def _measurement_query(body_ctx: dict[str, Any], intent: dict) -> str | None:
+    height = body_ctx.get("height_cm")
+    weight = body_ctx.get("weight_kg")
+    if height is None or weight is None:
+        return None
+
+    gender = str(intent.get("gender") or "").strip().lower()
+    try:
+        height_value = int(height)
+        weight_value = int(weight)
+    except (TypeError, ValueError):
+        return None
+
+    if gender in {"male", "nam", "man", "men"} and height_value <= 175 and weight_value >= 75:
+        return f"{height_value}cm {weight_value}kg stocky solid build"
+    if height_value <= 160:
+        return f"{height_value}cm petite body"
+    return f"{height_value}cm {weight_value}kg body context"
 
 
 def _load_json_concepts() -> list[dict[str, Any]]:
