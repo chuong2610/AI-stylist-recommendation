@@ -1,0 +1,396 @@
+{
+  "schema_version": 1,
+  "concepts": [
+    {
+      "id": "ITEM_DRESS",
+      "name": "Dress",
+      "type": "item_type",
+      "description": "One-piece dress or gown used as a main outfit item.",
+      "aliases": ["váy", "đầm", "dress", "váy đầm"]
+    },
+    {
+      "id": "ITEM_SHIRT",
+      "name": "Shirt",
+      "type": "item_type",
+      "description": "Button-up shirt or structured top.",
+      "aliases": ["áo sơ mi", "shirt", "sơ mi", "áo linen"]
+    },
+    {
+      "id": "ITEM_WIDE_LEG_PANTS",
+      "name": "Wide Leg Pants",
+      "type": "item_type",
+      "description": "Wide-leg trousers or linen pants.",
+      "aliases": ["quần ống rộng", "wide leg pants", "quần linen"]
+    },
+    {
+      "id": "ITEM_SHORTS",
+      "name": "Shorts",
+      "type": "item_type",
+      "description": "Short pants for casual or beach outfits.",
+      "aliases": ["quần short", "shorts", "quần đùi"]
+    },
+    {
+      "id": "ITEM_SANDAL",
+      "name": "Sandal",
+      "type": "item_type",
+      "description": "Open sandal, often used for beach and summer outfits.",
+      "aliases": ["sandal", "dép sandal", "giày sandal"]
+    },
+    {
+      "id": "ITEM_HEELS",
+      "name": "High Heels",
+      "type": "item_type",
+      "description": "High-heeled shoes for formal or party outfits.",
+      "aliases": ["giày cao gót", "cao gót", "heels"]
+    },
+    {
+      "id": "ITEM_SNEAKERS",
+      "name": "Sneakers",
+      "type": "item_type",
+      "description": "Casual athletic-style shoes.",
+      "aliases": ["sneaker", "sneakers", "giày thể thao"]
+    },
+    {
+      "id": "ITEM_CLUTCH",
+      "name": "Clutch",
+      "type": "item_type",
+      "description": "Small hand-held bag for party outfits.",
+      "aliases": ["clutch", "túi cầm tay", "ví dự tiệc"]
+    },
+    {
+      "id": "ITEM_EARRINGS",
+      "name": "Earrings",
+      "type": "item_type",
+      "description": "Earrings or small jewelry accessories.",
+      "aliases": ["bông tai", "khuyên tai", "earrings"]
+    },
+    {
+      "id": "STYLE_KOREAN_CASUAL",
+      "name": "Korean Casual",
+      "type": "style",
+      "description": "Minimal, soft, clean Korean-inspired casual style.",
+      "aliases": ["style Hàn", "phong cách Hàn", "gu Hàn Quốc", "korean casual"]
+    },
+    {
+      "id": "STYLE_FEMININE",
+      "name": "Feminine",
+      "type": "style",
+      "description": "Soft and romantic feminine style.",
+      "aliases": ["nữ tính", "dịu dàng", "feminine"]
+    },
+    {
+      "id": "OCCASION_PARTY",
+      "name": "Party",
+      "type": "occasion",
+      "description": "Evening party, birthday party, dinner, or night out.",
+      "aliases": ["đi tiệc", "tiệc", "party", "dự tiệc", "sinh nhật"]
+    },
+    {
+      "id": "OCCASION_BEACH_TRAVEL",
+      "name": "Beach Travel",
+      "type": "occasion",
+      "description": "Beach or coastal travel setting.",
+      "aliases": ["đi biển", "du lịch biển", "biển", "beach travel", "Vũng Tàu", "Nha Trang", "Phú Quốc"]
+    },
+    {
+      "id": "BODY_PETITE",
+      "name": "Petite",
+      "type": "body_context",
+      "description": "Short or petite height context.",
+      "aliases": ["hơi thấp", "thấp", "người thấp", "petite"]
+    },
+    {
+      "id": "PREF_MODEST",
+      "name": "Modest Coverage",
+      "type": "preference",
+      "description": "Preference for not-too-revealing clothes.",
+      "aliases": ["không quá hở", "kín đáo", "modest"]
+    },
+    {
+      "id": "FABRIC_BREATHABLE",
+      "name": "Breathable Fabric",
+      "type": "material_property",
+      "description": "Lightweight and cool fabric for hot weather.",
+      "aliases": ["mát", "thoáng", "thoáng mát", "breathable"]
+    },
+    {
+      "id": "COLOR_NEUTRAL",
+      "name": "Neutral Colors",
+      "type": "color",
+      "description": "White, black, beige, cream, grey, and camel tones.",
+      "aliases": ["màu trung tính", "neutral", "trắng", "đen", "be"]
+    },
+    {
+      "id": "COLOR_PASTEL",
+      "name": "Pastel Colors",
+      "type": "color",
+      "description": "Soft light pink, lavender, sky blue, or mint tones.",
+      "aliases": ["pastel", "màu pastel", "hồng nhạt", "xanh nhạt"]
+    },
+    {
+      "id": "COLOR_METALLIC",
+      "name": "Metallic Colors",
+      "type": "color",
+      "description": "Silver, gold, champagne, and metallic accents.",
+      "aliases": ["ánh kim", "bạc", "vàng champagne", "metallic"]
+    }
+  ],
+  "edges": [
+    {
+      "source": "ITEM_DRESS",
+      "target": "ITEM_HEELS",
+      "relation": "PAIRS_WITH",
+      "weight": 0.9,
+      "explanation": "Dress-based party outfits usually need refined shoes."
+    },
+    {
+      "source": "ITEM_DRESS",
+      "target": "ITEM_CLUTCH",
+      "relation": "PAIRS_WITH",
+      "weight": 0.78,
+      "explanation": "A small clutch supports a dress without competing with it."
+    },
+    {
+      "source": "ITEM_DRESS",
+      "target": "ITEM_EARRINGS",
+      "relation": "PAIRS_WITH",
+      "weight": 0.72,
+      "explanation": "Small earrings add a clean accent to dress outfits."
+    },
+    {
+      "source": "ITEM_SHIRT",
+      "target": "ITEM_WIDE_LEG_PANTS",
+      "relation": "PAIRS_WITH",
+      "weight": 0.86,
+      "explanation": "A shirt and wide-leg pants create a relaxed smart-casual base."
+    },
+    {
+      "source": "ITEM_SHIRT",
+      "target": "ITEM_SHORTS",
+      "relation": "PAIRS_WITH",
+      "weight": 0.74,
+      "explanation": "A shirt and shorts work for warm beach contexts."
+    },
+    {
+      "source": "OCCASION_PARTY",
+      "target": "ITEM_DRESS",
+      "relation": "PREFERS",
+      "weight": 0.9,
+      "explanation": "Dresses are a strong main item for party contexts."
+    },
+    {
+      "source": "OCCASION_PARTY",
+      "target": "ITEM_HEELS",
+      "relation": "PREFERS",
+      "weight": 0.86,
+      "explanation": "Heels make party outfits more polished."
+    },
+    {
+      "source": "OCCASION_PARTY",
+      "target": "ITEM_SNEAKERS",
+      "relation": "AVOIDS",
+      "weight": 0.75,
+      "explanation": "Sneakers can make a party outfit too casual."
+    },
+    {
+      "source": "OCCASION_PARTY",
+      "target": "COLOR_METALLIC",
+      "relation": "PREFERS",
+      "weight": 0.8,
+      "explanation": "Metallic accents elevate evening looks."
+    },
+    {
+      "source": "OCCASION_BEACH_TRAVEL",
+      "target": "FABRIC_BREATHABLE",
+      "relation": "PREFERS",
+      "weight": 0.95,
+      "explanation": "Beach outfits should stay lightweight and breathable."
+    },
+    {
+      "source": "OCCASION_BEACH_TRAVEL",
+      "target": "ITEM_SANDAL",
+      "relation": "PREFERS",
+      "weight": 0.88,
+      "explanation": "Sandals are practical for beach travel."
+    },
+    {
+      "source": "OCCASION_BEACH_TRAVEL",
+      "target": "ITEM_WIDE_LEG_PANTS",
+      "relation": "PREFERS",
+      "weight": 0.76,
+      "explanation": "Wide-leg linen pants work well in beach travel outfits."
+    },
+    {
+      "source": "STYLE_KOREAN_CASUAL",
+      "target": "ITEM_SHIRT",
+      "relation": "PREFERS",
+      "weight": 0.82,
+      "explanation": "Clean shirts fit Korean casual styling."
+    },
+    {
+      "source": "STYLE_KOREAN_CASUAL",
+      "target": "ITEM_WIDE_LEG_PANTS",
+      "relation": "PREFERS",
+      "weight": 0.84,
+      "explanation": "Wide-leg pants are a common Korean casual silhouette."
+    },
+    {
+      "source": "STYLE_KOREAN_CASUAL",
+      "target": "ITEM_SNEAKERS",
+      "relation": "PREFERS",
+      "weight": 0.72,
+      "explanation": "White sneakers keep Korean casual outfits easy and clean."
+    },
+    {
+      "source": "STYLE_KOREAN_CASUAL",
+      "target": "COLOR_NEUTRAL",
+      "relation": "PREFERS",
+      "weight": 0.88,
+      "explanation": "Neutral colors are central to Korean casual style."
+    },
+    {
+      "source": "STYLE_FEMININE",
+      "target": "ITEM_DRESS",
+      "relation": "PREFERS",
+      "weight": 0.86,
+      "explanation": "Dresses support a soft feminine look."
+    },
+    {
+      "source": "STYLE_FEMININE",
+      "target": "COLOR_PASTEL",
+      "relation": "PREFERS",
+      "weight": 0.78,
+      "explanation": "Pastels reinforce a soft feminine palette."
+    },
+    {
+      "source": "PREF_MODEST",
+      "target": "ITEM_SHORTS",
+      "relation": "AVOIDS",
+      "weight": 0.82,
+      "explanation": "Shorts may conflict with modest coverage preferences."
+    }
+  ],
+  "rules": [
+    {
+      "id": "rule_item_dress_targets",
+      "concept_id": "ITEM_DRESS",
+      "type": "preferred_targets",
+      "priority": 0.95,
+      "payload": {
+        "targets": [
+          {"item": "dress", "role": "main", "required": true, "priority": 0.95},
+          {"item": "shoes", "role": "support", "required": true, "priority": 0.85},
+          {"item": "bag", "role": "optional", "required": false, "priority": 0.62},
+          {"item": "accessory", "role": "optional", "required": false, "priority": 0.58}
+        ]
+      }
+    },
+    {
+      "id": "rule_item_dress_exclusions",
+      "concept_id": "ITEM_DRESS",
+      "type": "excluded_items",
+      "priority": 0.9,
+      "payload": {
+        "items": [
+          {"when_main": "dress", "exclude": ["top", "bottom"]}
+        ]
+      }
+    },
+    {
+      "id": "rule_item_dress_style",
+      "concept_id": "ITEM_DRESS",
+      "type": "style_rule",
+      "priority": 0.86,
+      "payload": {
+        "rule": "Dress-based outfits should keep the dress as the main visual piece."
+      }
+    },
+    {
+      "id": "rule_item_shirt_targets",
+      "concept_id": "ITEM_SHIRT",
+      "type": "preferred_targets",
+      "priority": 0.9,
+      "payload": {
+        "targets": [
+          {"item": "top", "role": "main", "required": true, "priority": 0.9},
+          {"item": "bottom", "role": "support", "required": true, "priority": 0.85},
+          {"item": "shoes", "role": "optional", "required": false, "priority": 0.55}
+        ]
+      }
+    },
+    {
+      "id": "rule_item_shirt_exclusions",
+      "concept_id": "ITEM_SHIRT",
+      "type": "excluded_items",
+      "priority": 0.78,
+      "payload": {
+        "items": [
+          {"when_main": "top", "exclude": ["dress"]}
+        ]
+      }
+    },
+    {
+      "id": "rule_party_targets",
+      "concept_id": "OCCASION_PARTY",
+      "type": "preferred_targets",
+      "priority": 0.88,
+      "payload": {
+        "targets": [
+          {"item": "dress", "role": "main", "required": true, "priority": 0.88},
+          {"item": "shoes", "role": "support", "required": true, "priority": 0.82},
+          {"item": "bag", "role": "optional", "required": false, "priority": 0.72},
+          {"item": "accessory", "role": "optional", "required": false, "priority": 0.65}
+        ]
+      }
+    },
+    {
+      "id": "rule_party_occasion",
+      "concept_id": "OCCASION_PARTY",
+      "type": "occasion_rule",
+      "priority": 0.9,
+      "payload": {
+        "rule": "Party outfits should look polished and intentional; metallic accents are allowed."
+      }
+    },
+    {
+      "id": "rule_beach_targets",
+      "concept_id": "OCCASION_BEACH_TRAVEL",
+      "type": "preferred_targets",
+      "priority": 0.86,
+      "payload": {
+        "targets": [
+          {"item": "top", "role": "main_or_support", "required": false, "priority": 0.7},
+          {"item": "bottom", "role": "support", "required": true, "priority": 0.82},
+          {"item": "shoes", "role": "support", "required": false, "priority": 0.64}
+        ]
+      }
+    },
+    {
+      "id": "rule_beach_occasion",
+      "concept_id": "OCCASION_BEACH_TRAVEL",
+      "type": "occasion_rule",
+      "priority": 0.9,
+      "payload": {
+        "rule": "Beach outfits should prioritize breathable fabric, relaxed silhouettes, and easy shoes."
+      }
+    },
+    {
+      "id": "rule_modest",
+      "concept_id": "PREF_MODEST",
+      "type": "modesty_rule",
+      "priority": 0.86,
+      "payload": {
+        "rule": "Avoid very short or revealing pieces when the user asks for modest coverage."
+      }
+    },
+    {
+      "id": "rule_petite",
+      "concept_id": "BODY_PETITE",
+      "type": "body_rule",
+      "priority": 0.8,
+      "payload": {
+        "rule": "For petite users, prefer cleaner vertical lines and avoid heavy oversized proportions."
+      }
+    }
+  ]
+}

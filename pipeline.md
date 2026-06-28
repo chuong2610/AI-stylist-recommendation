@@ -598,9 +598,10 @@ Không nên chỉ dùng SQL search hoặc chỉ dùng vector search.
 
 Nên kết hợp:
 
-1. Structured DB Search
-2. Vector Semantic Search
-3. Graph-based Expansion Search
+1. Gemini embedding for each LLM-generated term
+2. Qdrant vector search
+3. Product Service text search
+4. Candidate merge per target item
 
 ---
 
@@ -608,11 +609,13 @@ Nên kết hợp:
 
 ```mermaid
 flowchart TD
-    A[Outfit Constraints] --> B[Hybrid Product Search]
+    A[LLM Search Terms] --> B[Hybrid Product Search]
 
-    B --> C[Structured DB Search]
-    B --> D[Vector Semantic Search]
-    B --> E[Graph Expansion Search]
+    B --> C[Gemini Embeddings]
+    C --> D[Qdrant Vector Search]
+    B --> E[Product Service Text Search]
+    D --> F[Candidates By Target]
+    E --> F
 
     C --> F[Candidate Products from DB]
     D --> G[Candidate Products from VDB]
@@ -628,7 +631,7 @@ flowchart TD
 
 ---
 
-## 6.1 Structured DB Search
+## 6.1 Qdrant Vector Search
 
 ### Use case
 
@@ -1594,7 +1597,7 @@ backend
 │   └── ConceptGraphService
 │
 ├── product
-│   ├── ProductSearchService
+│   ├── HybridProductRetriever
 │   ├── ProductRepository
 │   ├── ProductEmbeddingService
 │   └── ProductTagService
@@ -1636,7 +1639,7 @@ embedding-worker
 | Recommendation Service    | Orchestrate toàn bộ pipeline             |
 | LLM Service               | Intent extraction, outfit planning       |
 | Fashion Knowledge Service | Concepts, aliases, edges, rules          |
-| Product Search Service    | SQL search, vector search, hybrid search |
+| Product Search Service    | Qdrant vector + Product Service text     |
 | Ranking Service           | Filter, score, rank product              |
 | User Profile Service      | Lưu preference và lịch sử user           |
 | Product Crawler Service   | Crawl/sync sản phẩm                      |
@@ -1727,7 +1730,7 @@ User Message
 -> Concept Resolver
 -> Knowledge Graph Rules
 -> Constraint Builder
--> Hybrid Search
+-> Hybrid Product Search
 -> Ranking
 -> LLM Outfit Planner
 -> Response
@@ -1788,15 +1791,15 @@ Nhờ đó recommendation không chỉ dựa vào text similarity mà còn có r
 
 ---
 
-## 9.4 Why need Hybrid Search?
+## 9.4 Why use Hybrid Search?
 
 Vì mỗi cách search mạnh ở một phần khác nhau.
 
 | Search type          | Strength                                                  |
 | -------------------- | --------------------------------------------------------- |
-| Structured DB Search | Chính xác với filter: category, price, stock, size, color |
-| Vector Search        | Hiểu ngữ nghĩa mềm từ description                         |
-| Graph Expansion      | Mở rộng concept liên quan từ fashion knowledge            |
+| Qdrant Vector Search | Hiểu ngữ nghĩa mềm từ search terms và product payload     |
+| KG Rules             | Định hướng item groups và constraints trước khi search    |
+| LLM Final Selection  | Chọn outfit coherent từ candidates theo KG + message      |
 
 Ví dụ user nói:
 

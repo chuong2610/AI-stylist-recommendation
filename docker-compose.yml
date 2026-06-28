@@ -35,31 +35,16 @@ services:
       timeout: 5s
       retries: 10
 
-  neo4j-seeder:
-    image: neo4j:5-community
-    container_name: ai_stylist_neo4j_seeder
-    depends_on:
-      neo4j:
-        condition: service_healthy
+  qdrant:
+    image: qdrant/qdrant:v1.12.4
+    container_name: ai_stylist_qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
     volumes:
-      - ./docker/neo4j/seed.cypher:/seed.cypher:ro
-    entrypoint: >
-      bash -c "
-        echo 'Waiting for Neo4j bolt...';
-        for i in $(seq 1 15); do
-          cypher-shell -a bolt://neo4j:7687 -u neo4j -p stylist123 --file /seed.cypher
-          if [ $? -eq 0 ]; then
-            echo 'Neo4j seeded successfully.';
-            exit 0;
-          fi;
-          echo \"Attempt $i failed, retrying in 5s...\";
-          sleep 5;
-        done;
-        echo 'Neo4j seed failed after 15 attempts.';
-        exit 1;
-      "
-    restart: "no"
+      - qdrant_data:/qdrant/storage
 
 volumes:
   postgres_data:
   neo4j_data:
+  qdrant_data:

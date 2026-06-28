@@ -1,21 +1,20 @@
-import math
-import json
-import re
-from collections import Counter
-from pathlib import Path
+import asyncio
 from typing import Any
 
+import httpx
 from pydantic import BaseModel, Field
-from rank_bm25 import BM25Okapi
 
+from ai_stylist.clients.product_client import ProductServiceClient
 from ai_stylist.config import settings
+from ai_stylist.services.llm.gemini_client import GeminiClient
+from ai_stylist.services.llm.search_term_generator import TargetSearchTerms
 
 
 class ProductSearchCandidate(BaseModel):
     product_id: str
     target: str
     matched_text: str = ""
-    bm25_score: float = 0.0
+    text_score: float = 0.0
     vector_score: float = 0.0
     retrieval_score: float = 0.0
     sources: list[str] = Field(default_factory=list)
@@ -24,155 +23,163 @@ class ProductSearchCandidate(BaseModel):
 
 class HybridProductRetriever:
     """
-    AI-managed hybrid retrieval.
+    Product retrieval through real hybrid search.
 
-    BM25 and vector search are deliberately target/item based. No structured
-    category search is used here; category can still exist as product metadata
-    returned later by Product Service.
+    Sources:
+    - Qdrant semantic vector search over product embeddings.
+    - Product Service text search over the live product catalog.
+
+    There is no local lexical index or local cosine search path.
     """
 
-    def __init__(self):
-        catalog = _load_json(settings.product_catalog_seed_path)
-        self._catalog_by_id = {p["product_id"]: p for p in catalog}
-        self._bm25 = BM25ProductSearcher(self._catalog_by_id)
-        self._vector = MockQdrantProductSearcher(self._catalog_by_id)
+    def __init__(self, gemini: GeminiClient, product_client: ProductServiceClient | None = None):
+        self._gemini = gemini
+        self._product_client = product_client or ProductServiceClient()
+        self._collection = settings.qdrant_product_collection
+        self._base_url = settings.qdrant_url.rstrip("/")
+        self._timeout = settings.qdrant_timeout
 
-    async def search(self, search_terms: dict[str, list[str]], limit_per_target: int | None = None) -> dict[str, list[ProductSearchCandidate]]:
+    async def search(
+        self,
+        search_terms: list[TargetSearchTerms],
+        limit_per_target: int | None = None,
+    ) -> dict[str, list[ProductSearchCandidate]]:
         limit = limit_per_target or settings.hybrid_search_limit_per_target
+        queries = [
+            (target_terms.item, term)
+            for target_terms in search_terms
+            for term in target_terms.terms
+            if term.strip()
+        ]
+        if not queries:
+            return {}
+
+        vectors = await self._gemini.embed_texts([term for _, term in queries])
         results_by_target: dict[str, dict[str, ProductSearchCandidate]] = {}
 
-        for target, terms in search_terms.items():
-            target_results: dict[str, ProductSearchCandidate] = {}
-            for term in terms:
-                bm25_results = self._bm25.search(target, term, limit=limit)
-                vector_results = self._vector.search(target, term, limit=limit)
-                _merge_candidates(target_results, bm25_results)
-                _merge_candidates(target_results, vector_results)
+        async with httpx.AsyncClient(timeout=self._timeout) as qdrant_client:
+            tasks = [
+                self._search_one(qdrant_client, target, term, vector, limit)
+                for (target, term), vector in zip(queries, vectors)
+            ]
+            results = await asyncio.gather(*tasks)
 
-            candidates = list(target_results.values())
-            for candidate in candidates:
-                multi_source_bonus = 0.1 if len(candidate.sources) > 1 else 0.0
-                candidate.retrieval_score = round(
-                    (0.45 * candidate.bm25_score)
-                    + (0.45 * candidate.vector_score)
-                    + multi_source_bonus,
-                    4,
-                )
-            candidates.sort(key=lambda c: c.retrieval_score, reverse=True)
-            results_by_target[target] = candidates[:limit]
+        for target, candidates in results:
+            target_results = results_by_target.setdefault(target, {})
+            _merge_candidates(target_results, candidates)
 
-        return results_by_target
+        return {
+            target: sorted(candidates.values(), key=lambda c: c.retrieval_score, reverse=True)[:limit]
+            for target, candidates in results_by_target.items()
+        }
 
+    async def _search_one(
+        self,
+        qdrant_client: httpx.AsyncClient,
+        target: str,
+        term: str,
+        vector: list[float],
+        limit: int,
+    ) -> tuple[str, list[ProductSearchCandidate]]:
+        qdrant_task = self._search_qdrant(qdrant_client, vector, limit)
+        text_task = self._product_client.search_text(term, target, limit)
+        qdrant_results, text_results = await asyncio.gather(qdrant_task, text_task)
 
-class BM25ProductSearcher:
-    def __init__(self, catalog_by_id: dict[str, dict]):
-        docs = _load_json(settings.product_bm25_seed_path)
-        self._docs = docs
-        self._catalog_by_id = catalog_by_id
-        tokenized = [_tokenize(doc.get("text", "")) for doc in docs]
-        self._bm25 = BM25Okapi(tokenized) if tokenized else None
+        candidates = [
+            _candidate_from_qdrant(target, term, point)
+            for point in qdrant_results
+        ]
+        candidates.extend(
+            _candidate_from_product_service(target, term, hit)
+            for hit in text_results
+        )
+        return target, candidates
 
-    def search(self, target: str, query: str, limit: int) -> list[ProductSearchCandidate]:
-        if not self._bm25 or not self._docs:
-            return []
-
-        scores = self._bm25.get_scores(_tokenize(query))
-        max_score = max(scores) if len(scores) and max(scores) > 0 else 1.0
-        ranked = sorted(zip(self._docs, scores), key=lambda pair: pair[1], reverse=True)
-
-        results: list[ProductSearchCandidate] = []
-        for doc, score in ranked[:limit]:
-            if score <= 0:
-                continue
-            product_id = doc["product_id"]
-            results.append(ProductSearchCandidate(
-                product_id=product_id,
-                target=target,
-                matched_text=doc.get("text", ""),
-                bm25_score=round(float(score) / float(max_score), 4),
-                sources=["bm25"],
-                light_metadata=_light_metadata(self._catalog_by_id.get(product_id, {})),
-            ))
-        return results
-
-
-class MockQdrantProductSearcher:
-    """
-    Local vector-search mock for development.
-
-    It reads Qdrant-like seed documents and computes cosine similarity over a
-    lightweight token vector. Replace this class with a real Qdrant client when
-    the collection is available.
-    """
-
-    def __init__(self, catalog_by_id: dict[str, dict]):
-        self._docs = _load_json(settings.product_vector_seed_path)
-        self._catalog_by_id = catalog_by_id
-        for doc in self._docs:
-            product = catalog_by_id.get(doc["product_id"], {})
-            doc["_vector_text"] = " ".join([
-                doc.get("semantic_text", ""),
-                product.get("name", ""),
-                product.get("description", ""),
-                " ".join(product.get("tags", [])),
-            ])
-            doc["_vector"] = _text_vector(doc["_vector_text"])
-
-    def search(self, target: str, query: str, limit: int) -> list[ProductSearchCandidate]:
-        query_vector = _text_vector(query)
-        scored: list[tuple[dict, float]] = []
-        for doc in self._docs:
-            score = _cosine(query_vector, doc["_vector"])
-            if score > 0:
-                scored.append((doc, score))
-
-        if not scored:
-            return []
-
-        max_score = max(score for _, score in scored) or 1.0
-        ranked = sorted(scored, key=lambda pair: pair[1], reverse=True)
-        results: list[ProductSearchCandidate] = []
-        for doc, score in ranked[:limit]:
-            product_id = doc["product_id"]
-            results.append(ProductSearchCandidate(
-                product_id=product_id,
-                target=target,
-                matched_text=doc.get("semantic_text", ""),
-                vector_score=round(score / max_score, 4),
-                sources=["qdrant"],
-                light_metadata=_light_metadata(self._catalog_by_id.get(product_id, {})),
-            ))
-        return results
+    async def _search_qdrant(
+        self,
+        client: httpx.AsyncClient,
+        vector: list[float],
+        limit: int,
+    ) -> list[dict[str, Any]]:
+        response = await client.post(
+            f"{self._base_url}/collections/{self._collection}/points/search",
+            json={
+                "vector": vector,
+                "limit": limit,
+                "with_payload": True,
+                "score_threshold": settings.qdrant_score_threshold,
+            },
+        )
+        response.raise_for_status()
+        payload = response.json()
+        result = payload.get("result", [])
+        return result if isinstance(result, list) else []
 
 
-def _merge_candidates(target_results: dict[str, ProductSearchCandidate], candidates: list[ProductSearchCandidate]) -> None:
+def _candidate_from_qdrant(target: str, query: str, point: dict[str, Any]) -> ProductSearchCandidate:
+    payload = point.get("payload") or {}
+    product_id = str(payload.get("product_id") or point.get("id"))
+    score = round(float(point.get("score") or 0.0), 4)
+    return ProductSearchCandidate(
+        product_id=product_id,
+        target=target,
+        matched_text=payload.get("search_text") or query,
+        vector_score=score,
+        sources=["qdrant"],
+        light_metadata=_light_metadata(payload),
+    )
+
+
+def _candidate_from_product_service(target: str, query: str, hit: dict[str, Any]) -> ProductSearchCandidate:
+    score = round(float(hit.get("_score") or hit.get("score") or 0.0), 4)
+    return ProductSearchCandidate(
+        product_id=str(hit["product_id"]),
+        target=target,
+        matched_text=hit.get("search_text") or hit.get("name") or query,
+        text_score=score,
+        sources=["product_service_text"],
+        light_metadata=_light_metadata(hit),
+    )
+
+
+def _merge_candidates(
+    target_results: dict[str, ProductSearchCandidate],
+    candidates: list[ProductSearchCandidate],
+) -> None:
     for candidate in candidates:
         existing = target_results.get(candidate.product_id)
         if existing is None:
+            _score_candidate(candidate)
             target_results[candidate.product_id] = candidate
             continue
-        existing.bm25_score = max(existing.bm25_score, candidate.bm25_score)
+
+        previous_score = existing.retrieval_score
+        existing.text_score = max(existing.text_score, candidate.text_score)
         existing.vector_score = max(existing.vector_score, candidate.vector_score)
         existing.sources = sorted(set(existing.sources + candidate.sources))
-        if not existing.matched_text:
+        _score_candidate(existing)
+        if existing.retrieval_score >= previous_score and candidate.matched_text:
             existing.matched_text = candidate.matched_text
+        if not existing.light_metadata:
+            existing.light_metadata = candidate.light_metadata
 
 
-def _load_json(path_value: str) -> list[dict]:
-    path = Path(path_value)
-    if not path.exists():
-        return []
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except Exception:
-        return []
+def _score_candidate(candidate: ProductSearchCandidate) -> None:
+    multi_source_bonus = settings.hybrid_multi_source_bonus if len(candidate.sources) > 1 else 0.0
+    candidate.retrieval_score = round(
+        (settings.hybrid_vector_weight * candidate.vector_score)
+        + (settings.hybrid_text_weight * candidate.text_score)
+        + multi_source_bonus,
+        4,
+    )
 
 
-def _light_metadata(product: dict) -> dict[str, Any]:
+def _light_metadata(product: dict[str, Any]) -> dict[str, Any]:
     return {
         "name": product.get("name"),
         "description": product.get("description"),
         "category": product.get("category"),
+        "brand": product.get("brand"),
         "color": product.get("color", []),
         "size": product.get("size", []),
         "material": product.get("material"),
@@ -181,22 +188,3 @@ def _light_metadata(product: dict) -> dict[str, Any]:
         "rating": product.get("rating"),
         "tags": product.get("tags", []),
     }
-
-
-def _tokenize(text: str) -> list[str]:
-    return re.findall(r"[\wÀ-ỹ]+", text.lower())
-
-
-def _text_vector(text: str) -> Counter[str]:
-    return Counter(_tokenize(text))
-
-
-def _cosine(a: Counter[str], b: Counter[str]) -> float:
-    if not a or not b:
-        return 0.0
-    dot = sum(a[token] * b.get(token, 0) for token in a)
-    norm_a = math.sqrt(sum(value * value for value in a.values()))
-    norm_b = math.sqrt(sum(value * value for value in b.values()))
-    if norm_a == 0 or norm_b == 0:
-        return 0.0
-    return dot / (norm_a * norm_b)

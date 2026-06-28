@@ -152,6 +152,9 @@ async def get_fashion_knowledge(
         "preferred_items": rules.preferred_item_types,
         "avoided_items": rules.avoided_item_types,
         "preferred_colors": rules.preferred_colors,
+        "preferred_targets": rules.preferred_targets,
+        "excluded_items": rules.excluded_items,
+        "pairing_rules": rules.pairing_rules,
     }
     return json.dumps(output, ensure_ascii=False, indent=2)
 

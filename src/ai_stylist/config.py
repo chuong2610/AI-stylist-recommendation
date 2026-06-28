@@ -27,13 +27,21 @@ class Settings(BaseSettings):
     # Product Service
     product_service_base_url: str = "http://localhost:8001"
     product_service_timeout: int = 10
-    product_catalog_seed_path: str = "scripts/seeds/product_catalog_seed.json"
+    product_service_text_search_path: str = "/products/search"
 
-    # Local AI-managed retrieval seeds (BM25 + vector mock)
-    product_bm25_seed_path: str = "scripts/seeds/product_bm25_seed.json"
-    product_vector_seed_path: str = "scripts/seeds/product_vector_seed.json"
-    kg_rules_seed_path: str = "scripts/seeds/kg_rules_seed.json"
+    # Seed JSON used only by init scripts and local metadata hydration.
+    product_seed_path: str = "scripts/seeds/products.json"
+    kg_seed_path: str = "scripts/seeds/knowledge_graph.json"
+
+    # Qdrant product vector search
+    qdrant_url: str = "http://localhost:6333"
+    qdrant_product_collection: str = "ai_stylist_products"
+    qdrant_timeout: int = 10
+    qdrant_score_threshold: float = 0.25
     hybrid_search_limit_per_target: int = 8
+    hybrid_vector_weight: float = 0.65
+    hybrid_text_weight: float = 0.35
+    hybrid_multi_source_bonus: float = 0.1
 
     # App
     app_env: str = "development"

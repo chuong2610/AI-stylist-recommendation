@@ -1,4 +1,4 @@
-from typing import Any
+﻿from typing import Any
 
 from pydantic import BaseModel
 
@@ -22,7 +22,7 @@ class RequiredOutput(BaseModel):
 
 class ExtractedIntent(BaseModel):
     intent: str  # outfit_recommendation | general_qa | style_advice
-    request_mode: str | None = None  # complete_outfit | outfit_with_main_item | product_search
+    request_mode: str | None = None  # complete_outfit | outfit_with_main_item
     occasion: str | None = None
     destination: str | None = None
     duration: Duration = Duration()
@@ -43,8 +43,8 @@ _SYSTEM = (
     "and 'general_qa' for fashion questions or advice without product/outfit requests. "
     "Use request_mode='outfit_with_main_item' when the user asks to build an outfit around a "
     "mentioned item, for example 'lên outfit với váy'. Use request_mode='complete_outfit' when "
-    "the user asks for a full outfit without specifying a main item. Use request_mode='product_search' "
-    "when the user only asks to find or suggest a single product type. "
+    "the user asks for a full outfit without specifying a main item. "
+    "Only use complete_outfit or outfit_with_main_item in the outfit recommendation flow. "
     "Put natural item names from the user in requested_items, for example ['váy'], ['quần'], ['áo sơ mi']."
 )
 
@@ -56,7 +56,7 @@ Return JSON matching the schema.
 Guidelines:
 - requested_items are item names in the user's language, not broad system categories.
 - "lên outfit với váy đi tiệc" => intent=outfit_recommendation, request_mode=outfit_with_main_item, requested_items=["váy"], occasion=party.
-- "tìm váy đi tiệc" => request_mode=product_search, requested_items=["váy"].
+- "tìm váy đi tiệc" => request_mode=outfit_with_main_item, requested_items=["váy"].
 - "gợi ý outfit đi tiệc" => request_mode=complete_outfit.
 - Vietnamese destinations like Vũng Tàu, Nha Trang, Phú Quốc imply occasion=beach.
 - For modesty_level use: low | medium | medium_high | high.
@@ -78,3 +78,4 @@ class IntentExtractor:
         if isinstance(result, ExtractedIntent):
             return result
         return ExtractedIntent(**result) if isinstance(result, dict) else ExtractedIntent(intent="general_qa")
+

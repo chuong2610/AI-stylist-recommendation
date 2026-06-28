@@ -64,8 +64,10 @@ ai_stylist/
 ├── ARCHITECTURE.md               # File này
 │
 ├── scripts/
-│   ├── seed_knowledge.sql        # Seed concepts, aliases, edges, rules → PostgreSQL
-│   └── seed_neo4j.cypher         # Seed knowledge graph → Neo4j
+│   ├── init_concepts.py          # Sync KG JSON concepts → PostgreSQL semantic store
+│   ├── init_graphdb.py           # Sync KG JSON → Neo4j
+│   ├── init_qdrant.py            # Sync product JSON → Qdrant
+│   └── seeds/                    # products.json + knowledge_graph.json
 │
 └── src/ai_stylist/
     ├── main.py                   # FastAPI app + lifespan
@@ -91,7 +93,7 @@ ai_stylist/
     │   └── concept_repo.py       # Read concepts, aliases, edges, rules
     │
     ├── clients/
-    │   └── product_client.py     # HTTP client → Product Service (mock fallback)
+    │   └── product_client.py     # HTTP client → Product Service metadata hydration
     │
     ├── services/
     │   │
@@ -115,7 +117,7 @@ ai_stylist/
     │   │   └── knowledge_graph.py  # Stage 4: Neo4j + SQL → FashionRules
     │   │
     │   ├── product/
-    │   │   ├── search_service.py   # Stage 6: hybrid search (structured + semantic)
+    │   │   ├── hybrid_retriever.py # Stage 6: hybrid product search
     │   │   ├── filter_service.py   # Stage 8: loại vi phạm hard constraints
     │   │   └── ranking_service.py  # Stage 9: scoring + shortlist
     │   │
@@ -334,11 +336,9 @@ Singleton `AsyncDriver`. `get_driver()` lazy init. `close_driver()` cleanup.
 
 ### `clients/product_client.py`
 
-HTTP client gọi Product Service qua httpx. Auto-fallback sang `_MOCK_PRODUCTS` (12 sản phẩm) khi service không available.
+HTTP client gọi Product Service qua httpx để search text trong hybrid retrieval và hydrate metadata sau khi đã chọn product IDs. Khi chạy local không có Product Service, client đọc `scripts/seeds/products.json` để hydrate metadata, không tham gia product search.
 
-3 methods:
-- `structured_search(ProductSearchQuery)` → `GET /products?...`
-- `semantic_search(SemanticSearchQuery)` → `POST /products/search/semantic`
+Main method:
 - `batch_fetch(product_ids)` → `POST /products/batch`
 
 ### `services/agent/checkpointer.py`
@@ -444,20 +444,18 @@ Stage 11. `generate_structured(response_schema=OutfitPlanResult, temperature=0.4
 System prompt enforce: *"Only use products from shortlisted_products"*.
 Input: intent dict + rules dict + shortlisted products dict. Output: `OutfitPlanResult {summary, outfit_plan: [DayPlan]}`.
 
-### `services/concept/resolver.py`
+### `services/concept/embedding_service.py`
 
-Stage 3. Resolve user terms → canonical concept IDs:
-1. Exact match: `SELECT FROM concept_aliases WHERE alias ILIKE term`
-2. Substring fallback: tách words (≥3 chars), thử từng word
+Stage 3. Resolve user terms → canonical concept IDs bằng Gemini embeddings + pgvector cosine search.
 Returns `ResolvedConcept {input_term, concept_id, concept_name, concept_type, confidence}`.
 
-`resolve_from_intent(intent_dict)` — tự extract terms từ style_preferences, occasion, destination, height_group, modesty_level, comfort_needs, raw_keywords.
+`resolve_from_intent(intent_dict)` — tự extract terms từ requested_items, style_preferences, occasion, destination, height_group, modesty_level, comfort_needs, raw_keywords.
 
 ### `services/concept/knowledge_graph.py`
 
 Stage 4. Query fashion rules từ resolved concept IDs:
 1. **Neo4j** (Cypher MATCH): traverse graph, collect relations
-2. **SQL** fallback (luôn chạy): `concept_rules` + `concept_edges`
+2. **Rule nodes**: `(:Concept)-[:HAS_RULE]->(:Rule)` payload từ `scripts/seeds/knowledge_graph.json`
 
 Output `FashionRules {style_rules, body_rules, occasion_rules, modesty_rules, hard_constraints, soft_preferences, preferred_item_types, avoided_item_types, preferred_colors}`.
 
@@ -471,16 +469,15 @@ Stage 5. Merge `ExtractedIntent` + `FashionRules` → `OutfitConstraints`:
 
 **Soft preferences** (boost score): colors, preferred_items, avoid_items, style_tags.
 
-**Search queries**: `ProductSearchQuery` (structured) + `SemanticSearchQuery` (text).
+**Search queries**: LLM-generated product terms sent to Qdrant semantic search and Product Service text search.
 
-### `services/product/search_service.py`
+### `services/product/hybrid_retriever.py`
 
-Stage 6. Hybrid search chạy parallel:
+Stage 6. Hybrid product search:
 ```python
-asyncio.gather(
-    client.structured_search(...),  # filter theo tags/category
-    client.semantic_search(...)     # vector similarity
-)
+embeddings = gemini.embed_texts(search_terms)
+qdrant.search(collection, embeddings)
+product_service.search_text(search_terms)
 ```
 `_merge_and_deduplicate()`: sản phẩm trùng ID → merge scores, union sources list.
 
@@ -516,12 +513,10 @@ Orchestrator Stage 3–12:
 input: ExtractedIntent + original_message
   → Stage 3: ConceptResolver.resolve_from_intent()
   → Stage 4: KnowledgeGraphService.get_rules()
-  → Stage 5: ConstraintBuilder.build()
-  → Stage 6: ProductSearchService.search()  [parallel structured+semantic]
-  → Stage 8: ProductFilterService.filter()
-  → Stage 9: ProductRankingService.rank()
-  → Stage 10: shortlist()
-  → Stage 11: OutfitPlanner.plan()  [Gemini structured output]
+  → Stage 5: SearchTermGenerator.generate()
+  → Stage 6: HybridProductRetriever.search()
+  → Stage 7: FinalResponseGenerator.generate()
+  → Stage 8: ProductServiceClient.batch_fetch()
   → Stage 12: format_outfit_plan()  [enrich với price/image/url]
 output: { summary, outfit_plan, resolved_concepts, debug }
 ```
@@ -812,9 +807,9 @@ INPUT: ExtractedIntent + original_message
 │   MATCH (c:Concept {id: cid})-[r]->(target:Concept)            │
 │   RETURN source, type(r), r.weight, target                      │
 │                                                                  │
-│ SQL fallback (luôn chạy):                                        │
-│   SELECT FROM concept_rules WHERE concept_id IN (...)           │
-│   SELECT FROM concept_edges WHERE source_concept_id IN (...)    │
+│ Neo4j rule nodes:                                                │
+│   MATCH (concept)-[:HAS_RULE]->(rule)                           │
+│   RETURN rule.type, rule.payload_json, rule.priority            │
 │                                                                  │
 │ Output: FashionRules {                                           │
 │   hard_constraints: {                                            │
@@ -855,13 +850,12 @@ INPUT: ExtractedIntent + original_message
 └─────────────────────────────────────────────────────────────────┘
          ↓
 ┌─────────────────────────────────────────────────────────────────┐
-│ Stage 6: ProductSearchService (Hybrid)                           │
+│ Stage 6: HybridProductRetriever                                  │
 │                                                                  │
-│ asyncio.gather(                                                  │
-│   ProductClient.structured_search → filter by tags/category,   │
-│   ProductClient.semantic_search   → vector similarity query     │
-│ )                                                                │
-│ + graph_expansion nếu có expanded_tags                          │
+│ Embed LLM-generated product terms                                │
+│ Query Qdrant product vector collection                           │
+│ Query Product Service text search                                │
+│ Merge candidates per target item                                 │
 │                                                                  │
 │ _merge_and_deduplicate():                                        │
 │   - structured: dict[id→Product], structured_match_score=0.80  │
@@ -979,12 +973,11 @@ INPUT: ExtractedIntent + original_message
     │   aliases,       │    │    traversal)        │
     │   edges, rules)  │    └─────────────────────┘
     └──────────┬───────┘
-               │ ProductSearchService
+               │ HybridProductRetriever
     ┌──────────▼──────────────────────┐
-    │     Product Service (external)   │
-    │     structured_search /          │
-    │     semantic_search              │
-    │     [mock fallback nếu offline]  │
+    │     Hybrid product search        │
+    │     semantic search by LLM terms │
+    │     Product Service hydrates IDs │
     └──────────────────────────────────┘
 ```
 
@@ -1000,12 +993,13 @@ cp .env.example .env
 # 2. Start local services
 docker-compose up -d
 
-# 3. Chạy app (tự tạo tables khi startup)
-uv run uvicorn ai_stylist.main:app --reload --port 8000
+# 3. Seed semantic concepts, graph rules, and product vectors
+uv run python scripts/init_concepts.py --index
+uv run python scripts/init_graphdb.py --clear
+uv run python scripts/init_qdrant.py --recreate
 
-# 4. Seed knowledge data
-docker exec -i ai_stylist_postgres psql -U stylist -d ai_stylist < scripts/seed_knowledge.sql
-# Neo4j: mở http://localhost:7474, paste scripts/seed_neo4j.cypher
+# 4. Chạy app (tự tạo tables khi startup)
+uv run uvicorn ai_stylist.main:app --reload --port 8000
 
 # 5. Swagger UI
 # http://localhost:8000/docs
