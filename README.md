@@ -94,8 +94,42 @@ Invoke-RestMethod http://localhost:8000/health
 - `POST /api/v1/sessions`
 - `POST /api/v1/sessions/{session_id}/messages`
 - `POST /api/v1/recommendations/outfit`
+- `POST /api/v1/knowledge/ingest`
 
 The chat API routes user messages through the LangGraph agent. The direct recommendation API runs the outfit pipeline without the chat tool loop.
+
+## Knowledge Ingestion API
+
+Use this endpoint to ingest fashion blog text or URLs into a Postgres review draft. It does not write to Neo4j until the user approves the draft.
+
+```powershell
+Invoke-RestMethod http://localhost:8000/api/v1/knowledge/ingest `
+  -Method Post `
+  -ContentType 'application/json' `
+  -Body '{
+    "user_id": "demo-user",
+    "title": "Old money basics",
+    "texts": ["Phong cách old money ưu tiên blazer, sơ mi, quần âu và màu trung tính."],
+    "urls": [],
+    "locale": "vi-VN"
+  }'
+```
+
+The service extracts a KG delta with `Concept`, fashion relations, and `Rule` rows, then stores the draft in `knowledge_sources`.
+
+Approve a draft after review:
+
+```powershell
+Invoke-RestMethod http://localhost:8000/api/v1/knowledge/sources/{source_id}/approve -Method Post
+```
+
+Delete a draft or approved source:
+
+```powershell
+Invoke-RestMethod http://localhost:8000/api/v1/knowledge/sources/{source_id} -Method Delete
+```
+
+Approved sources are upserted into Neo4j and merged into `.cache/concept_embeddings.json`. Deleting an approved source removes the KG rows tagged with that source and clears cache entries for concepts that no longer exist.
 
 ## Agent Tools
 

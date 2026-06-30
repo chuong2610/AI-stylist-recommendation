@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from ai_stylist.config import settings
+from ai_stylist.services.concept.cache import concept_text
 from ai_stylist.services.llm.gemini_client import GeminiClient
 
 
@@ -43,13 +44,7 @@ class EmbeddingService:
         return await self._gemini.embed_texts(terms)
 
     def concept_text(self, concept: dict[str, Any]) -> str:
-        alias_str = " ".join(str(alias) for alias in concept.get("aliases", []))
-        return (
-            f"{concept.get('name', '')} "
-            f"{concept.get('type', '')} "
-            f"{concept.get('description') or ''} "
-            f"{alias_str}"
-        ).strip()
+        return concept_text(concept)
 
     async def resolve_terms(self, terms: list[str]) -> list[ResolvedConcept]:
         """Embed terms and find the closest JSON concept for each via cosine similarity."""

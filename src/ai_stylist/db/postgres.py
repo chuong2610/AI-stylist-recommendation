@@ -25,7 +25,7 @@ async def get_db() -> AsyncSession:
 
 
 async def create_all_tables() -> None:
-    from ai_stylist.models import session, message  # noqa: F401 - registers metadata
+    from ai_stylist.models import knowledge_source, message, session  # noqa: F401 - registers metadata
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 

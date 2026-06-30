@@ -24,3 +24,19 @@ CREATE TABLE IF NOT EXISTS messages (
     created_at TIMESTAMPTZ  NOT NULL DEFAULT NOW()
 );
 CREATE INDEX IF NOT EXISTS ix_messages_session_id ON messages (session_id);
+
+CREATE TABLE IF NOT EXISTS knowledge_sources (
+    id          UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id     VARCHAR(100) NOT NULL,
+    title       VARCHAR(255),
+    status      VARCHAR(20)  NOT NULL DEFAULT 'pending',
+    locale      VARCHAR(20)  NOT NULL DEFAULT 'vi-VN',
+    sources     JSONB        NOT NULL DEFAULT '[]'::jsonb,
+    source_text TEXT         NOT NULL,
+    extraction  JSONB        NOT NULL DEFAULT '{}'::jsonb,
+    approved_at TIMESTAMPTZ,
+    created_at  TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
+    updated_at  TIMESTAMPTZ  NOT NULL DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS ix_knowledge_sources_user_id ON knowledge_sources (user_id);
+CREATE INDEX IF NOT EXISTS ix_knowledge_sources_status ON knowledge_sources (status);
