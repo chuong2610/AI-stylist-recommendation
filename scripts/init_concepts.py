@@ -1,5 +1,5 @@
 """
-Initialize the local concept embedding cache from scripts/seeds/knowledge_graph.json.
+Initialize the Qdrant concept collection from scripts/seeds/knowledge_graph.json.
 
 Usage:
     uv run python scripts/init_concepts.py
@@ -17,7 +17,7 @@ from ai_stylist.services.llm.gemini_client import GeminiClient
 async def main() -> None:
     svc = EmbeddingService(GeminiClient())
     count = await svc.index_all()
-    print(f"Initialized local concept embedding cache with {count} concept(s).")
+    print(f"Initialized Qdrant concept collection with {count} concept(s).")
 
 
 if __name__ == "__main__":

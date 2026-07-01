@@ -34,7 +34,7 @@ async def ingest_knowledge(body: KnowledgeIngestRequest, db: AsyncSession = Depe
         max_edges=body.max_edges,
         max_rules=body.max_rules,
     )
-    return _source_response(source, cache_concepts_merged=0)
+    return _source_response(source, concept_vectors_upserted=0)
 
 
 @router.get("/sources", response_model=list[KnowledgeSourceSummary])
@@ -61,8 +61,8 @@ async def approve_knowledge_source(source_id: uuid.UUID, db: AsyncSession = Depe
     result = await svc.approve_source(db, source_id)
     if result is None:
         raise HTTPException(status_code=404, detail="Knowledge source not found")
-    source, cache_concepts_merged = result
-    return _source_response(source, cache_concepts_merged=cache_concepts_merged)
+    source, concept_vectors_upserted = result
+    return _source_response(source, concept_vectors_upserted=concept_vectors_upserted)
 
 
 @router.delete("/sources/{source_id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -72,7 +72,7 @@ async def delete_knowledge_source(source_id: uuid.UUID, db: AsyncSession = Depen
         raise HTTPException(status_code=404, detail="Knowledge source not found")
 
 
-def _source_response(source: KnowledgeSource, cache_concepts_merged: int) -> KnowledgeIngestResponse:
+def _source_response(source: KnowledgeSource, concept_vectors_upserted: int) -> KnowledgeIngestResponse:
     extraction = _extraction(source)
     return KnowledgeIngestResponse(
         source_id=source.id,
@@ -80,7 +80,7 @@ def _source_response(source: KnowledgeSource, cache_concepts_merged: int) -> Kno
         concepts_upserted=len(extraction["concepts"]) if source.status == "approved" else 0,
         edges_upserted=len(extraction["edges"]) if source.status == "approved" else 0,
         rules_upserted=len(extraction["rules"]) if source.status == "approved" else 0,
-        cache_concepts_merged=cache_concepts_merged,
+        concept_vectors_upserted=concept_vectors_upserted,
         concepts=_concepts(extraction),
         edges=_edges(extraction),
         rules=_rules(extraction),

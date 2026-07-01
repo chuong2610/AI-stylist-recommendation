@@ -23,7 +23,7 @@ class Settings(BaseSettings):
 
     # Concept semantic search
     concept_similarity_threshold: float = 0.65
-    concept_embedding_cache_path: str = ".cache/concept_embeddings.json"
+    qdrant_concept_collection: str = "ai_stylist_concepts"
 
     # Product Service
     product_service_base_url: str = "http://localhost:8001"

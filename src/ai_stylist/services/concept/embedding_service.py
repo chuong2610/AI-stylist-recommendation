@@ -1,12 +1,17 @@
-import json
-import math
-import hashlib
 from dataclasses import dataclass
+import json
 from pathlib import Path
 from typing import Any
 
+import httpx
+
 from ai_stylist.config import settings
-from ai_stylist.services.concept.cache import concept_text
+from ai_stylist.services.concept.concept_index import (
+    concept_collection_exists,
+    concept_text,
+    ensure_concept_collection,
+    upsert_concepts_to_index,
+)
 from ai_stylist.services.llm.gemini_client import GeminiClient
 
 
@@ -20,25 +25,16 @@ class ResolvedConcept:
 
 
 @dataclass
-class _IndexedConcept:
-    id: str
-    name: str
-    type: str
-    embedding: list[float]
-
-
-@dataclass
 class _IntentTerm:
     term: str
     allowed_types: set[str] | None = None
 
 
 class EmbeddingService:
-    """Semantic concept lookup from knowledge_graph.json + in-memory vectors."""
+    """Semantic concept lookup through the Qdrant concept collection."""
 
     def __init__(self, gemini: GeminiClient):
         self._gemini = gemini
-        self._concept_vectors: list[_IndexedConcept] | None = None
 
     async def embed_terms(self, terms: list[str]) -> list[list[float]]:
         return await self._gemini.embed_texts(terms)
@@ -57,30 +53,27 @@ class EmbeddingService:
         if not terms:
             return []
 
-        concepts = await self._load_or_index()
-        if not concepts:
-            return []
-
+        await self._ensure_index_exists()
         embeddings = await self.embed_terms(terms)
         results: list[ResolvedConcept] = []
         seen_ids: set[str] = set()
 
         for spec, embedding in zip(term_specs, embeddings):
-            candidates = _filter_by_type(concepts, spec.allowed_types)
-            match = _best_match(embedding, candidates, settings.concept_similarity_threshold)
+            match = await self._search_one(embedding, spec.allowed_types)
             if match is None:
                 continue
 
-            concept, similarity = match
-            if concept.id in seen_ids:
+            payload, similarity = match
+            concept_id = str(payload.get("concept_id") or "")
+            if not concept_id or concept_id in seen_ids:
                 continue
 
-            seen_ids.add(concept.id)
+            seen_ids.add(concept_id)
             results.append(ResolvedConcept(
                 input_term=spec.term,
-                concept_id=concept.id,
-                concept_name=concept.name,
-                concept_type=concept.type,
+                concept_id=concept_id,
+                concept_name=str(payload.get("name") or concept_id),
+                concept_type=str(payload.get("type") or ""),
                 confidence=round(similarity, 3),
             ))
 
@@ -90,48 +83,64 @@ class EmbeddingService:
         return await self._resolve_term_specs(_extract_intent_terms(intent))
 
     async def index_all(self) -> int:
-        """Embed every JSON concept and persist vectors to the local cache."""
+        """Embed every JSON concept and persist vectors to Qdrant."""
         concepts = _load_json_concepts()
         if not concepts:
             return 0
 
-        texts = [self.concept_text(concept) for concept in concepts]
-        embeddings = await self._gemini.embed_texts(texts)
-        cache = {
-            "source_path": settings.kg_seed_path,
-            "source_hash": _source_hash(),
-            "embedding_model": settings.gemini_embedding_model,
-            "concepts": [
-                {
-                    "id": concept["id"],
-                    "name": concept["name"],
-                    "type": concept["type"],
-                    "description": concept.get("description"),
-                    "aliases": concept.get("aliases", []),
-                    "text": text,
-                    "embedding": embedding,
-                }
-                for concept, text, embedding in zip(concepts, texts, embeddings)
-            ],
+        async with httpx.AsyncClient(timeout=settings.qdrant_timeout) as client:
+            embeddings = await self._gemini.embed_texts([self.concept_text(concept) for concept in concepts[:1]])
+            if not embeddings:
+                return 0
+            await ensure_concept_collection(client, len(embeddings[0]), recreate=True)
+
+        return await upsert_concepts_to_index(concepts, self._gemini)
+
+    async def _ensure_index_exists(self) -> None:
+        async with httpx.AsyncClient(timeout=settings.qdrant_timeout) as client:
+            if not await concept_collection_exists(client):
+                await self.index_all()
+
+    async def _search_one(
+        self,
+        embedding: list[float],
+        allowed_types: set[str] | None,
+    ) -> tuple[dict[str, Any], float] | None:
+        body: dict[str, Any] = {
+            "vector": embedding,
+            "limit": 1,
+            "with_payload": True,
+            "score_threshold": settings.concept_similarity_threshold,
         }
+        if allowed_types:
+            body["filter"] = {
+                "must": [
+                    {
+                        "key": "type",
+                        "match": {"any": sorted(allowed_types)},
+                    }
+                ]
+            }
 
-        cache_path = _cache_path()
-        cache_path.parent.mkdir(parents=True, exist_ok=True)
-        cache_path.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
-        self._concept_vectors = _indexed_from_cache(cache)
-        return len(concepts)
+        async with httpx.AsyncClient(timeout=settings.qdrant_timeout) as client:
+            response = await client.post(
+                f"{settings.qdrant_url.rstrip('/')}/collections/{settings.qdrant_concept_collection}/points/search",
+                json=body,
+            )
+            if response.status_code == 404:
+                await self.index_all()
+                response = await client.post(
+                    f"{settings.qdrant_url.rstrip('/')}/collections/{settings.qdrant_concept_collection}/points/search",
+                    json=body,
+                )
+            response.raise_for_status()
 
-    async def _load_or_index(self) -> list[_IndexedConcept]:
-        if self._concept_vectors is not None:
-            return self._concept_vectors
-
-        cache = _load_cache()
-        if cache is None:
-            await self.index_all()
-        else:
-            self._concept_vectors = _indexed_from_cache(cache)
-
-        return self._concept_vectors or []
+        points = response.json().get("result", [])
+        if not points:
+            return None
+        point = points[0]
+        payload = point.get("payload") or {}
+        return payload, float(point.get("score") or 0.0)
 
 
 def _extract_intent_terms(intent: dict) -> list[_IntentTerm]:
@@ -211,81 +220,3 @@ def _load_json_concepts() -> list[dict[str, Any]]:
     data = json.loads(path.read_text(encoding="utf-8"))
     concepts = data.get("concepts", []) if isinstance(data, dict) else []
     return concepts if isinstance(concepts, list) else []
-
-
-def _cache_path() -> Path:
-    return Path(settings.concept_embedding_cache_path)
-
-
-def _load_cache() -> dict[str, Any] | None:
-    path = _cache_path()
-    if not path.exists():
-        return None
-    try:
-        cache = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return None
-    if cache.get("embedding_model") != settings.gemini_embedding_model:
-        return None
-    if cache.get("source_hash") != _source_hash():
-        return None
-    if not isinstance(cache.get("concepts"), list):
-        return None
-    return cache
-
-
-def _source_hash() -> str:
-    path = Path(settings.kg_seed_path)
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def _indexed_from_cache(cache: dict[str, Any]) -> list[_IndexedConcept]:
-    indexed: list[_IndexedConcept] = []
-    for row in cache.get("concepts", []):
-        if not isinstance(row, dict):
-            continue
-        embedding = row.get("embedding")
-        if not isinstance(embedding, list):
-            continue
-        indexed.append(_IndexedConcept(
-            id=str(row["id"]),
-            name=str(row.get("name") or row["id"]),
-            type=str(row.get("type") or ""),
-            embedding=[float(value) for value in embedding],
-        ))
-    return indexed
-
-
-def _best_match(
-    embedding: list[float],
-    concepts: list[_IndexedConcept],
-    min_similarity: float,
-) -> tuple[_IndexedConcept, float] | None:
-    best: tuple[_IndexedConcept, float] | None = None
-    for concept in concepts:
-        similarity = _cosine_similarity(embedding, concept.embedding)
-        if similarity < min_similarity:
-            continue
-        if best is None or similarity > best[1]:
-            best = (concept, similarity)
-    return best
-
-
-def _filter_by_type(
-    concepts: list[_IndexedConcept],
-    allowed_types: set[str] | None,
-) -> list[_IndexedConcept]:
-    if not allowed_types:
-        return concepts
-    return [concept for concept in concepts if concept.type in allowed_types]
-
-
-def _cosine_similarity(left: list[float], right: list[float]) -> float:
-    if not left or not right or len(left) != len(right):
-        return 0.0
-    dot = sum(a * b for a, b in zip(left, right))
-    left_norm = math.sqrt(sum(a * a for a in left))
-    right_norm = math.sqrt(sum(b * b for b in right))
-    if left_norm == 0.0 or right_norm == 0.0:
-        return 0.0
-    return dot / (left_norm * right_norm)

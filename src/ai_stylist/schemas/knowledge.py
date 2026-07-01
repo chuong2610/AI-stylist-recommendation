@@ -47,7 +47,7 @@ class KnowledgeIngestResponse(BaseModel):
     concepts_upserted: int
     edges_upserted: int
     rules_upserted: int
-    cache_concepts_merged: int
+    concept_vectors_upserted: int
     concepts: list[IngestedConcept]
     edges: list[IngestedEdge]
     rules: list[IngestedRule]

@@ -12,7 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from ai_stylist.db.neo4j import get_driver
 from ai_stylist.models.knowledge_source import KnowledgeSource
-from ai_stylist.services.concept.cache import merge_concepts_into_cache, remove_concepts_from_cache
+from ai_stylist.services.concept.concept_index import delete_concepts_from_index, upsert_concepts_to_index
 from ai_stylist.services.llm.gemini_client import GeminiClient
 
 
@@ -135,10 +135,10 @@ class KnowledgeIngestionService:
             return None
 
         extraction = KGExtraction.model_validate(source.extraction)
-        cache_count = 0
+        vector_count = 0
         if source.status != "approved":
             await self._upsert_kg(extraction, str(source.id))
-            cache_count = await merge_concepts_into_cache(
+            vector_count = await upsert_concepts_to_index(
                 [concept.model_dump() for concept in extraction.concepts],
                 self._gemini,
             )
@@ -146,7 +146,7 @@ class KnowledgeIngestionService:
             source.approved_at = datetime.utcnow()
             await db.commit()
             await db.refresh(source)
-        return source, cache_count
+        return source, vector_count
 
     async def delete_source(self, db: AsyncSession, source_id: uuid.UUID) -> bool:
         source = await self.get_source(db, source_id)
@@ -157,7 +157,7 @@ class KnowledgeIngestionService:
             extraction = KGExtraction.model_validate(source.extraction)
             concept_ids = {concept.id for concept in extraction.concepts}
             missing_ids = await self._missing_concept_ids(concept_ids)
-            remove_concepts_from_cache(missing_ids)
+            await delete_concepts_from_index(missing_ids)
         await db.delete(source)
         await db.commit()
         return True

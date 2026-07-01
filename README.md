@@ -1,6 +1,6 @@
 # AI Stylist
 
-AI Stylist is a FastAPI service for fashion chat, product search, and outfit recommendations. The current pipeline uses Gemini, a JSON-backed fashion concept seed, Neo4j for fashion rules, Qdrant for product vector search, and PostgreSQL for chat/session persistence.
+AI Stylist is a FastAPI service for fashion chat, product search, and outfit recommendations. The current pipeline uses Gemini, a JSON-backed fashion concept seed, Neo4j for fashion rules, Qdrant for concept and product vector search, and PostgreSQL for chat/session persistence.
 
 ## Runtime Pieces
 
@@ -8,7 +8,7 @@ AI Stylist is a FastAPI service for fashion chat, product search, and outfit rec
 - LangGraph ReAct agent for chat messages
 - Gemini for intent extraction, embeddings, search-term generation, and final outfit text
 - Concept seed from `scripts/seeds/knowledge_graph.json`
-- Local concept embedding cache at `.cache/concept_embeddings.json`
+- Qdrant concept vector index from `scripts/seeds/knowledge_graph.json`
 - Neo4j knowledge graph for concepts, aliases, edges, and rules
 - Qdrant product vector index from `scripts/seeds/products.json`
 - Product Service client with local seed fallback for product hydration/search
@@ -65,11 +65,11 @@ uv run python scripts/init_qdrant.py --recreate
 
 What they do:
 
-- `init_concepts.py`: builds `.cache/concept_embeddings.json` from `knowledge_graph.json`
+- `init_concepts.py`: recreates the Qdrant concept collection from `knowledge_graph.json`
 - `init_graphdb.py --clear`: recreates the Neo4j fashion KG from `knowledge_graph.json`
 - `init_qdrant.py --recreate`: recreates product vectors from `products.json` and creates payload indexes for `price` and `category`
 
-Re-run Qdrant init when product text, product price, product category, or embedding logic changes.
+Re-run concept init when concept text or aliases change. Re-run product Qdrant init when product text, product price, product category, or embedding logic changes.
 
 ## Run API
 
@@ -129,7 +129,7 @@ Delete a draft or approved source:
 Invoke-RestMethod http://localhost:8000/api/v1/knowledge/sources/{source_id} -Method Delete
 ```
 
-Approved sources are upserted into Neo4j and merged into `.cache/concept_embeddings.json`. Deleting an approved source removes the KG rows tagged with that source and clears cache entries for concepts that no longer exist.
+Approved sources are upserted into Neo4j and merged into the Qdrant concept collection. Deleting an approved source removes the KG rows tagged with that source and clears Qdrant concept vectors for concepts that no longer exist.
 
 ## Agent Tools
 
@@ -144,7 +144,7 @@ Approved sources are upserted into Neo4j and merged into `.cache/concept_embeddi
 
 1. User message enters the chat API or direct recommendation API.
 2. Intent is extracted by Gemini into a structured `ExtractedIntent`.
-3. Concepts are resolved semantically from `.cache/concept_embeddings.json`.
+3. Concepts are resolved semantically from the Qdrant concept collection.
 4. Resolved concept IDs are used to read rules from Neo4j.
 5. Gemini generates target-specific product search terms.
 6. Qdrant vector search retrieves product candidates and can filter by `category` and `price`.
