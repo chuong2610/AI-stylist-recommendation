@@ -10,9 +10,9 @@ class KnowledgeIngestRequest(BaseModel):
     texts: list[str] = Field(default_factory=list)
     urls: list[HttpUrl] = Field(default_factory=list)
     locale: str = "vi-VN"
-    max_concepts: int = Field(default=30, ge=1, le=80)
-    max_edges: int = Field(default=60, ge=1, le=160)
-    max_rules: int = Field(default=60, ge=1, le=160)
+    max_concepts: int = Field(default=50, ge=1, le=120)
+    max_edges: int = Field(default=100, ge=1, le=240)
+    max_rules: int = Field(default=100, ge=1, le=240)
 
     @model_validator(mode="after")
     def require_source(self):
@@ -25,6 +25,8 @@ class IngestedConcept(BaseModel):
     id: str
     name: str
     type: str
+    description: str = ""
+    aliases: list[str] = Field(default_factory=list)
 
 
 class IngestedEdge(BaseModel):

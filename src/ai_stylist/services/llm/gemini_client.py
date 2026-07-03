@@ -80,7 +80,7 @@ class GeminiClient:
             response_mime_type="application/json",
             response_schema=api_schema,
             temperature=temperature,
-            max_output_tokens=4096,
+            max_output_tokens=8192,
         )
         response = await self._client.aio.models.generate_content(
             model=self.model,

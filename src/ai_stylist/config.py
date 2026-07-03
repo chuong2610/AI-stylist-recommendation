@@ -21,6 +21,11 @@ class Settings(BaseSettings):
     gemini_model: str = "gemini-2.0-flash"
     gemini_embedding_model: str = "text-embedding-004"
 
+    # Firecrawl blog ingestion
+    firecrawl_api_key: str = ""
+    firecrawl_base_url: str = "https://api.firecrawl.dev/v2"
+    firecrawl_timeout: int = 120
+
     # Concept semantic search
     concept_similarity_threshold: float = 0.65
     qdrant_concept_collection: str = "ai_stylist_concepts"

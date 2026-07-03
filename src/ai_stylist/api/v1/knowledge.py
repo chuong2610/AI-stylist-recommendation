@@ -23,17 +23,20 @@ router = APIRouter(prefix="/knowledge", tags=["knowledge"])
 @router.post("/ingest", response_model=KnowledgeIngestResponse)
 async def ingest_knowledge(body: KnowledgeIngestRequest, db: AsyncSession = Depends(get_db)):
     svc = KnowledgeIngestionService()
-    source = await svc.create_draft(
-        db=db,
-        user_id=body.user_id,
-        title=body.title,
-        texts=body.texts,
-        urls=[str(url) for url in body.urls],
-        locale=body.locale,
-        max_concepts=body.max_concepts,
-        max_edges=body.max_edges,
-        max_rules=body.max_rules,
-    )
+    try:
+        source = await svc.create_draft(
+            db=db,
+            user_id=body.user_id,
+            title=body.title,
+            texts=body.texts,
+            urls=[str(url) for url in body.urls],
+            locale=body.locale,
+            max_concepts=body.max_concepts,
+            max_edges=body.max_edges,
+            max_rules=body.max_rules,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
     return _source_response(source, concept_vectors_upserted=0)
 
 
@@ -126,7 +129,16 @@ def _extraction(source: KnowledgeSource) -> dict:
 
 
 def _concepts(extraction: dict) -> list[IngestedConcept]:
-    return [IngestedConcept(id=c["id"], name=c["name"], type=c["type"]) for c in extraction["concepts"]]
+    return [
+        IngestedConcept(
+            id=c["id"],
+            name=c["name"],
+            type=c["type"],
+            description=c.get("description", ""),
+            aliases=c.get("aliases", []),
+        )
+        for c in extraction["concepts"]
+    ]
 
 
 def _edges(extraction: dict) -> list[IngestedEdge]:

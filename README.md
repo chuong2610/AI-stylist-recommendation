@@ -20,6 +20,7 @@ AI Stylist is a FastAPI service for fashion chat, product search, and outfit rec
 - `uv`
 - Docker and Docker Compose
 - Gemini API key
+- Firecrawl API key for blog URL ingestion
 
 ## Environment
 
@@ -33,11 +34,18 @@ Set at least:
 
 ```env
 GEMINI_API_KEY=your_key_here
-DATABASE_URL=postgresql+asyncpg://stylist:stylist123@localhost:5432/ai_stylist
+FIRECRAWL_API_KEY=your_firecrawl_key_here
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_DB=ai_stylist
+POSTGRES_USER=stylist
+POSTGRES_PASSWORD=stylist123
 NEO4J_URI=bolt://localhost:7687
 NEO4J_USER=neo4j
 NEO4J_PASSWORD=stylist123
 QDRANT_URL=http://localhost:6333
+QDRANT_CONCEPT_COLLECTION=ai_stylist_concepts
+QDRANT_PRODUCT_COLLECTION=ai_stylist_products
 ```
 
 ## Start Infrastructure
@@ -100,7 +108,7 @@ The chat API routes user messages through the LangGraph agent. The direct recomm
 
 ## Knowledge Ingestion API
 
-Use this endpoint to ingest fashion blog text or URLs into a Postgres review draft. It does not write to Neo4j until the user approves the draft.
+Use this endpoint to ingest fashion blog text or blog URLs into a Postgres review draft. Blog URLs are scraped through Firecrawl and require `FIRECRAWL_API_KEY`. It does not write to Neo4j until the user approves the draft.
 
 ```powershell
 Invoke-RestMethod http://localhost:8000/api/v1/knowledge/ingest `
