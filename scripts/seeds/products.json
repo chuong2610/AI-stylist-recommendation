@@ -1,233 +1,3805 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "products": [
     {
-      "product_id": "P101",
-      "name": "Đầm midi đen dự tiệc cổ vuông",
-      "description": "Đầm midi satin màu đen, dáng ôm nhẹ, cổ vuông, hợp tiệc tối và dinner date.",
-      "category": "dress",
-      "brand": "StyleLab",
-      "color": ["đen"],
-      "size": ["S", "M", "L"],
-      "material": "satin",
-      "price": 490000,
-      "stock_status": "in_stock",
-      "rating": 4.8,
-      "review_count": 124,
-      "sales_count": 620,
-      "image_url": "https://example.com/products/p101.jpg",
-      "product_url": "https://example.com/products/p101",
-      "tags": ["váy", "đầm", "midi_dress", "party", "elegant", "satin"],
-      "search_text": "đầm midi đen dự tiệc cổ vuông satin váy tiệc tối elegant"
+      "product_id": "SM-PRD-001",
+      "name": "Áo Thun Cotton Cổ Tròn Nam Basic",
+      "description": "Áo thun cotton mềm nhẹ với phom dễ mặc, phù hợp đi học, đi làm hoặc phối nhiều lớp hằng ngày. Thiết kế tối giản giúp món đồ bền xu hướng và dễ lặp lại trong tủ đồ.",
+      "base_price": 229000.0,
+      "target_demographic": "MALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-001-V01",
+          "product_id": "SM-PRD-001",
+          "sku": "SM-ATC001-M-WHT",
+          "size": "M",
+          "color": "Trắng",
+          "material": "Cotton 100%",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-001-V02",
+          "product_id": "SM-PRD-001",
+          "sku": "SM-ATC001-L-BLK",
+          "size": "L",
+          "color": "Đen",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-001-V03",
+          "product_id": "SM-PRD-001",
+          "sku": "SM-ATC001-XL-NVY",
+          "size": "XL",
+          "color": "Xanh navy",
+          "material": "Rib cotton",
+          "price_override": null,
+          "stock_quantity": 5,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/422992/item/vngoods_16_422992_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-thun-cotton-co-tron-nam-basic-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-thun",
+          "name": "Áo thun"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-thun",
+        "nam",
+        "basic"
+      ],
+      "search_text": "Áo Thun Cotton Cổ Tròn Nam Basic Áo thun cotton mềm nhẹ với phom dễ mặc, phù hợp đi học, đi làm hoặc phối nhiều lớp hằng ngày. Thiết kế tối giản giúp món đồ bền xu hướng và dễ lặp lại trong tủ đồ. Áo, Áo thun, Nam, Basic Trắng, Đen, Xanh navy"
     },
     {
-      "product_id": "P102",
-      "name": "Váy cocktail đỏ dáng chữ A",
-      "description": "Váy cocktail màu đỏ, dáng chữ A, chất liệu nhẹ, hợp tiệc sinh nhật hoặc tiệc tối.",
-      "category": "dress",
-      "brand": "StyleLab",
-      "color": ["đỏ"],
-      "size": ["S", "M"],
-      "material": "polyester",
-      "price": 420000,
-      "stock_status": "in_stock",
-      "rating": 4.6,
-      "review_count": 88,
-      "sales_count": 430,
-      "image_url": "https://example.com/products/p102.jpg",
-      "product_url": "https://example.com/products/p102",
-      "tags": ["váy", "đầm", "cocktail_dress", "party", "feminine"],
-      "search_text": "váy cocktail đỏ dáng chữ A đi tiệc sinh nhật nữ tính"
+      "product_id": "SM-PRD-002",
+      "name": "Áo Thun Giữ Nhiệt Dài Tay Nam",
+      "description": "Áo thun cotton mềm nhẹ với phom dễ mặc, phù hợp đi học, đi làm hoặc phối nhiều lớp hằng ngày. Bảng màu dịu và bề mặt vải mềm tạo cảm giác nhẹ nhàng, dễ mặc quanh năm.",
+      "base_price": 319000.0,
+      "target_demographic": "MALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-002-V01",
+          "product_id": "SM-PRD-002",
+          "sku": "SM-ATC002-M-GRY",
+          "size": "M",
+          "color": "Xám",
+          "material": "Cotton 100%",
+          "price_override": null,
+          "stock_quantity": 20,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-002-V02",
+          "product_id": "SM-PRD-002",
+          "sku": "SM-ATC002-L-OLV",
+          "size": "L",
+          "color": "Rêu",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 12,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-002-V03",
+          "product_id": "SM-PRD-002",
+          "sku": "SM-ATC002-XL-BEI",
+          "size": "XL",
+          "color": "Be",
+          "material": "Rib cotton",
+          "price_override": null,
+          "stock_quantity": 7,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/422992/item/vngoods_16_422992_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-thun-giu-nhiet-dai-tay-nam-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-thun",
+          "name": "Áo thun"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-thun",
+        "nam",
+        "basic"
+      ],
+      "search_text": "Áo Thun Giữ Nhiệt Dài Tay Nam Áo thun cotton mềm nhẹ với phom dễ mặc, phù hợp đi học, đi làm hoặc phối nhiều lớp hằng ngày. Bảng màu dịu và bề mặt vải mềm tạo cảm giác nhẹ nhàng, dễ mặc quanh năm. Áo, Áo thun, Nam, Basic Xám, Rêu, Be"
     },
     {
-      "product_id": "P103",
-      "name": "Đầm lụa champagne hai dây",
-      "description": "Đầm lụa màu champagne, form mềm, hợp tiệc tối sang trọng.",
-      "category": "dress",
-      "brand": "StyleLab",
-      "color": ["champagne", "vàng nhạt"],
-      "size": ["M", "L"],
-      "material": "silk",
-      "price": 680000,
-      "stock_status": "in_stock",
-      "rating": 4.9,
-      "review_count": 54,
-      "sales_count": 260,
-      "image_url": "https://example.com/products/p103.jpg",
-      "product_url": "https://example.com/products/p103",
-      "tags": ["váy", "đầm", "slip_dress", "party", "silk", "elegant"],
-      "search_text": "đầm lụa champagne hai dây slip dress dự tiệc sang trọng"
+      "product_id": "SM-PRD-003",
+      "name": "Áo Polo Pique Nam Basic",
+      "description": "Bề mặt vải thoáng và đứng phom, giữ vẻ gọn gàng cho ngày làm việc hoặc cuối tuần năng động. Thiết kế tối giản giúp món đồ bền xu hướng và dễ lặp lại trong tủ đồ.",
+      "base_price": 349000.0,
+      "target_demographic": "MALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-003-V01",
+          "product_id": "SM-PRD-003",
+          "sku": "SM-APL003-M-WHT",
+          "size": "M",
+          "color": "Trắng",
+          "material": "Cotton 100%",
+          "price_override": null,
+          "stock_quantity": 25,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-003-V02",
+          "product_id": "SM-PRD-003",
+          "sku": "SM-APL003-L-NVY",
+          "size": "L",
+          "color": "Xanh navy",
+          "material": "Cotton pha",
+          "price_override": 379000.0,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-003-V03",
+          "product_id": "SM-PRD-003",
+          "sku": "SM-APL003-XL-BLK",
+          "size": "XL",
+          "color": "Đen",
+          "material": "Rib cotton",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/476997/item/vngoods_56_476997_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-polo-pique-nam-basic-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-polo",
+          "name": "Áo polo"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-polo",
+        "nam",
+        "basic"
+      ],
+      "search_text": "Áo Polo Pique Nam Basic Bề mặt vải thoáng và đứng phom, giữ vẻ gọn gàng cho ngày làm việc hoặc cuối tuần năng động. Thiết kế tối giản giúp món đồ bền xu hướng và dễ lặp lại trong tủ đồ. Áo, Áo polo, Nam, Basic Trắng, Xanh navy, Đen"
     },
     {
-      "product_id": "P104",
-      "name": "Váy babydoll hoa nhí đi chơi",
-      "description": "Váy babydoll hoa nhí phong cách casual, hợp đi chơi ban ngày.",
-      "category": "dress",
-      "brand": "StyleLab",
-      "color": ["hoa nhí", "trắng"],
-      "size": ["S", "M", "L"],
-      "material": "cotton",
-      "price": 310000,
-      "stock_status": "in_stock",
-      "rating": 4.4,
-      "review_count": 146,
-      "sales_count": 770,
-      "image_url": "https://example.com/products/p104.jpg",
-      "product_url": "https://example.com/products/p104",
-      "tags": ["váy", "babydoll", "casual", "day_out"],
-      "search_text": "váy babydoll hoa nhí cotton đi chơi casual ban ngày"
+      "product_id": "SM-PRD-004",
+      "name": "Áo Polo Khô Nhanh Nam Thể Thao",
+      "description": "Bề mặt vải thoáng và đứng phom, giữ vẻ gọn gàng cho ngày làm việc hoặc cuối tuần năng động. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển.",
+      "base_price": 399000.0,
+      "target_demographic": "MALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-004-V01",
+          "product_id": "SM-PRD-004",
+          "sku": "SM-APL004-M-ASH",
+          "size": "M",
+          "color": "Ghi",
+          "material": "Cotton 100%",
+          "price_override": null,
+          "stock_quantity": 30,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-004-V02",
+          "product_id": "SM-PRD-004",
+          "sku": "SM-APL004-L-BLK",
+          "size": "L",
+          "color": "Đen",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 18,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-004-V03",
+          "product_id": "SM-PRD-004",
+          "sku": "SM-APL004-XL-SEA",
+          "size": "XL",
+          "color": "Xanh biển",
+          "material": "Rib cotton",
+          "price_override": null,
+          "stock_quantity": 0,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/482305/item/vngoods_00_482305_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-polo-kho-nhanh-nam-the-thao-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-polo",
+          "name": "Áo polo"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "do-the-thao",
+          "name": "Đồ thể thao"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-polo",
+        "nam",
+        "do-the-thao"
+      ],
+      "search_text": "Áo Polo Khô Nhanh Nam Thể Thao Bề mặt vải thoáng và đứng phom, giữ vẻ gọn gàng cho ngày làm việc hoặc cuối tuần năng động. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển. Áo, Áo polo, Nam, Đồ thể thao Ghi, Đen, Xanh biển"
     },
     {
-      "product_id": "P201",
-      "name": "Sandal quai mảnh ánh bạc dự tiệc",
-      "description": "Sandal quai mảnh màu bạc, gót vừa, dễ phối với đầm dự tiệc.",
-      "category": "shoes",
-      "brand": "StepWell",
-      "color": ["bạc"],
-      "size": ["35", "36", "37", "38", "39"],
-      "material": "synthetic leather",
-      "price": 320000,
-      "stock_status": "in_stock",
-      "rating": 4.7,
-      "review_count": 210,
-      "sales_count": 930,
-      "image_url": "https://example.com/products/p201.jpg",
-      "product_url": "https://example.com/products/p201",
-      "tags": ["giày", "sandal", "heels", "party", "metallic", "dress_pairing"],
-      "search_text": "sandal quai mảnh ánh bạc gót vừa phối đầm dự tiệc"
+      "product_id": "SM-PRD-005",
+      "name": "Áo Sơ Mi Oxford Dài Tay Nam",
+      "description": "Chất vải nhẹ tay và lên dáng sạch sẽ, phù hợp mặc riêng hoặc khoác ngoài trong thời tiết nóng ẩm. Gam màu trung tính giúp tổng thể thanh lịch và dễ phối phụ kiện.",
+      "base_price": 559000.0,
+      "target_demographic": "MALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-005-V01",
+          "product_id": "SM-PRD-005",
+          "sku": "SM-ASM005-M-WHT",
+          "size": "M",
+          "color": "Trắng",
+          "material": "Cotton poplin",
+          "price_override": null,
+          "stock_quantity": 35,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-005-V02",
+          "product_id": "SM-PRD-005",
+          "sku": "SM-ASM005-L-LBL",
+          "size": "L",
+          "color": "Xanh nhạt",
+          "material": "Linen pha",
+          "price_override": null,
+          "stock_quantity": 6,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-005-V03",
+          "product_id": "SM-PRD-005",
+          "sku": "SM-ASM005-XL-ASH",
+          "size": "XL",
+          "color": "Ghi",
+          "material": "Satin mềm",
+          "price_override": null,
+          "stock_quantity": 5,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/456589/item/goods_60_456589_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-so-mi-oxford-dai-tay-nam-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-so-mi",
+          "name": "Áo sơ mi"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "cong-so",
+          "name": "Công sở"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-so-mi",
+        "nam",
+        "cong-so"
+      ],
+      "search_text": "Áo Sơ Mi Oxford Dài Tay Nam Chất vải nhẹ tay và lên dáng sạch sẽ, phù hợp mặc riêng hoặc khoác ngoài trong thời tiết nóng ẩm. Gam màu trung tính giúp tổng thể thanh lịch và dễ phối phụ kiện. Áo, Áo sơ mi, Nam, Công sở Trắng, Xanh nhạt, Ghi"
     },
     {
-      "product_id": "P202",
-      "name": "Giày cao gót đen mũi nhọn basic",
-      "description": "Giày cao gót màu đen, mũi nhọn, hợp phối váy đi tiệc và công sở.",
-      "category": "shoes",
-      "brand": "StepWell",
-      "color": ["đen"],
-      "size": ["35", "36", "37", "38", "39"],
-      "material": "PU leather",
-      "price": 360000,
-      "stock_status": "in_stock",
-      "rating": 4.6,
-      "review_count": 190,
-      "sales_count": 740,
-      "image_url": "https://example.com/products/p202.jpg",
-      "product_url": "https://example.com/products/p202",
-      "tags": ["giày", "heels", "black", "party", "elegant", "dress_pairing"],
-      "search_text": "giày cao gót đen mũi nhọn basic phối váy dự tiệc elegant"
+      "product_id": "SM-PRD-006",
+      "name": "Áo Sơ Mi Linen Tay Ngắn Nam",
+      "description": "Chất vải nhẹ tay và lên dáng sạch sẽ, phù hợp mặc riêng hoặc khoác ngoài trong thời tiết nóng ẩm. Tổng thể thoải mái, dễ mặc và phù hợp các chuyến đi ngắn hoặc ngày cuối tuần.",
+      "base_price": 499000.0,
+      "target_demographic": "MALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-006-V01",
+          "product_id": "SM-PRD-006",
+          "sku": "SM-ASM006-M-BEI",
+          "size": "M",
+          "color": "Be",
+          "material": "Cotton poplin",
+          "price_override": null,
+          "stock_quantity": 10,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-006-V02",
+          "product_id": "SM-PRD-006",
+          "sku": "SM-ASM006-L-MOS",
+          "size": "L",
+          "color": "Xanh rêu",
+          "material": "Linen pha",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-006-V03",
+          "product_id": "SM-PRD-006",
+          "sku": "SM-ASM006-XL-WHT",
+          "size": "XL",
+          "color": "Trắng",
+          "material": "Satin mềm",
+          "price_override": null,
+          "stock_quantity": 7,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/474528/item/vngoods_09_474528_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-so-mi-linen-tay-ngan-nam-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-so-mi",
+          "name": "Áo sơ mi"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-so-mi",
+        "nam",
+        "basic"
+      ],
+      "search_text": "Áo Sơ Mi Linen Tay Ngắn Nam Chất vải nhẹ tay và lên dáng sạch sẽ, phù hợp mặc riêng hoặc khoác ngoài trong thời tiết nóng ẩm. Tổng thể thoải mái, dễ mặc và phù hợp các chuyến đi ngắn hoặc ngày cuối tuần. Áo, Áo sơ mi, Nam, Basic Be, Xanh rêu, Trắng"
     },
     {
-      "product_id": "P203",
-      "name": "Sneaker trắng đế bằng casual",
-      "description": "Sneaker trắng đế bằng, hợp đi học và đi chơi casual.",
-      "category": "shoes",
-      "brand": "StepWell",
-      "color": ["trắng"],
-      "size": ["35", "36", "37", "38", "39", "40"],
-      "material": "canvas",
-      "price": 350000,
-      "stock_status": "in_stock",
-      "rating": 4.7,
-      "review_count": 420,
-      "sales_count": 1800,
-      "image_url": "https://example.com/products/p203.jpg",
-      "product_url": "https://example.com/products/p203",
-      "tags": ["giày", "sneakers", "casual", "school"],
-      "search_text": "sneaker trắng đế bằng casual đi chơi phong cách Hàn"
+      "product_id": "SM-PRD-007",
+      "name": "Áo Khoác Gió Chống Nắng Nam",
+      "description": "Thiết kế giữ phom tốt, đủ nhẹ để mặc thường xuyên và dễ kết hợp với nhiều lớp trang phục bên trong. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển.",
+      "base_price": 899000.0,
+      "target_demographic": "MALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-007-V01",
+          "product_id": "SM-PRD-007",
+          "sku": "SM-AKG007-M-SMK",
+          "size": "M",
+          "color": "Xám khói",
+          "material": "Nylon pha",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-007-V02",
+          "product_id": "SM-PRD-007",
+          "sku": "SM-AKG007-L-OLV",
+          "size": "L",
+          "color": "Rêu",
+          "material": "Denim cotton",
+          "price_override": null,
+          "stock_quantity": 12,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-007-V03",
+          "product_id": "SM-PRD-007",
+          "sku": "SM-AKG007-XL-BLK",
+          "size": "XL",
+          "color": "Đen",
+          "material": "Nỉ chải mềm",
+          "price_override": 949000.0,
+          "stock_quantity": 9,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/466460/item/goods_32_466460_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-khoac-gio-chong-nang-nam-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-khoac",
+          "name": "Áo khoác"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "do-the-thao",
+          "name": "Đồ thể thao"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-khoac",
+        "nam",
+        "do-the-thao"
+      ],
+      "search_text": "Áo Khoác Gió Chống Nắng Nam Thiết kế giữ phom tốt, đủ nhẹ để mặc thường xuyên và dễ kết hợp với nhiều lớp trang phục bên trong. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển. Áo, Áo khoác, Nam, Đồ thể thao Xám khói, Rêu, Đen"
     },
     {
-      "product_id": "P301",
-      "name": "Clutch ánh kim nhỏ dự tiệc",
-      "description": "Clutch ánh kim kích thước nhỏ, hợp phối đầm dự tiệc.",
-      "category": "bag",
-      "brand": "BagEdit",
-      "color": ["ánh kim", "bạc"],
-      "size": [],
-      "material": "synthetic leather",
-      "price": 180000,
-      "stock_status": "in_stock",
-      "rating": 4.5,
-      "review_count": 72,
-      "sales_count": 310,
-      "image_url": "https://example.com/products/p301.jpg",
-      "product_url": "https://example.com/products/p301",
-      "tags": ["phụ kiện", "clutch", "bag", "party", "metallic", "dress_pairing"],
-      "search_text": "clutch ánh kim nhỏ dự tiệc túi cầm tay phối đầm"
+      "product_id": "SM-PRD-008",
+      "name": "Áo Khoác Denim Regular Nam",
+      "description": "Thiết kế giữ phom tốt, đủ nhẹ để mặc thường xuyên và dễ kết hợp với nhiều lớp trang phục bên trong. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động.",
+      "base_price": 1099000.0,
+      "target_demographic": "MALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-008-V01",
+          "product_id": "SM-PRD-008",
+          "sku": "SM-AKG008-M-DNM",
+          "size": "M",
+          "color": "Xanh denim",
+          "material": "Nylon pha",
+          "price_override": null,
+          "stock_quantity": 20,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-008-V02",
+          "product_id": "SM-PRD-008",
+          "sku": "SM-AKG008-L-BLK",
+          "size": "L",
+          "color": "Đen",
+          "material": "Denim cotton",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-008-V03",
+          "product_id": "SM-PRD-008",
+          "sku": "SM-AKG008-XL-GRY",
+          "size": "XL",
+          "color": "Xám",
+          "material": "Nỉ chải mềm",
+          "price_override": 1149000.0,
+          "stock_quantity": 0,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/470047/item/goods_08_470047_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-khoac-denim-regular-nam-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-khoac",
+          "name": "Áo khoác"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-khoac",
+        "nam",
+        "basic"
+      ],
+      "search_text": "Áo Khoác Denim Regular Nam Thiết kế giữ phom tốt, đủ nhẹ để mặc thường xuyên và dễ kết hợp với nhiều lớp trang phục bên trong. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động. Áo, Áo khoác, Nam, Basic Xanh denim, Đen, Xám"
     },
     {
-      "product_id": "P302",
-      "name": "Bông tai ngọc trai nhỏ",
-      "description": "Bông tai ngọc trai nhỏ, tạo điểm nhấn nhẹ cho outfit đi tiệc.",
-      "category": "accessory",
-      "brand": "SoftJewelry",
-      "color": ["trắng", "ngọc trai"],
-      "size": [],
-      "material": "alloy",
-      "price": 95000,
-      "stock_status": "in_stock",
-      "rating": 4.4,
-      "review_count": 68,
-      "sales_count": 280,
-      "image_url": "https://example.com/products/p302.jpg",
-      "product_url": "https://example.com/products/p302",
-      "tags": ["phụ kiện", "earrings", "party", "elegant"],
-      "search_text": "bông tai ngọc trai nhỏ phụ kiện dự tiệc thanh lịch"
+      "product_id": "SM-PRD-009",
+      "name": "Áo Hoodie Nỉ Nam Basic",
+      "description": "Form thoải mái, chất liệu mềm và đủ dày để mặc hằng ngày trong các set đồ ưu tiên sự tiện dụng. Đây là lựa chọn dễ chịu cho lịch mặc ưu tiên sự thư giãn và tiện dụng.",
+      "base_price": 799000.0,
+      "target_demographic": "MALE",
+      "status": "INACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-009-V01",
+          "product_id": "SM-PRD-009",
+          "sku": "SM-AHD009-M-GRY",
+          "size": "M",
+          "color": "Xám",
+          "material": "Nylon pha",
+          "price_override": null,
+          "stock_quantity": 25,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-009-V02",
+          "product_id": "SM-PRD-009",
+          "sku": "SM-AHD009-L-BRN",
+          "size": "L",
+          "color": "Nâu",
+          "material": "Denim cotton",
+          "price_override": null,
+          "stock_quantity": 18,
+          "active": false
+        },
+        {
+          "id": "SM-PRD-009-V03",
+          "product_id": "SM-PRD-009",
+          "sku": "SM-AHD009-XL-BLK",
+          "size": "XL",
+          "color": "Đen",
+          "material": "Nỉ chải mềm",
+          "price_override": 849000.0,
+          "stock_quantity": 5,
+          "active": false
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/471808/item/vngoods_03_471808_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-hoodie-ni-nam-basic-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-hoodie",
+          "name": "Áo hoodie"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-hoodie",
+        "nam",
+        "basic"
+      ],
+      "search_text": "Áo Hoodie Nỉ Nam Basic Form thoải mái, chất liệu mềm và đủ dày để mặc hằng ngày trong các set đồ ưu tiên sự tiện dụng. Đây là lựa chọn dễ chịu cho lịch mặc ưu tiên sự thư giãn và tiện dụng. Áo, Áo hoodie, Nam, Basic Xám, Nâu, Đen"
     },
     {
-      "product_id": "P401",
-      "name": "Áo sơ mi linen trắng form vừa",
-      "description": "Áo sơ mi linen trắng thoáng nhẹ, hợp đi làm hoặc đi biển.",
-      "category": "top",
-      "brand": "StyleLab",
-      "color": ["trắng"],
-      "size": ["S", "M", "L"],
-      "material": "linen",
-      "price": 250000,
-      "stock_status": "in_stock",
-      "rating": 4.7,
-      "review_count": 210,
-      "sales_count": 850,
-      "image_url": "https://example.com/products/p401.jpg",
-      "product_url": "https://example.com/products/p401",
-      "tags": ["áo", "áo sơ mi", "shirt", "work", "beach", "linen"],
-      "search_text": "áo sơ mi linen trắng thoáng nhẹ đi biển công sở casual"
+      "product_id": "SM-PRD-010",
+      "name": "Quần Jeans Straight Fit Nam",
+      "description": "Chất denim bền tay, phom cân đối và dễ phối cùng áo thun, sơ mi hoặc áo khoác nhẹ. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động.",
+      "base_price": 799000.0,
+      "target_demographic": "MALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-010-V01",
+          "product_id": "SM-PRD-010",
+          "sku": "SM-QJN010-29-DNM",
+          "size": "29",
+          "color": "Xanh denim",
+          "material": "Denim co giãn nhẹ",
+          "price_override": null,
+          "stock_quantity": 30,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-010-V02",
+          "product_id": "SM-PRD-010",
+          "sku": "SM-QJN010-31-C2",
+          "size": "31",
+          "color": "Xanh đậm",
+          "material": "Denim mềm",
+          "price_override": null,
+          "stock_quantity": 6,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-010-V03",
+          "product_id": "SM-PRD-010",
+          "sku": "SM-QJN010-33-BLK",
+          "size": "33",
+          "color": "Đen",
+          "material": "Denim wash",
+          "price_override": 849000.0,
+          "stock_quantity": 7,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/479816/item/vngoods_64_479816_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-jeans-straight-fit-nam-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-jeans",
+          "name": "Quần jeans"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-jeans",
+        "nam",
+        "basic"
+      ],
+      "search_text": "Quần Jeans Straight Fit Nam Chất denim bền tay, phom cân đối và dễ phối cùng áo thun, sơ mi hoặc áo khoác nhẹ. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động. Quần, Quần jeans, Nam, Basic Xanh denim, Xanh đậm, Đen"
     },
     {
-      "product_id": "P501",
-      "name": "Quần linen ống rộng màu be",
-      "description": "Quần linen ống rộng màu be, thoáng nhẹ, hợp phối áo sơ mi đi biển.",
-      "category": "bottom",
-      "brand": "StyleLab",
-      "color": ["be"],
-      "size": ["S", "M", "L"],
-      "material": "linen",
-      "price": 320000,
-      "stock_status": "in_stock",
-      "rating": 4.8,
-      "review_count": 180,
-      "sales_count": 720,
-      "image_url": "https://example.com/products/p501.jpg",
-      "product_url": "https://example.com/products/p501",
-      "tags": ["quần", "linen_pants", "wide_leg_pants", "beach", "shirt_pairing"],
-      "search_text": "quần linen ống rộng màu be thoáng nhẹ phối áo sơ mi đi biển"
+      "product_id": "SM-PRD-011",
+      "name": "Quần Jeans Slim Fit Xanh Đậm Nam",
+      "description": "Chất denim bền tay, phom cân đối và dễ phối cùng áo thun, sơ mi hoặc áo khoác nhẹ. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động.",
+      "base_price": 859000.0,
+      "target_demographic": "MALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-011-V01",
+          "product_id": "SM-PRD-011",
+          "sku": "SM-QJN011-29-BEI",
+          "size": "29",
+          "color": "Be",
+          "material": "Denim co giãn nhẹ",
+          "price_override": null,
+          "stock_quantity": 35,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-011-V02",
+          "product_id": "SM-PRD-011",
+          "sku": "SM-QJN011-31-BRN",
+          "size": "31",
+          "color": "Nâu",
+          "material": "Denim mềm",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-011-V03",
+          "product_id": "SM-PRD-011",
+          "sku": "SM-QJN011-33-BLK",
+          "size": "33",
+          "color": "Đen",
+          "material": "Denim wash",
+          "price_override": 909000.0,
+          "stock_quantity": 9,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/470542/item/vngoods_66_470542_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-jeans-slim-fit-xanh-dam-nam-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-jeans",
+          "name": "Quần jeans"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-jeans",
+        "nam",
+        "basic"
+      ],
+      "search_text": "Quần Jeans Slim Fit Xanh Đậm Nam Chất denim bền tay, phom cân đối và dễ phối cùng áo thun, sơ mi hoặc áo khoác nhẹ. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động. Quần, Quần jeans, Nam, Basic Be, Nâu, Đen"
     },
     {
-      "product_id": "P502",
-      "name": "Quần short cotton trắng đi biển",
-      "description": "Quần short cotton trắng, dễ phối áo sơ mi hoặc áo thun khi đi biển.",
-      "category": "bottom",
-      "brand": "StyleLab",
-      "color": ["trắng"],
-      "size": ["S", "M", "L"],
-      "material": "cotton",
-      "price": 220000,
-      "stock_status": "in_stock",
-      "rating": 4.5,
-      "review_count": 150,
-      "sales_count": 620,
-      "image_url": "https://example.com/products/p502.jpg",
-      "product_url": "https://example.com/products/p502",
-      "tags": ["quần", "shorts", "beach", "shirt_pairing"],
-      "search_text": "quần short cotton trắng đi biển thoải mái phối áo sơ mi"
+      "product_id": "SM-PRD-012",
+      "name": "Quần Kaki Regular Fit Nam",
+      "description": "Bề mặt vải chắc vừa đủ, lên dáng gọn và phù hợp cả lịch đi làm lẫn di chuyển hằng ngày. Thiết kế tối giản giúp món đồ bền xu hướng và dễ lặp lại trong tủ đồ.",
+      "base_price": 629000.0,
+      "target_demographic": "MALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-012-V01",
+          "product_id": "SM-PRD-012",
+          "sku": "SM-QKK012-29-CHR",
+          "size": "29",
+          "color": "Xám than",
+          "material": "Kaki cotton",
+          "price_override": null,
+          "stock_quantity": 10,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-012-V02",
+          "product_id": "SM-PRD-012",
+          "sku": "SM-QKK012-31-BLK",
+          "size": "31",
+          "color": "Đen",
+          "material": "Twill mềm",
+          "price_override": null,
+          "stock_quantity": 12,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-012-V03",
+          "product_id": "SM-PRD-012",
+          "sku": "SM-QKK012-33-NVY",
+          "size": "33",
+          "color": "Xanh navy",
+          "material": "Poly viscose",
+          "price_override": null,
+          "stock_quantity": 0,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/450251/item/vngoods_35_450251_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-kaki-regular-fit-nam-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-kaki",
+          "name": "Quần kaki"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-kaki",
+        "nam",
+        "basic"
+      ],
+      "search_text": "Quần Kaki Regular Fit Nam Bề mặt vải chắc vừa đủ, lên dáng gọn và phù hợp cả lịch đi làm lẫn di chuyển hằng ngày. Thiết kế tối giản giúp món đồ bền xu hướng và dễ lặp lại trong tủ đồ. Quần, Quần kaki, Nam, Basic Xám than, Đen, Xanh navy"
+    },
+    {
+      "product_id": "SM-PRD-013",
+      "name": "Quần Tây Slim Fit Công Sở Nam",
+      "description": "Phom suông sạch, bề mặt ít nhăn và mang lại cảm giác chỉn chu nhưng vẫn thoải mái khi mặc lâu. Gam màu trung tính giúp tổng thể thanh lịch và dễ phối phụ kiện.",
+      "base_price": 699000.0,
+      "target_demographic": "MALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-013-V01",
+          "product_id": "SM-PRD-013",
+          "sku": "SM-QTY013-29-CRM",
+          "size": "29",
+          "color": "Kem",
+          "material": "Kaki cotton",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-013-V02",
+          "product_id": "SM-PRD-013",
+          "sku": "SM-QTY013-31-BEI",
+          "size": "31",
+          "color": "Be",
+          "material": "Twill mềm",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-013-V03",
+          "product_id": "SM-PRD-013",
+          "sku": "SM-QTY013-33-BRN",
+          "size": "33",
+          "color": "Nâu",
+          "material": "Poly viscose",
+          "price_override": null,
+          "stock_quantity": 5,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/452112/item/goods_56_452112_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-tay-slim-fit-cong-so-nam-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-tay",
+          "name": "Quần dài"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "cong-so",
+          "name": "Công sở"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-tay",
+        "nam",
+        "cong-so"
+      ],
+      "search_text": "Quần Tây Slim Fit Công Sở Nam Phom suông sạch, bề mặt ít nhăn và mang lại cảm giác chỉn chu nhưng vẫn thoải mái khi mặc lâu. Gam màu trung tính giúp tổng thể thanh lịch và dễ phối phụ kiện. Quần, Quần dài, Nam, Công sở Kem, Be, Nâu"
+    },
+    {
+      "product_id": "SM-PRD-014",
+      "name": "Quần Short Linen Nam",
+      "description": "Thiết kế nhẹ và thoáng, thích hợp cho ngày nắng hoặc các hoạt động cần cảm giác linh hoạt. Tổng thể thoải mái, dễ mặc và phù hợp các chuyến đi ngắn hoặc ngày cuối tuần.",
+      "base_price": 459000.0,
+      "target_demographic": "MALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-014-V01",
+          "product_id": "SM-PRD-014",
+          "sku": "SM-QSH014-M-BLK",
+          "size": "M",
+          "color": "Đen",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 20,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-014-V02",
+          "product_id": "SM-PRD-014",
+          "sku": "SM-QSH014-L-ASH",
+          "size": "L",
+          "color": "Ghi",
+          "material": "Poly spandex",
+          "price_override": null,
+          "stock_quantity": 18,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-014-V03",
+          "product_id": "SM-PRD-014",
+          "sku": "SM-QSH014-XL-OLV",
+          "size": "XL",
+          "color": "Rêu",
+          "material": "Thun co giãn",
+          "price_override": null,
+          "stock_quantity": 7,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/482260/item/vngoods_30_482260_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-short-linen-nam-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-short",
+          "name": "Quần short"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-short",
+        "nam",
+        "basic"
+      ],
+      "search_text": "Quần Short Linen Nam Thiết kế nhẹ và thoáng, thích hợp cho ngày nắng hoặc các hoạt động cần cảm giác linh hoạt. Tổng thể thoải mái, dễ mặc và phù hợp các chuyến đi ngắn hoặc ngày cuối tuần. Quần, Quần short, Nam, Basic Đen, Ghi, Rêu"
+    },
+    {
+      "product_id": "SM-PRD-015",
+      "name": "Quần Short Kaki Nam Hằng Ngày",
+      "description": "Thiết kế nhẹ và thoáng, thích hợp cho ngày nắng hoặc các hoạt động cần cảm giác linh hoạt. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển.",
+      "base_price": 399000.0,
+      "target_demographic": "MALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-015-V01",
+          "product_id": "SM-PRD-015",
+          "sku": "SM-QSH015-M-DNM",
+          "size": "M",
+          "color": "Xanh denim",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 25,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-015-V02",
+          "product_id": "SM-PRD-015",
+          "sku": "SM-QSH015-L-C2",
+          "size": "L",
+          "color": "Xanh đậm",
+          "material": "Poly spandex",
+          "price_override": null,
+          "stock_quantity": 6,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-015-V03",
+          "product_id": "SM-PRD-015",
+          "sku": "SM-QSH015-XL-BLK",
+          "size": "XL",
+          "color": "Đen",
+          "material": "Thun co giãn",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/463870/item/vngoods_08_463870_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-short-kaki-nam-hang-ngay-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-short",
+          "name": "Quần short"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "do-the-thao",
+          "name": "Đồ thể thao"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-short",
+        "nam",
+        "do-the-thao"
+      ],
+      "search_text": "Quần Short Kaki Nam Hằng Ngày Thiết kế nhẹ và thoáng, thích hợp cho ngày nắng hoặc các hoạt động cần cảm giác linh hoạt. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển. Quần, Quần short, Nam, Đồ thể thao Xanh denim, Xanh đậm, Đen"
+    },
+    {
+      "product_id": "SM-PRD-016",
+      "name": "Quần Jogger Nỉ Nam",
+      "description": "Dáng quần thoải mái, dễ vận động và phù hợp từ mặc nhà đến những buổi ra ngoài nhanh gọn. Đây là lựa chọn dễ chịu cho lịch mặc ưu tiên sự thư giãn và tiện dụng.",
+      "base_price": 529000.0,
+      "target_demographic": "MALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-016-V01",
+          "product_id": "SM-PRD-016",
+          "sku": "SM-QJG016-M-BEI",
+          "size": "M",
+          "color": "Be",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 30,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-016-V02",
+          "product_id": "SM-PRD-016",
+          "sku": "SM-QJG016-L-BRN",
+          "size": "L",
+          "color": "Nâu",
+          "material": "Poly spandex",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-016-V03",
+          "product_id": "SM-PRD-016",
+          "sku": "SM-QJG016-XL-BLK",
+          "size": "XL",
+          "color": "Đen",
+          "material": "Thun co giãn",
+          "price_override": null,
+          "stock_quantity": 0,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/466662/item/goods_51_466662_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-jogger-ni-nam-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-jogger",
+          "name": "Quần jogger"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "do-the-thao",
+          "name": "Đồ thể thao"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-jogger",
+        "nam",
+        "do-the-thao"
+      ],
+      "search_text": "Quần Jogger Nỉ Nam Dáng quần thoải mái, dễ vận động và phù hợp từ mặc nhà đến những buổi ra ngoài nhanh gọn. Đây là lựa chọn dễ chịu cho lịch mặc ưu tiên sự thư giãn và tiện dụng. Quần, Quần jogger, Nam, Đồ thể thao Be, Nâu, Đen"
+    },
+    {
+      "product_id": "SM-PRD-017",
+      "name": "Quần Jogger Dù Thể Thao Nam",
+      "description": "Dáng quần thoải mái, dễ vận động và phù hợp từ mặc nhà đến những buổi ra ngoài nhanh gọn. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển.",
+      "base_price": 569000.0,
+      "target_demographic": "MALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-017-V01",
+          "product_id": "SM-PRD-017",
+          "sku": "SM-QJG017-M-CHR",
+          "size": "M",
+          "color": "Xám than",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 35,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-017-V02",
+          "product_id": "SM-PRD-017",
+          "sku": "SM-QJG017-L-BLK",
+          "size": "L",
+          "color": "Đen",
+          "material": "Poly spandex",
+          "price_override": null,
+          "stock_quantity": 12,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-017-V03",
+          "product_id": "SM-PRD-017",
+          "sku": "SM-QJG017-XL-NVY",
+          "size": "XL",
+          "color": "Xanh navy",
+          "material": "Thun co giãn",
+          "price_override": null,
+          "stock_quantity": 5,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/485744/item/vngoods_03_485744_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-jogger-du-the-thao-nam-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-jogger",
+          "name": "Quần jogger"
+        },
+        {
+          "slug": "nam",
+          "name": "Nam"
+        },
+        {
+          "slug": "do-the-thao",
+          "name": "Đồ thể thao"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-jogger",
+        "nam",
+        "do-the-thao"
+      ],
+      "search_text": "Quần Jogger Dù Thể Thao Nam Dáng quần thoải mái, dễ vận động và phù hợp từ mặc nhà đến những buổi ra ngoài nhanh gọn. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển. Quần, Quần jogger, Nam, Đồ thể thao Xám than, Đen, Xanh navy"
+    },
+    {
+      "product_id": "SM-PRD-018",
+      "name": "Áo Thun Nữ Cổ Tròn Pastel",
+      "description": "Áo thun cotton mềm nhẹ với phom dễ mặc, phù hợp đi học, đi làm hoặc phối nhiều lớp hằng ngày. Bảng màu dịu và bề mặt vải mềm tạo cảm giác nhẹ nhàng, dễ mặc quanh năm.",
+      "base_price": 219000.0,
+      "target_demographic": "FEMALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-018-V01",
+          "product_id": "SM-PRD-018",
+          "sku": "SM-ATC018-S-CRM",
+          "size": "S",
+          "color": "Kem",
+          "material": "Cotton 100%",
+          "price_override": null,
+          "stock_quantity": 10,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-018-V02",
+          "product_id": "SM-PRD-018",
+          "sku": "SM-ATC018-M-PNK",
+          "size": "M",
+          "color": "Hồng nhạt",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-018-V03",
+          "product_id": "SM-PRD-018",
+          "sku": "SM-ATC018-L-BLK",
+          "size": "L",
+          "color": "Đen",
+          "material": "Rib cotton",
+          "price_override": null,
+          "stock_quantity": 7,
+          "active": false
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/424873/item/vngoods_15_424873_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-thun-nu-co-tron-pastel-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-thun",
+          "name": "Áo thun"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-thun",
+        "nu",
+        "basic"
+      ],
+      "search_text": "Áo Thun Nữ Cổ Tròn Pastel Áo thun cotton mềm nhẹ với phom dễ mặc, phù hợp đi học, đi làm hoặc phối nhiều lớp hằng ngày. Bảng màu dịu và bề mặt vải mềm tạo cảm giác nhẹ nhàng, dễ mặc quanh năm. Áo, Áo thun, Nữ, Basic Kem, Hồng nhạt, Đen"
+    },
+    {
+      "product_id": "SM-PRD-019",
+      "name": "Áo Thun Croptop Gân Nữ",
+      "description": "Áo thun cotton mềm nhẹ với phom dễ mặc, phù hợp đi học, đi làm hoặc phối nhiều lớp hằng ngày. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động.",
+      "base_price": 259000.0,
+      "target_demographic": "FEMALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-019-V01",
+          "product_id": "SM-PRD-019",
+          "sku": "SM-ATC019-S-WHT",
+          "size": "S",
+          "color": "Trắng",
+          "material": "Cotton 100%",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-019-V02",
+          "product_id": "SM-PRD-019",
+          "sku": "SM-ATC019-M-PBL",
+          "size": "M",
+          "color": "Xanh pastel",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 18,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-019-V03",
+          "product_id": "SM-PRD-019",
+          "sku": "SM-ATC019-L-BEI",
+          "size": "L",
+          "color": "Be",
+          "material": "Rib cotton",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/465760/item/vngoods_41_465760_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-thun-croptop-gan-nu-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-thun",
+          "name": "Áo thun"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-thun",
+        "nu",
+        "basic"
+      ],
+      "search_text": "Áo Thun Croptop Gân Nữ Áo thun cotton mềm nhẹ với phom dễ mặc, phù hợp đi học, đi làm hoặc phối nhiều lớp hằng ngày. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động. Áo, Áo thun, Nữ, Basic Trắng, Xanh pastel, Be"
+    },
+    {
+      "product_id": "SM-PRD-020",
+      "name": "Áo Polo Nữ Phối Viền",
+      "description": "Bề mặt vải thoáng và đứng phom, giữ vẻ gọn gàng cho ngày làm việc hoặc cuối tuần năng động. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động.",
+      "base_price": 329000.0,
+      "target_demographic": "FEMALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-020-V01",
+          "product_id": "SM-PRD-020",
+          "sku": "SM-APL020-S-WHT",
+          "size": "S",
+          "color": "Trắng",
+          "material": "Cotton 100%",
+          "price_override": null,
+          "stock_quantity": 20,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-020-V02",
+          "product_id": "SM-PRD-020",
+          "sku": "SM-APL020-M-NVY",
+          "size": "M",
+          "color": "Xanh navy",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 6,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-020-V03",
+          "product_id": "SM-PRD-020",
+          "sku": "SM-APL020-L-RSE",
+          "size": "L",
+          "color": "Hồng phấn",
+          "material": "Rib cotton",
+          "price_override": null,
+          "stock_quantity": 0,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/467212/item/goods_40_467212_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-polo-nu-phoi-vien-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-polo",
+          "name": "Áo polo"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-polo",
+        "nu",
+        "basic"
+      ],
+      "search_text": "Áo Polo Nữ Phối Viền Bề mặt vải thoáng và đứng phom, giữ vẻ gọn gàng cho ngày làm việc hoặc cuối tuần năng động. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động. Áo, Áo polo, Nữ, Basic Trắng, Xanh navy, Hồng phấn"
+    },
+    {
+      "product_id": "SM-PRD-021",
+      "name": "Áo Sơ Mi Lụa Cổ Đức Nữ",
+      "description": "Chất vải nhẹ tay và lên dáng sạch sẽ, phù hợp mặc riêng hoặc khoác ngoài trong thời tiết nóng ẩm. Gam màu trung tính giúp tổng thể thanh lịch và dễ phối phụ kiện.",
+      "base_price": 649000.0,
+      "target_demographic": "FEMALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-021-V01",
+          "product_id": "SM-PRD-021",
+          "sku": "SM-ASM021-S-CRM",
+          "size": "S",
+          "color": "Kem",
+          "material": "Cotton poplin",
+          "price_override": null,
+          "stock_quantity": 25,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-021-V02",
+          "product_id": "SM-PRD-021",
+          "sku": "SM-ASM021-M-BEI",
+          "size": "M",
+          "color": "Be",
+          "material": "Linen pha",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-021-V03",
+          "product_id": "SM-PRD-021",
+          "sku": "SM-ASM021-L-PNK",
+          "size": "L",
+          "color": "Hồng nhạt",
+          "material": "Satin mềm",
+          "price_override": null,
+          "stock_quantity": 5,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/464804/item/goods_11_464804_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-so-mi-lua-co-duc-nu-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-so-mi",
+          "name": "Áo sơ mi"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "cong-so",
+          "name": "Công sở"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-so-mi",
+        "nu",
+        "cong-so"
+      ],
+      "search_text": "Áo Sơ Mi Lụa Cổ Đức Nữ Chất vải nhẹ tay và lên dáng sạch sẽ, phù hợp mặc riêng hoặc khoác ngoài trong thời tiết nóng ẩm. Gam màu trung tính giúp tổng thể thanh lịch và dễ phối phụ kiện. Áo, Áo sơ mi, Nữ, Công sở Kem, Be, Hồng nhạt"
+    },
+    {
+      "product_id": "SM-PRD-022",
+      "name": "Áo Blouse Tay Bồng Nữ",
+      "description": "Phom nữ tính, bề mặt vải rũ nhẹ và dễ phối cùng quần tây hoặc chân váy cho nhịp sống công sở. Bảng màu dịu và bề mặt vải mềm tạo cảm giác nhẹ nhàng, dễ mặc quanh năm.",
+      "base_price": 589000.0,
+      "target_demographic": "FEMALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-022-V01",
+          "product_id": "SM-PRD-022",
+          "sku": "SM-ABL022-S-WHT",
+          "size": "S",
+          "color": "Trắng",
+          "material": "Cotton poplin",
+          "price_override": null,
+          "stock_quantity": 30,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-022-V02",
+          "product_id": "SM-PRD-022",
+          "sku": "SM-ABL022-M-CRM",
+          "size": "M",
+          "color": "Kem",
+          "material": "Linen pha",
+          "price_override": null,
+          "stock_quantity": 12,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-022-V03",
+          "product_id": "SM-PRD-022",
+          "sku": "SM-ABL022-L-MST",
+          "size": "L",
+          "color": "Xanh khói",
+          "material": "Satin mềm",
+          "price_override": null,
+          "stock_quantity": 7,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/481215/item/goods_01_481215_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-blouse-tay-bong-nu-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-blouse",
+          "name": "Áo blouse"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "cong-so",
+          "name": "Công sở"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-blouse",
+        "nu",
+        "cong-so"
+      ],
+      "search_text": "Áo Blouse Tay Bồng Nữ Phom nữ tính, bề mặt vải rũ nhẹ và dễ phối cùng quần tây hoặc chân váy cho nhịp sống công sở. Bảng màu dịu và bề mặt vải mềm tạo cảm giác nhẹ nhàng, dễ mặc quanh năm. Áo, Áo blouse, Nữ, Công sở Trắng, Kem, Xanh khói"
+    },
+    {
+      "product_id": "SM-PRD-023",
+      "name": "Áo Cardigan Dệt Kim Mỏng Nữ",
+      "description": "Bề mặt dệt mềm, giữ ấm vừa phải và tạo cảm giác chỉn chu cho những ngày mát trời. Bảng màu dịu và bề mặt vải mềm tạo cảm giác nhẹ nhàng, dễ mặc quanh năm.",
+      "base_price": 699000.0,
+      "target_demographic": "FEMALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-023-V01",
+          "product_id": "SM-PRD-023",
+          "sku": "SM-ALN023-S-BEI",
+          "size": "S",
+          "color": "Be",
+          "material": "Len pha mềm",
+          "price_override": null,
+          "stock_quantity": 35,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-023-V02",
+          "product_id": "SM-PRD-023",
+          "sku": "SM-ALN023-M-PRL",
+          "size": "M",
+          "color": "Xám ngọc trai",
+          "material": "Len dệt mịn",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-023-V03",
+          "product_id": "SM-PRD-023",
+          "sku": "SM-ALN023-L-CRM",
+          "size": "L",
+          "color": "Kem",
+          "material": "Len gân",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/465484/item/vngoods_60_465484_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-cardigan-det-kim-mong-nu-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-len",
+          "name": "Áo len"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-len",
+        "nu",
+        "basic"
+      ],
+      "search_text": "Áo Cardigan Dệt Kim Mỏng Nữ Bề mặt dệt mềm, giữ ấm vừa phải và tạo cảm giác chỉn chu cho những ngày mát trời. Bảng màu dịu và bề mặt vải mềm tạo cảm giác nhẹ nhàng, dễ mặc quanh năm. Áo, Áo len, Nữ, Basic Be, Xám ngọc trai, Kem"
+    },
+    {
+      "product_id": "SM-PRD-024",
+      "name": "Áo Tank Top Rib Nữ",
+      "description": "Phom gọn, co giãn tốt và phù hợp mặc riêng hoặc phối lớp trong những set đồ tối giản. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động.",
+      "base_price": 199000.0,
+      "target_demographic": "FEMALE",
+      "status": "INACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-024-V01",
+          "product_id": "SM-PRD-024",
+          "sku": "SM-ATT024-S-WHT",
+          "size": "S",
+          "color": "Trắng",
+          "material": "Cotton 100%",
+          "price_override": null,
+          "stock_quantity": 10,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-024-V02",
+          "product_id": "SM-PRD-024",
+          "sku": "SM-ATT024-M-COC",
+          "size": "M",
+          "color": "Nâu cacao",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 18,
+          "active": false
+        },
+        {
+          "id": "SM-PRD-024-V03",
+          "product_id": "SM-PRD-024",
+          "sku": "SM-ATT024-L-BLK",
+          "size": "L",
+          "color": "Đen",
+          "material": "Rib cotton",
+          "price_override": null,
+          "stock_quantity": 0,
+          "active": false
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/448598/item/goods_41_448598_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-tank-top-rib-nu-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-tank-top",
+          "name": "Áo tank top"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-tank-top",
+        "nu",
+        "basic"
+      ],
+      "search_text": "Áo Tank Top Rib Nữ Phom gọn, co giãn tốt và phù hợp mặc riêng hoặc phối lớp trong những set đồ tối giản. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động. Áo, Áo tank top, Nữ, Basic Trắng, Nâu cacao, Đen"
+    },
+    {
+      "product_id": "SM-PRD-025",
+      "name": "Đầm Midi Cổ Vuông",
+      "description": "Dáng váy gọn gàng, đường rơi mềm và dễ diện trong nhiều hoàn cảnh từ đi làm đến gặp gỡ cuối tuần. Bảng màu dịu và bề mặt vải mềm tạo cảm giác nhẹ nhàng, dễ mặc quanh năm.",
+      "base_price": 899000.0,
+      "target_demographic": "FEMALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-025-V01",
+          "product_id": "SM-PRD-025",
+          "sku": "SM-DAM025-S-CRM",
+          "size": "S",
+          "color": "Kem",
+          "material": "Poly crepe",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-025-V02",
+          "product_id": "SM-PRD-025",
+          "sku": "SM-DAM025-M-BLK",
+          "size": "M",
+          "color": "Đen",
+          "material": "Cotton twill",
+          "price_override": null,
+          "stock_quantity": 6,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-025-V03",
+          "product_id": "SM-PRD-025",
+          "sku": "SM-DAM025-L-PNK",
+          "size": "L",
+          "color": "Hồng nhạt",
+          "material": "Satin mờ",
+          "price_override": 949000.0,
+          "stock_quantity": 5,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/473080/item/goods_36_473080_3x4.jpg",
+          "image_public_id": "stylemind/products/dam-midi-co-vuong-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "vay",
+          "name": "Váy"
+        },
+        {
+          "slug": "dam",
+          "name": "Đầm"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "dress",
+      "tags": [
+        "vay",
+        "dam",
+        "nu",
+        "basic"
+      ],
+      "search_text": "Đầm Midi Cổ Vuông Dáng váy gọn gàng, đường rơi mềm và dễ diện trong nhiều hoàn cảnh từ đi làm đến gặp gỡ cuối tuần. Bảng màu dịu và bề mặt vải mềm tạo cảm giác nhẹ nhàng, dễ mặc quanh năm. Váy, Đầm, Nữ, Basic Kem, Đen, Hồng nhạt"
+    },
+    {
+      "product_id": "SM-PRD-026",
+      "name": "Đầm Sơ Mi Thắt Eo",
+      "description": "Dáng váy gọn gàng, đường rơi mềm và dễ diện trong nhiều hoàn cảnh từ đi làm đến gặp gỡ cuối tuần. Gam màu trung tính giúp tổng thể thanh lịch và dễ phối phụ kiện.",
+      "base_price": 999000.0,
+      "target_demographic": "FEMALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-026-V01",
+          "product_id": "SM-PRD-026",
+          "sku": "SM-DAM026-S-NVY",
+          "size": "S",
+          "color": "Xanh navy",
+          "material": "Poly crepe",
+          "price_override": null,
+          "stock_quantity": 20,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-026-V02",
+          "product_id": "SM-PRD-026",
+          "sku": "SM-DAM026-M-BEI",
+          "size": "M",
+          "color": "Be",
+          "material": "Cotton twill",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-026-V03",
+          "product_id": "SM-PRD-026",
+          "sku": "SM-DAM026-L-COC",
+          "size": "L",
+          "color": "Nâu cacao",
+          "material": "Satin mờ",
+          "price_override": 1049000.0,
+          "stock_quantity": 7,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/484788/item/vngoods_01_484788_3x4.jpg",
+          "image_public_id": "stylemind/products/dam-so-mi-that-eo-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "vay",
+          "name": "Váy"
+        },
+        {
+          "slug": "dam",
+          "name": "Đầm"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "cong-so",
+          "name": "Công sở"
+        }
+      ],
+      "slot": "dress",
+      "tags": [
+        "vay",
+        "dam",
+        "nu",
+        "cong-so"
+      ],
+      "search_text": "Đầm Sơ Mi Thắt Eo Dáng váy gọn gàng, đường rơi mềm và dễ diện trong nhiều hoàn cảnh từ đi làm đến gặp gỡ cuối tuần. Gam màu trung tính giúp tổng thể thanh lịch và dễ phối phụ kiện. Váy, Đầm, Nữ, Công sở Xanh navy, Be, Nâu cacao"
+    },
+    {
+      "product_id": "SM-PRD-027",
+      "name": "Chân Váy Chữ A Basic",
+      "description": "Phom dáng cân đối, dễ phối và phù hợp nhịp sống thường ngày của tủ đồ hiện đại. Thiết kế tối giản giúp món đồ bền xu hướng và dễ lặp lại trong tủ đồ.",
+      "base_price": 629000.0,
+      "target_demographic": "FEMALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-027-V01",
+          "product_id": "SM-PRD-027",
+          "sku": "SM-CVA027-S-IVR",
+          "size": "S",
+          "color": "Trắng ngà",
+          "material": "Poly crepe",
+          "price_override": null,
+          "stock_quantity": 25,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-027-V02",
+          "product_id": "SM-PRD-027",
+          "sku": "SM-CVA027-M-RSE",
+          "size": "M",
+          "color": "Hồng phấn",
+          "material": "Cotton twill",
+          "price_override": null,
+          "stock_quantity": 12,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-027-V03",
+          "product_id": "SM-PRD-027",
+          "sku": "SM-CVA027-L-PRL",
+          "size": "L",
+          "color": "Xám ngọc trai",
+          "material": "Satin mờ",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": false
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/469830/item/vngoods_09_469830_3x4.jpg",
+          "image_public_id": "stylemind/products/chan-vay-chu-a-basic-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "vay",
+          "name": "Váy"
+        },
+        {
+          "slug": "chan-vay",
+          "name": "Chân váy"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "vay",
+        "chan-vay",
+        "nu",
+        "basic"
+      ],
+      "search_text": "Chân Váy Chữ A Basic Phom dáng cân đối, dễ phối và phù hợp nhịp sống thường ngày của tủ đồ hiện đại. Thiết kế tối giản giúp món đồ bền xu hướng và dễ lặp lại trong tủ đồ. Váy, Chân váy, Nữ, Basic Trắng ngà, Hồng phấn, Xám ngọc trai"
+    },
+    {
+      "product_id": "SM-PRD-028",
+      "name": "Chân Váy Midi Xếp Ly",
+      "description": "Phom dáng cân đối, dễ phối và phù hợp nhịp sống thường ngày của tủ đồ hiện đại. Gam màu trung tính giúp tổng thể thanh lịch và dễ phối phụ kiện.",
+      "base_price": 759000.0,
+      "target_demographic": "FEMALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-028-V01",
+          "product_id": "SM-PRD-028",
+          "sku": "SM-CVA028-S-CRM",
+          "size": "S",
+          "color": "Kem",
+          "material": "Poly crepe",
+          "price_override": null,
+          "stock_quantity": 30,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-028-V02",
+          "product_id": "SM-PRD-028",
+          "sku": "SM-CVA028-M-BLK",
+          "size": "M",
+          "color": "Đen",
+          "material": "Cotton twill",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-028-V03",
+          "product_id": "SM-PRD-028",
+          "sku": "SM-CVA028-L-PNK",
+          "size": "L",
+          "color": "Hồng nhạt",
+          "material": "Satin mờ",
+          "price_override": null,
+          "stock_quantity": 0,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/479916/item/vngoods_57_479916_3x4.jpg",
+          "image_public_id": "stylemind/products/chan-vay-midi-xep-ly-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "vay",
+          "name": "Váy"
+        },
+        {
+          "slug": "chan-vay",
+          "name": "Chân váy"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "cong-so",
+          "name": "Công sở"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "vay",
+        "chan-vay",
+        "nu",
+        "cong-so"
+      ],
+      "search_text": "Chân Váy Midi Xếp Ly Phom dáng cân đối, dễ phối và phù hợp nhịp sống thường ngày của tủ đồ hiện đại. Gam màu trung tính giúp tổng thể thanh lịch và dễ phối phụ kiện. Váy, Chân váy, Nữ, Công sở Kem, Đen, Hồng nhạt"
+    },
+    {
+      "product_id": "SM-PRD-029",
+      "name": "Quần Jeans Ống Đứng Cạp Cao",
+      "description": "Chất denim bền tay, phom cân đối và dễ phối cùng áo thun, sơ mi hoặc áo khoác nhẹ. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động.",
+      "base_price": 799000.0,
+      "target_demographic": "FEMALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-029-V01",
+          "product_id": "SM-PRD-029",
+          "sku": "SM-QJN029-26-CRM",
+          "size": "26",
+          "color": "Kem",
+          "material": "Denim co giãn nhẹ",
+          "price_override": null,
+          "stock_quantity": 35,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-029-V02",
+          "product_id": "SM-PRD-029",
+          "sku": "SM-QJN029-28-BEI",
+          "size": "28",
+          "color": "Be",
+          "material": "Denim mềm",
+          "price_override": null,
+          "stock_quantity": 18,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-029-V03",
+          "product_id": "SM-PRD-029",
+          "sku": "SM-QJN029-30-BRN",
+          "size": "30",
+          "color": "Nâu",
+          "material": "Denim wash",
+          "price_override": 849000.0,
+          "stock_quantity": 5,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/472485/item/vngoods_63_472485_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-jeans-ong-dung-cap-cao-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-jeans",
+          "name": "Quần jeans"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-jeans",
+        "nu",
+        "basic"
+      ],
+      "search_text": "Quần Jeans Ống Đứng Cạp Cao Chất denim bền tay, phom cân đối và dễ phối cùng áo thun, sơ mi hoặc áo khoác nhẹ. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động. Quần, Quần jeans, Nữ, Basic Kem, Be, Nâu"
+    },
+    {
+      "product_id": "SM-PRD-030",
+      "name": "Quần Jeans Ống Loe Nhẹ",
+      "description": "Chất denim bền tay, phom cân đối và dễ phối cùng áo thun, sơ mi hoặc áo khoác nhẹ. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động.",
+      "base_price": 859000.0,
+      "target_demographic": "FEMALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-030-V01",
+          "product_id": "SM-PRD-030",
+          "sku": "SM-QJN030-26-BLK",
+          "size": "26",
+          "color": "Đen",
+          "material": "Denim co giãn nhẹ",
+          "price_override": null,
+          "stock_quantity": 10,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-030-V02",
+          "product_id": "SM-PRD-030",
+          "sku": "SM-QJN030-28-ASH",
+          "size": "28",
+          "color": "Ghi",
+          "material": "Denim mềm",
+          "price_override": null,
+          "stock_quantity": 6,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-030-V03",
+          "product_id": "SM-PRD-030",
+          "sku": "SM-QJN030-30-OLV",
+          "size": "30",
+          "color": "Rêu",
+          "material": "Denim wash",
+          "price_override": 909000.0,
+          "stock_quantity": 7,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/468841/item/goods_62_468841_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-jeans-ong-loe-nhe-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-jeans",
+          "name": "Quần jeans"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-jeans",
+        "nu",
+        "basic"
+      ],
+      "search_text": "Quần Jeans Ống Loe Nhẹ Chất denim bền tay, phom cân đối và dễ phối cùng áo thun, sơ mi hoặc áo khoác nhẹ. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động. Quần, Quần jeans, Nữ, Basic Đen, Ghi, Rêu"
+    },
+    {
+      "product_id": "SM-PRD-031",
+      "name": "Quần Tây Ống Suông Nữ",
+      "description": "Phom suông sạch, bề mặt ít nhăn và mang lại cảm giác chỉn chu nhưng vẫn thoải mái khi mặc lâu. Gam màu trung tính giúp tổng thể thanh lịch và dễ phối phụ kiện.",
+      "base_price": 699000.0,
+      "target_demographic": "FEMALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-031-V01",
+          "product_id": "SM-PRD-031",
+          "sku": "SM-QTY031-26-DNM",
+          "size": "26",
+          "color": "Xanh denim",
+          "material": "Kaki cotton",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-031-V02",
+          "product_id": "SM-PRD-031",
+          "sku": "SM-QTY031-28-C2",
+          "size": "28",
+          "color": "Xanh đậm",
+          "material": "Twill mềm",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-031-V03",
+          "product_id": "SM-PRD-031",
+          "sku": "SM-QTY031-30-BLK",
+          "size": "30",
+          "color": "Đen",
+          "material": "Poly viscose",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/450606/item/goods_57_450606_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-tay-ong-suong-nu-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-tay",
+          "name": "Quần dài"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "cong-so",
+          "name": "Công sở"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-tay",
+        "nu",
+        "cong-so"
+      ],
+      "search_text": "Quần Tây Ống Suông Nữ Phom suông sạch, bề mặt ít nhăn và mang lại cảm giác chỉn chu nhưng vẫn thoải mái khi mặc lâu. Gam màu trung tính giúp tổng thể thanh lịch và dễ phối phụ kiện. Quần, Quần dài, Nữ, Công sở Xanh denim, Xanh đậm, Đen"
+    },
+    {
+      "product_id": "SM-PRD-032",
+      "name": "Quần Short Lưng Cao Ống Rộng",
+      "description": "Thiết kế nhẹ và thoáng, thích hợp cho ngày nắng hoặc các hoạt động cần cảm giác linh hoạt. Tổng thể thoải mái, dễ mặc và phù hợp các chuyến đi ngắn hoặc ngày cuối tuần.",
+      "base_price": 429000.0,
+      "target_demographic": "FEMALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-032-V01",
+          "product_id": "SM-PRD-032",
+          "sku": "SM-QSH032-S-BEI",
+          "size": "S",
+          "color": "Be",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 20,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-032-V02",
+          "product_id": "SM-PRD-032",
+          "sku": "SM-QSH032-M-BRN",
+          "size": "M",
+          "color": "Nâu",
+          "material": "Poly spandex",
+          "price_override": null,
+          "stock_quantity": 12,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-032-V03",
+          "product_id": "SM-PRD-032",
+          "sku": "SM-QSH032-L-BLK",
+          "size": "L",
+          "color": "Đen",
+          "material": "Thun co giãn",
+          "price_override": null,
+          "stock_quantity": 0,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/473696/item/vngoods_32_473696_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-short-lung-cao-ong-rong-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-short",
+          "name": "Quần short"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-short",
+        "nu",
+        "basic"
+      ],
+      "search_text": "Quần Short Lưng Cao Ống Rộng Thiết kế nhẹ và thoáng, thích hợp cho ngày nắng hoặc các hoạt động cần cảm giác linh hoạt. Tổng thể thoải mái, dễ mặc và phù hợp các chuyến đi ngắn hoặc ngày cuối tuần. Quần, Quần short, Nữ, Basic Be, Nâu, Đen"
+    },
+    {
+      "product_id": "SM-PRD-033",
+      "name": "Quần Kaki Ống Đứng Nữ",
+      "description": "Bề mặt vải chắc vừa đủ, lên dáng gọn và phù hợp cả lịch đi làm lẫn di chuyển hằng ngày. Thiết kế tối giản giúp món đồ bền xu hướng và dễ lặp lại trong tủ đồ.",
+      "base_price": 599000.0,
+      "target_demographic": "FEMALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-033-V01",
+          "product_id": "SM-PRD-033",
+          "sku": "SM-QKK033-26-CHR",
+          "size": "26",
+          "color": "Xám than",
+          "material": "Kaki cotton",
+          "price_override": null,
+          "stock_quantity": 25,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-033-V02",
+          "product_id": "SM-PRD-033",
+          "sku": "SM-QKK033-28-BLK",
+          "size": "28",
+          "color": "Đen",
+          "material": "Twill mềm",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-033-V03",
+          "product_id": "SM-PRD-033",
+          "sku": "SM-QKK033-30-NVY",
+          "size": "30",
+          "color": "Xanh navy",
+          "material": "Poly viscose",
+          "price_override": null,
+          "stock_quantity": 5,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/469828/item/goods_32_469828_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-kaki-ong-dung-nu-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-kaki",
+          "name": "Quần kaki"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-kaki",
+        "nu",
+        "basic"
+      ],
+      "search_text": "Quần Kaki Ống Đứng Nữ Bề mặt vải chắc vừa đủ, lên dáng gọn và phù hợp cả lịch đi làm lẫn di chuyển hằng ngày. Thiết kế tối giản giúp món đồ bền xu hướng và dễ lặp lại trong tủ đồ. Quần, Quần kaki, Nữ, Basic Xám than, Đen, Xanh navy"
+    },
+    {
+      "product_id": "SM-PRD-034",
+      "name": "Quần Legging Co Giãn Nữ",
+      "description": "Chất vải co giãn ôm chân vừa vặn, hỗ trợ vận động tốt và không gây bí bách. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển.",
+      "base_price": 359000.0,
+      "target_demographic": "FEMALE",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-034-V01",
+          "product_id": "SM-PRD-034",
+          "sku": "SM-QLG034-S-CRM",
+          "size": "S",
+          "color": "Kem",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 30,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-034-V02",
+          "product_id": "SM-PRD-034",
+          "sku": "SM-QLG034-M-BEI",
+          "size": "M",
+          "color": "Be",
+          "material": "Poly spandex",
+          "price_override": null,
+          "stock_quantity": 18,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-034-V03",
+          "product_id": "SM-PRD-034",
+          "sku": "SM-QLG034-L-BRN",
+          "size": "L",
+          "color": "Nâu",
+          "material": "Thun co giãn",
+          "price_override": null,
+          "stock_quantity": 7,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/483546/item/vngoods_19_483546_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-legging-co-gian-nu-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-legging",
+          "name": "Quần legging"
+        },
+        {
+          "slug": "nu",
+          "name": "Nữ"
+        },
+        {
+          "slug": "do-the-thao",
+          "name": "Đồ thể thao"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-legging",
+        "nu",
+        "do-the-thao"
+      ],
+      "search_text": "Quần Legging Co Giãn Nữ Chất vải co giãn ôm chân vừa vặn, hỗ trợ vận động tốt và không gây bí bách. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển. Quần, Quần legging, Nữ, Đồ thể thao Kem, Be, Nâu"
+    },
+    {
+      "product_id": "SM-PRD-035",
+      "name": "Áo Thun Oversize Unisex",
+      "description": "Áo thun cotton mềm nhẹ với phom dễ mặc, phù hợp đi học, đi làm hoặc phối nhiều lớp hằng ngày. Tổng thể thoải mái, dễ mặc và phù hợp các chuyến đi ngắn hoặc ngày cuối tuần.",
+      "base_price": 269000.0,
+      "target_demographic": "UNISEX",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-035-V01",
+          "product_id": "SM-PRD-035",
+          "sku": "SM-ATC035-S-WHT",
+          "size": "S",
+          "color": "Trắng",
+          "material": "Cotton 100%",
+          "price_override": null,
+          "stock_quantity": 35,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-035-V02",
+          "product_id": "SM-PRD-035",
+          "sku": "SM-ATC035-M-BLK",
+          "size": "M",
+          "color": "Đen",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 6,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-035-V03",
+          "product_id": "SM-PRD-035",
+          "sku": "SM-ATC035-L-GRY",
+          "size": "L",
+          "color": "Xám",
+          "material": "Rib cotton",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/465185/item/vngoods_17_465185_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-thun-oversize-unisex-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-thun",
+          "name": "Áo thun"
+        },
+        {
+          "slug": "unisex",
+          "name": "Unisex"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-thun",
+        "unisex",
+        "basic"
+      ],
+      "search_text": "Áo Thun Oversize Unisex Áo thun cotton mềm nhẹ với phom dễ mặc, phù hợp đi học, đi làm hoặc phối nhiều lớp hằng ngày. Tổng thể thoải mái, dễ mặc và phù hợp các chuyến đi ngắn hoặc ngày cuối tuần. Áo, Áo thun, Unisex, Basic Trắng, Đen, Xám"
+    },
+    {
+      "product_id": "SM-PRD-036",
+      "name": "Áo Thun Graphic Local Unisex",
+      "description": "Áo thun cotton mềm nhẹ với phom dễ mặc, phù hợp đi học, đi làm hoặc phối nhiều lớp hằng ngày. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động.",
+      "base_price": 329000.0,
+      "target_demographic": "UNISEX",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-036-V01",
+          "product_id": "SM-PRD-036",
+          "sku": "SM-ATC036-S-BEI",
+          "size": "S",
+          "color": "Be",
+          "material": "Cotton 100%",
+          "price_override": null,
+          "stock_quantity": 10,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-036-V02",
+          "product_id": "SM-PRD-036",
+          "sku": "SM-ATC036-M-BRN",
+          "size": "M",
+          "color": "Nâu",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-036-V03",
+          "product_id": "SM-PRD-036",
+          "sku": "SM-ATC036-L-NVY",
+          "size": "L",
+          "color": "Xanh navy",
+          "material": "Rib cotton",
+          "price_override": null,
+          "stock_quantity": 0,
+          "active": false
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/465187/item/vngoods_14_465187_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-thun-graphic-local-unisex-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-thun",
+          "name": "Áo thun"
+        },
+        {
+          "slug": "unisex",
+          "name": "Unisex"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-thun",
+        "unisex",
+        "basic"
+      ],
+      "search_text": "Áo Thun Graphic Local Unisex Áo thun cotton mềm nhẹ với phom dễ mặc, phù hợp đi học, đi làm hoặc phối nhiều lớp hằng ngày. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động. Áo, Áo thun, Unisex, Basic Be, Nâu, Xanh navy"
+    },
+    {
+      "product_id": "SM-PRD-037",
+      "name": "Áo Sơ Mi Caro Form Rộng Unisex",
+      "description": "Chất vải nhẹ tay và lên dáng sạch sẽ, phù hợp mặc riêng hoặc khoác ngoài trong thời tiết nóng ẩm. Tổng thể thoải mái, dễ mặc và phù hợp các chuyến đi ngắn hoặc ngày cuối tuần.",
+      "base_price": 559000.0,
+      "target_demographic": "UNISEX",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-037-V01",
+          "product_id": "SM-PRD-037",
+          "sku": "SM-ASM037-S-DNM",
+          "size": "S",
+          "color": "Xanh denim",
+          "material": "Cotton poplin",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-037-V02",
+          "product_id": "SM-PRD-037",
+          "sku": "SM-ASM037-M-CRM",
+          "size": "M",
+          "color": "Kem",
+          "material": "Linen pha",
+          "price_override": null,
+          "stock_quantity": 12,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-037-V03",
+          "product_id": "SM-PRD-037",
+          "sku": "SM-ASM037-L-BLK",
+          "size": "L",
+          "color": "Đen",
+          "material": "Satin mềm",
+          "price_override": null,
+          "stock_quantity": 5,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/455957/item/vngoods_61_455957_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-so-mi-caro-form-rong-unisex-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-so-mi",
+          "name": "Áo sơ mi"
+        },
+        {
+          "slug": "unisex",
+          "name": "Unisex"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-so-mi",
+        "unisex",
+        "basic"
+      ],
+      "search_text": "Áo Sơ Mi Caro Form Rộng Unisex Chất vải nhẹ tay và lên dáng sạch sẽ, phù hợp mặc riêng hoặc khoác ngoài trong thời tiết nóng ẩm. Tổng thể thoải mái, dễ mặc và phù hợp các chuyến đi ngắn hoặc ngày cuối tuần. Áo, Áo sơ mi, Unisex, Basic Xanh denim, Kem, Đen"
+    },
+    {
+      "product_id": "SM-PRD-038",
+      "name": "Áo Polo Thêu Logo Unisex",
+      "description": "Bề mặt vải thoáng và đứng phom, giữ vẻ gọn gàng cho ngày làm việc hoặc cuối tuần năng động. Thiết kế tối giản giúp món đồ bền xu hướng và dễ lặp lại trong tủ đồ.",
+      "base_price": 369000.0,
+      "target_demographic": "UNISEX",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-038-V01",
+          "product_id": "SM-PRD-038",
+          "sku": "SM-APL038-S-OLV",
+          "size": "S",
+          "color": "Rêu",
+          "material": "Cotton 100%",
+          "price_override": null,
+          "stock_quantity": 20,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-038-V02",
+          "product_id": "SM-PRD-038",
+          "sku": "SM-APL038-M-ASH",
+          "size": "M",
+          "color": "Ghi",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-038-V03",
+          "product_id": "SM-PRD-038",
+          "sku": "SM-APL038-L-WHT",
+          "size": "L",
+          "color": "Trắng",
+          "material": "Rib cotton",
+          "price_override": null,
+          "stock_quantity": 7,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/485566/item/vngoods_12_485566_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-polo-theu-logo-unisex-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-polo",
+          "name": "Áo polo"
+        },
+        {
+          "slug": "unisex",
+          "name": "Unisex"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-polo",
+        "unisex",
+        "basic"
+      ],
+      "search_text": "Áo Polo Thêu Logo Unisex Bề mặt vải thoáng và đứng phom, giữ vẻ gọn gàng cho ngày làm việc hoặc cuối tuần năng động. Thiết kế tối giản giúp món đồ bền xu hướng và dễ lặp lại trong tủ đồ. Áo, Áo polo, Unisex, Basic Rêu, Ghi, Trắng"
+    },
+    {
+      "product_id": "SM-PRD-039",
+      "name": "Áo Khoác Dù Mỏng Unisex",
+      "description": "Thiết kế giữ phom tốt, đủ nhẹ để mặc thường xuyên và dễ kết hợp với nhiều lớp trang phục bên trong. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển.",
+      "base_price": 899000.0,
+      "target_demographic": "UNISEX",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-039-V01",
+          "product_id": "SM-PRD-039",
+          "sku": "SM-AKG039-S-BLK",
+          "size": "S",
+          "color": "Đen",
+          "material": "Nylon pha",
+          "price_override": null,
+          "stock_quantity": 25,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-039-V02",
+          "product_id": "SM-PRD-039",
+          "sku": "SM-AKG039-M-NVY",
+          "size": "M",
+          "color": "Xanh navy",
+          "material": "Denim cotton",
+          "price_override": null,
+          "stock_quantity": 18,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-039-V03",
+          "product_id": "SM-PRD-039",
+          "sku": "SM-AKG039-L-BEI",
+          "size": "L",
+          "color": "Be",
+          "material": "Nỉ chải mềm",
+          "price_override": 949000.0,
+          "stock_quantity": 9,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/478231/item/vngoods_76_478231_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-khoac-du-mong-unisex-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-khoac",
+          "name": "Áo khoác"
+        },
+        {
+          "slug": "unisex",
+          "name": "Unisex"
+        },
+        {
+          "slug": "do-the-thao",
+          "name": "Đồ thể thao"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-khoac",
+        "unisex",
+        "do-the-thao"
+      ],
+      "search_text": "Áo Khoác Dù Mỏng Unisex Thiết kế giữ phom tốt, đủ nhẹ để mặc thường xuyên và dễ kết hợp với nhiều lớp trang phục bên trong. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển. Áo, Áo khoác, Unisex, Đồ thể thao Đen, Xanh navy, Be"
+    },
+    {
+      "product_id": "SM-PRD-040",
+      "name": "Áo Khoác Bomber Unisex",
+      "description": "Thiết kế giữ phom tốt, đủ nhẹ để mặc thường xuyên và dễ kết hợp với nhiều lớp trang phục bên trong. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động.",
+      "base_price": 1299000.0,
+      "target_demographic": "UNISEX",
+      "status": "INACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-040-V01",
+          "product_id": "SM-PRD-040",
+          "sku": "SM-AKG040-S-WHT",
+          "size": "S",
+          "color": "Trắng",
+          "material": "Nylon pha",
+          "price_override": null,
+          "stock_quantity": 30,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-040-V02",
+          "product_id": "SM-PRD-040",
+          "sku": "SM-AKG040-M-BLK",
+          "size": "M",
+          "color": "Đen",
+          "material": "Denim cotton",
+          "price_override": null,
+          "stock_quantity": 6,
+          "active": false
+        },
+        {
+          "id": "SM-PRD-040-V03",
+          "product_id": "SM-PRD-040",
+          "sku": "SM-AKG040-L-GRY",
+          "size": "L",
+          "color": "Xám",
+          "material": "Nỉ chải mềm",
+          "price_override": 1349000.0,
+          "stock_quantity": 0,
+          "active": false
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/482767/item/goods_79_482767_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-khoac-bomber-unisex-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-khoac",
+          "name": "Áo khoác"
+        },
+        {
+          "slug": "unisex",
+          "name": "Unisex"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-khoac",
+        "unisex",
+        "basic"
+      ],
+      "search_text": "Áo Khoác Bomber Unisex Thiết kế giữ phom tốt, đủ nhẹ để mặc thường xuyên và dễ kết hợp với nhiều lớp trang phục bên trong. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động. Áo, Áo khoác, Unisex, Basic Trắng, Đen, Xám"
+    },
+    {
+      "product_id": "SM-PRD-041",
+      "name": "Áo Len Gile Vintage Unisex",
+      "description": "Bề mặt dệt mềm, giữ ấm vừa phải và tạo cảm giác chỉn chu cho những ngày mát trời. Bảng màu dịu và bề mặt vải mềm tạo cảm giác nhẹ nhàng, dễ mặc quanh năm.",
+      "base_price": 539000.0,
+      "target_demographic": "UNISEX",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-041-V01",
+          "product_id": "SM-PRD-041",
+          "sku": "SM-ALN041-S-BEI",
+          "size": "S",
+          "color": "Be",
+          "material": "Len pha mềm",
+          "price_override": null,
+          "stock_quantity": 35,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-041-V02",
+          "product_id": "SM-PRD-041",
+          "sku": "SM-ALN041-M-BRN",
+          "size": "M",
+          "color": "Nâu",
+          "material": "Len dệt mịn",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-041-V03",
+          "product_id": "SM-PRD-041",
+          "sku": "SM-ALN041-L-NVY",
+          "size": "L",
+          "color": "Xanh navy",
+          "material": "Len gân",
+          "price_override": null,
+          "stock_quantity": 5,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/480965/item/vngoods_56_480965_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-len-gile-vintage-unisex-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-len",
+          "name": "Áo len"
+        },
+        {
+          "slug": "unisex",
+          "name": "Unisex"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-len",
+        "unisex",
+        "basic"
+      ],
+      "search_text": "Áo Len Gile Vintage Unisex Bề mặt dệt mềm, giữ ấm vừa phải và tạo cảm giác chỉn chu cho những ngày mát trời. Bảng màu dịu và bề mặt vải mềm tạo cảm giác nhẹ nhàng, dễ mặc quanh năm. Áo, Áo len, Unisex, Basic Be, Nâu, Xanh navy"
+    },
+    {
+      "product_id": "SM-PRD-042",
+      "name": "Áo Hoodie Zip Unisex",
+      "description": "Form thoải mái, chất liệu mềm và đủ dày để mặc hằng ngày trong các set đồ ưu tiên sự tiện dụng. Đây là lựa chọn dễ chịu cho lịch mặc ưu tiên sự thư giãn và tiện dụng.",
+      "base_price": 849000.0,
+      "target_demographic": "UNISEX",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-042-V01",
+          "product_id": "SM-PRD-042",
+          "sku": "SM-AHD042-S-DNM",
+          "size": "S",
+          "color": "Xanh denim",
+          "material": "Nylon pha",
+          "price_override": null,
+          "stock_quantity": 10,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-042-V02",
+          "product_id": "SM-PRD-042",
+          "sku": "SM-AHD042-M-CRM",
+          "size": "M",
+          "color": "Kem",
+          "material": "Denim cotton",
+          "price_override": null,
+          "stock_quantity": 12,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-042-V03",
+          "product_id": "SM-PRD-042",
+          "sku": "SM-AHD042-L-BLK",
+          "size": "L",
+          "color": "Đen",
+          "material": "Nỉ chải mềm",
+          "price_override": 899000.0,
+          "stock_quantity": 7,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/475380/item/vngoods_31_475380_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-hoodie-zip-unisex-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-hoodie",
+          "name": "Áo hoodie"
+        },
+        {
+          "slug": "unisex",
+          "name": "Unisex"
+        },
+        {
+          "slug": "do-mac-nha",
+          "name": "Đồ mặc nhà"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-hoodie",
+        "unisex",
+        "do-mac-nha"
+      ],
+      "search_text": "Áo Hoodie Zip Unisex Form thoải mái, chất liệu mềm và đủ dày để mặc hằng ngày trong các set đồ ưu tiên sự tiện dụng. Đây là lựa chọn dễ chịu cho lịch mặc ưu tiên sự thư giãn và tiện dụng. Áo, Áo hoodie, Unisex, Đồ mặc nhà Xanh denim, Kem, Đen"
+    },
+    {
+      "product_id": "SM-PRD-043",
+      "name": "Quần Jeans Baggy Wash Unisex",
+      "description": "Chất denim bền tay, phom cân đối và dễ phối cùng áo thun, sơ mi hoặc áo khoác nhẹ. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động.",
+      "base_price": 929000.0,
+      "target_demographic": "UNISEX",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-043-V01",
+          "product_id": "SM-PRD-043",
+          "sku": "SM-QJN043-29-BLK",
+          "size": "29",
+          "color": "Đen",
+          "material": "Denim co giãn nhẹ",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-043-V02",
+          "product_id": "SM-PRD-043",
+          "sku": "SM-QJN043-31-ASH",
+          "size": "31",
+          "color": "Ghi",
+          "material": "Denim mềm",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-043-V03",
+          "product_id": "SM-PRD-043",
+          "sku": "SM-QJN043-33-OLV",
+          "size": "33",
+          "color": "Rêu",
+          "material": "Denim wash",
+          "price_override": 979000.0,
+          "stock_quantity": 9,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/480740/item/vngoods_69_480740_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-jeans-baggy-wash-unisex-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-jeans",
+          "name": "Quần jeans"
+        },
+        {
+          "slug": "unisex",
+          "name": "Unisex"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-jeans",
+        "unisex",
+        "basic"
+      ],
+      "search_text": "Quần Jeans Baggy Wash Unisex Chất denim bền tay, phom cân đối và dễ phối cùng áo thun, sơ mi hoặc áo khoác nhẹ. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động. Quần, Quần jeans, Unisex, Basic Đen, Ghi, Rêu"
+    },
+    {
+      "product_id": "SM-PRD-044",
+      "name": "Quần Kaki Cargo Unisex",
+      "description": "Bề mặt vải chắc vừa đủ, lên dáng gọn và phù hợp cả lịch đi làm lẫn di chuyển hằng ngày. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động.",
+      "base_price": 779000.0,
+      "target_demographic": "UNISEX",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-044-V01",
+          "product_id": "SM-PRD-044",
+          "sku": "SM-QKK044-29-DNM",
+          "size": "29",
+          "color": "Xanh denim",
+          "material": "Kaki cotton",
+          "price_override": null,
+          "stock_quantity": 20,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-044-V02",
+          "product_id": "SM-PRD-044",
+          "sku": "SM-QKK044-31-C2",
+          "size": "31",
+          "color": "Xanh đậm",
+          "material": "Twill mềm",
+          "price_override": null,
+          "stock_quantity": 18,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-044-V03",
+          "product_id": "SM-PRD-044",
+          "sku": "SM-QKK044-33-BLK",
+          "size": "33",
+          "color": "Đen",
+          "material": "Poly viscose",
+          "price_override": null,
+          "stock_quantity": 0,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/457209/item/goods_09_457209_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-kaki-cargo-unisex-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-kaki",
+          "name": "Quần kaki"
+        },
+        {
+          "slug": "unisex",
+          "name": "Unisex"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-kaki",
+        "unisex",
+        "basic"
+      ],
+      "search_text": "Quần Kaki Cargo Unisex Bề mặt vải chắc vừa đủ, lên dáng gọn và phù hợp cả lịch đi làm lẫn di chuyển hằng ngày. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động. Quần, Quần kaki, Unisex, Basic Xanh denim, Xanh đậm, Đen"
+    },
+    {
+      "product_id": "SM-PRD-045",
+      "name": "Quần Tây Ống Rộng Unisex",
+      "description": "Phom suông sạch, bề mặt ít nhăn và mang lại cảm giác chỉn chu nhưng vẫn thoải mái khi mặc lâu. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động.",
+      "base_price": 719000.0,
+      "target_demographic": "UNISEX",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-045-V01",
+          "product_id": "SM-PRD-045",
+          "sku": "SM-QTY045-29-BEI",
+          "size": "29",
+          "color": "Be",
+          "material": "Kaki cotton",
+          "price_override": null,
+          "stock_quantity": 25,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-045-V02",
+          "product_id": "SM-PRD-045",
+          "sku": "SM-QTY045-31-BRN",
+          "size": "31",
+          "color": "Nâu",
+          "material": "Twill mềm",
+          "price_override": 749000.0,
+          "stock_quantity": 6,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-045-V03",
+          "product_id": "SM-PRD-045",
+          "sku": "SM-QTY045-33-BLK",
+          "size": "33",
+          "color": "Đen",
+          "material": "Poly viscose",
+          "price_override": null,
+          "stock_quantity": 5,
+          "active": false
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/484875/item/vngoods_34_484875_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-tay-ong-rong-unisex-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-tay",
+          "name": "Quần dài"
+        },
+        {
+          "slug": "unisex",
+          "name": "Unisex"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-tay",
+        "unisex",
+        "basic"
+      ],
+      "search_text": "Quần Tây Ống Rộng Unisex Phom suông sạch, bề mặt ít nhăn và mang lại cảm giác chỉn chu nhưng vẫn thoải mái khi mặc lâu. Phom hiện đại giúp sản phẩm dễ hòa vào các set đồ tối giản hoặc năng động. Quần, Quần dài, Unisex, Basic Be, Nâu, Đen"
+    },
+    {
+      "product_id": "SM-PRD-046",
+      "name": "Quần Short Thể Thao Unisex",
+      "description": "Thiết kế nhẹ và thoáng, thích hợp cho ngày nắng hoặc các hoạt động cần cảm giác linh hoạt. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển.",
+      "base_price": 389000.0,
+      "target_demographic": "UNISEX",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-046-V01",
+          "product_id": "SM-PRD-046",
+          "sku": "SM-QSH046-S-CHR",
+          "size": "S",
+          "color": "Xám than",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 30,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-046-V02",
+          "product_id": "SM-PRD-046",
+          "sku": "SM-QSH046-M-BLK",
+          "size": "M",
+          "color": "Đen",
+          "material": "Poly spandex",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-046-V03",
+          "product_id": "SM-PRD-046",
+          "sku": "SM-QSH046-L-NVY",
+          "size": "L",
+          "color": "Xanh navy",
+          "material": "Thun co giãn",
+          "price_override": null,
+          "stock_quantity": 7,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/475386/item/vngoods_09_475386_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-short-the-thao-unisex-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-short",
+          "name": "Quần short"
+        },
+        {
+          "slug": "unisex",
+          "name": "Unisex"
+        },
+        {
+          "slug": "do-the-thao",
+          "name": "Đồ thể thao"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-short",
+        "unisex",
+        "do-the-thao"
+      ],
+      "search_text": "Quần Short Thể Thao Unisex Thiết kế nhẹ và thoáng, thích hợp cho ngày nắng hoặc các hoạt động cần cảm giác linh hoạt. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển. Quần, Quần short, Unisex, Đồ thể thao Xám than, Đen, Xanh navy"
+    },
+    {
+      "product_id": "SM-PRD-047",
+      "name": "Quần Jogger Dù Unisex",
+      "description": "Dáng quần thoải mái, dễ vận động và phù hợp từ mặc nhà đến những buổi ra ngoài nhanh gọn. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển.",
+      "base_price": 559000.0,
+      "target_demographic": "UNISEX",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-047-V01",
+          "product_id": "SM-PRD-047",
+          "sku": "SM-QJG047-S-CRM",
+          "size": "S",
+          "color": "Kem",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 35,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-047-V02",
+          "product_id": "SM-PRD-047",
+          "sku": "SM-QJG047-M-BEI",
+          "size": "M",
+          "color": "Be",
+          "material": "Poly spandex",
+          "price_override": null,
+          "stock_quantity": 12,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-047-V03",
+          "product_id": "SM-PRD-047",
+          "sku": "SM-QJG047-L-BRN",
+          "size": "L",
+          "color": "Nâu",
+          "material": "Thun co giãn",
+          "price_override": null,
+          "stock_quantity": 9,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/471809/item/vngoods_31_471809_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-jogger-du-unisex-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-jogger",
+          "name": "Quần jogger"
+        },
+        {
+          "slug": "unisex",
+          "name": "Unisex"
+        },
+        {
+          "slug": "do-the-thao",
+          "name": "Đồ thể thao"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-jogger",
+        "unisex",
+        "do-the-thao"
+      ],
+      "search_text": "Quần Jogger Dù Unisex Dáng quần thoải mái, dễ vận động và phù hợp từ mặc nhà đến những buổi ra ngoài nhanh gọn. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển. Quần, Quần jogger, Unisex, Đồ thể thao Kem, Be, Nâu"
+    },
+    {
+      "product_id": "SM-PRD-048",
+      "name": "Quần Mặc Nhà Cotton Unisex",
+      "description": "Dáng quần thoải mái, dễ vận động và phù hợp từ mặc nhà đến những buổi ra ngoài nhanh gọn. Đây là lựa chọn dễ chịu cho lịch mặc ưu tiên sự thư giãn và tiện dụng.",
+      "base_price": 339000.0,
+      "target_demographic": "UNISEX",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-048-V01",
+          "product_id": "SM-PRD-048",
+          "sku": "SM-QJG048-S-BLK",
+          "size": "S",
+          "color": "Đen",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 10,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-048-V02",
+          "product_id": "SM-PRD-048",
+          "sku": "SM-QJG048-M-ASH",
+          "size": "M",
+          "color": "Ghi",
+          "material": "Poly spandex",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-048-V03",
+          "product_id": "SM-PRD-048",
+          "sku": "SM-QJG048-L-OLV",
+          "size": "L",
+          "color": "Rêu",
+          "material": "Thun co giãn",
+          "price_override": null,
+          "stock_quantity": 0,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/482654/item/vngoods_35_482654_3x4.jpg",
+          "image_public_id": "stylemind/products/quan-mac-nha-cotton-unisex-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "quan",
+          "name": "Quần"
+        },
+        {
+          "slug": "quan-jogger",
+          "name": "Quần jogger"
+        },
+        {
+          "slug": "unisex",
+          "name": "Unisex"
+        },
+        {
+          "slug": "do-mac-nha",
+          "name": "Đồ mặc nhà"
+        }
+      ],
+      "slot": "bottom",
+      "tags": [
+        "quan",
+        "quan-jogger",
+        "unisex",
+        "do-mac-nha"
+      ],
+      "search_text": "Quần Mặc Nhà Cotton Unisex Dáng quần thoải mái, dễ vận động và phù hợp từ mặc nhà đến những buổi ra ngoài nhanh gọn. Đây là lựa chọn dễ chịu cho lịch mặc ưu tiên sự thư giãn và tiện dụng. Quần, Quần jogger, Unisex, Đồ mặc nhà Đen, Ghi, Rêu"
+    },
+    {
+      "product_id": "SM-PRD-049",
+      "name": "Áo Thun Active Unisex",
+      "description": "Áo thun cotton mềm nhẹ với phom dễ mặc, phù hợp đi học, đi làm hoặc phối nhiều lớp hằng ngày. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển.",
+      "base_price": 299000.0,
+      "target_demographic": "UNISEX",
+      "status": "ACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-049-V01",
+          "product_id": "SM-PRD-049",
+          "sku": "SM-ATC049-S-OLV",
+          "size": "S",
+          "color": "Rêu",
+          "material": "Cotton 100%",
+          "price_override": null,
+          "stock_quantity": 15,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-049-V02",
+          "product_id": "SM-PRD-049",
+          "sku": "SM-ATC049-M-ASH",
+          "size": "M",
+          "color": "Ghi",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 18,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-049-V03",
+          "product_id": "SM-PRD-049",
+          "sku": "SM-ATC049-L-WHT",
+          "size": "L",
+          "color": "Trắng",
+          "material": "Rib cotton",
+          "price_override": null,
+          "stock_quantity": 5,
+          "active": true
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/465187/item/vngoods_14_465187_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-thun-active-unisex-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-thun",
+          "name": "Áo thun"
+        },
+        {
+          "slug": "unisex",
+          "name": "Unisex"
+        },
+        {
+          "slug": "do-the-thao",
+          "name": "Đồ thể thao"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-thun",
+        "unisex",
+        "do-the-thao"
+      ],
+      "search_text": "Áo Thun Active Unisex Áo thun cotton mềm nhẹ với phom dễ mặc, phù hợp đi học, đi làm hoặc phối nhiều lớp hằng ngày. Chi tiết hoàn thiện ưu tiên sự linh hoạt và cảm giác thoáng mát khi di chuyển. Áo, Áo thun, Unisex, Đồ thể thao Rêu, Ghi, Trắng"
+    },
+    {
+      "product_id": "SM-PRD-050",
+      "name": "Áo Tank Top Essential Unisex",
+      "description": "Phom gọn, co giãn tốt và phù hợp mặc riêng hoặc phối lớp trong những set đồ tối giản. Thiết kế tối giản giúp món đồ bền xu hướng và dễ lặp lại trong tủ đồ.",
+      "base_price": 219000.0,
+      "target_demographic": "UNISEX",
+      "status": "INACTIVE",
+      "variants": [
+        {
+          "id": "SM-PRD-050-V01",
+          "product_id": "SM-PRD-050",
+          "sku": "SM-ATT050-S-BLK",
+          "size": "S",
+          "color": "Đen",
+          "material": "Cotton 100%",
+          "price_override": null,
+          "stock_quantity": 20,
+          "active": true
+        },
+        {
+          "id": "SM-PRD-050-V02",
+          "product_id": "SM-PRD-050",
+          "sku": "SM-ATT050-M-NVY",
+          "size": "M",
+          "color": "Xanh navy",
+          "material": "Cotton pha",
+          "price_override": null,
+          "stock_quantity": 6,
+          "active": false
+        },
+        {
+          "id": "SM-PRD-050-V03",
+          "product_id": "SM-PRD-050",
+          "sku": "SM-ATT050-L-BEI",
+          "size": "L",
+          "color": "Be",
+          "material": "Rib cotton",
+          "price_override": null,
+          "stock_quantity": 7,
+          "active": false
+        }
+      ],
+      "images": [
+        {
+          "image_url": "https://image.uniqlo.com/UQ/ST3/vn/imagesgoods/457517/item/vngoods_38_457517_3x4.jpg",
+          "image_public_id": "stylemind/products/ao-tank-top-essential-unisex-primary",
+          "is_primary": true
+        }
+      ],
+      "categories": [
+        {
+          "slug": "ao",
+          "name": "Áo"
+        },
+        {
+          "slug": "ao-tank-top",
+          "name": "Áo tank top"
+        },
+        {
+          "slug": "unisex",
+          "name": "Unisex"
+        },
+        {
+          "slug": "basic",
+          "name": "Basic"
+        }
+      ],
+      "slot": "top",
+      "tags": [
+        "ao",
+        "ao-tank-top",
+        "unisex",
+        "basic"
+      ],
+      "search_text": "Áo Tank Top Essential Unisex Phom gọn, co giãn tốt và phù hợp mặc riêng hoặc phối lớp trong những set đồ tối giản. Thiết kế tối giản giúp món đồ bền xu hướng và dễ lặp lại trong tủ đồ. Áo, Áo tank top, Unisex, Basic Đen, Xanh navy, Be"
     }
   ]
 }

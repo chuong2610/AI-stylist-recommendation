@@ -30,10 +30,10 @@ class Settings(BaseSettings):
     concept_similarity_threshold: float = 0.65
     qdrant_concept_collection: str = "ai_stylist_concepts"
 
-    # Product Service
-    product_service_base_url: str = "http://localhost:8001"
+    # Product Service (Java product-service; public GET /api/v1/products/** is permitAll, no auth needed)
+    product_service_base_url: str = "http://localhost:8083"
     product_service_timeout: int = 10
-    product_service_text_search_path: str = "/products/search"
+    product_service_products_path: str = "/api/v1/products"
 
     # Seed JSON used only by init scripts and local metadata hydration.
     product_seed_path: str = "scripts/seeds/products.json"

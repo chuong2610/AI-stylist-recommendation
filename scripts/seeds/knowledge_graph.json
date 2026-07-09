@@ -1,118 +1,124 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "concepts": [
     {
-      "id": "ITEM_DRESS",
-      "name": "Dress",
+      "id": "ITEM_TSHIRT",
+      "name": "T-Shirt",
       "type": "item_type",
-      "description": "One-piece dress or gown used as a main outfit item.",
-      "aliases": [
-        "váy",
-        "đầm",
-        "dress",
-        "váy đầm"
-      ]
+      "description": "Casual cotton t-shirt / round-neck tee, everyday basic top.",
+      "aliases": ["áo thun", "t-shirt", "tee", "áo phông", "áo thun cotton"]
     },
     {
       "id": "ITEM_SHIRT",
       "name": "Shirt",
       "type": "item_type",
-      "description": "Button-up shirt or structured top.",
-      "aliases": [
-        "áo sơ mi",
-        "shirt",
-        "sơ mi",
-        "áo linen"
-      ]
+      "description": "Button-up shirt or structured top (Oxford, linen).",
+      "aliases": ["áo sơ mi", "shirt", "sơ mi", "áo linen", "áo sơ mi oxford"]
     },
     {
-      "id": "ITEM_WIDE_LEG_PANTS",
-      "name": "Wide Leg Pants",
+      "id": "ITEM_POLO",
+      "name": "Polo Shirt",
       "type": "item_type",
-      "description": "Wide-leg trousers or linen pants.",
-      "aliases": [
-        "quần ống rộng",
-        "wide leg pants",
-        "quần linen"
-      ]
+      "description": "Pique polo shirt, smart-casual top.",
+      "aliases": ["áo polo", "polo", "áo cổ trụ"]
+    },
+    {
+      "id": "ITEM_JACKET",
+      "name": "Jacket",
+      "type": "item_type",
+      "description": "Outerwear jacket: windbreaker or denim jacket.",
+      "aliases": ["áo khoác", "jacket", "áo gió", "áo khoác denim", "áo khoác chống nắng"]
+    },
+    {
+      "id": "ITEM_SWEATER",
+      "name": "Sweater / Cardigan",
+      "type": "item_type",
+      "description": "Knitwear sweater or thin cardigan.",
+      "aliases": ["áo len", "cardigan", "áo dệt kim", "áo len mỏng"]
+    },
+    {
+      "id": "ITEM_HOODIE",
+      "name": "Hoodie",
+      "type": "item_type",
+      "description": "Fleece hoodie, relaxed loungewear/streetwear top.",
+      "aliases": ["áo hoodie", "hoodie", "áo nỉ có mũ", "áo nỉ"]
+    },
+    {
+      "id": "ITEM_BLOUSE",
+      "name": "Blouse",
+      "type": "item_type",
+      "description": "Feminine blouse with soft draping, office or casual wear.",
+      "aliases": ["áo blouse", "blouse", "áo tay bồng"]
+    },
+    {
+      "id": "ITEM_TANKTOP",
+      "name": "Tank Top",
+      "type": "item_type",
+      "description": "Sleeveless tank top / croptop, casual or sport layering piece.",
+      "aliases": ["áo tank top", "tank top", "áo ba lỗ", "áo croptop"]
+    },
+    {
+      "id": "ITEM_JEANS",
+      "name": "Jeans",
+      "type": "item_type",
+      "description": "Denim jeans, straight or slim fit.",
+      "aliases": ["quần jeans", "jeans", "quần bò", "quần jean"]
+    },
+    {
+      "id": "ITEM_KAKI_PANTS",
+      "name": "Kaki Pants",
+      "type": "item_type",
+      "description": "Kaki / chino trousers, smart-casual bottom.",
+      "aliases": ["quần kaki", "kaki", "quần chinos"]
+    },
+    {
+      "id": "ITEM_DRESS_PANTS",
+      "name": "Dress Pants",
+      "type": "item_type",
+      "description": "Tailored dress/office trousers.",
+      "aliases": ["quần tây", "quần âu", "quần công sở", "dress pants", "quần tây slim fit"]
     },
     {
       "id": "ITEM_SHORTS",
       "name": "Shorts",
       "type": "item_type",
-      "description": "Short pants for casual or beach outfits.",
-      "aliases": [
-        "quần short",
-        "shorts",
-        "quần đùi"
-      ]
+      "description": "Short pants for casual, sport, or beach outfits.",
+      "aliases": ["quần short", "shorts", "quần đùi"]
     },
     {
-      "id": "ITEM_SANDAL",
-      "name": "Sandal",
+      "id": "ITEM_JOGGER",
+      "name": "Jogger Pants",
       "type": "item_type",
-      "description": "Open sandal, often used for beach and summer outfits.",
-      "aliases": [
-        "sandal",
-        "dép sandal",
-        "giày sandal"
-      ]
+      "description": "Jogger sweatpants, sport/loungewear bottom.",
+      "aliases": ["quần jogger", "jogger", "quần thể thao", "quần nỉ"]
     },
     {
-      "id": "ITEM_HEELS",
-      "name": "High Heels",
+      "id": "ITEM_LEGGING",
+      "name": "Leggings",
       "type": "item_type",
-      "description": "High-heeled shoes for formal or party outfits.",
-      "aliases": [
-        "giày cao gót",
-        "cao gót",
-        "heels"
-      ]
+      "description": "Stretch leggings for sport or yoga.",
+      "aliases": ["quần legging", "legging", "quần tập yoga", "quần bó"]
     },
     {
-      "id": "ITEM_SNEAKERS",
-      "name": "Sneakers",
+      "id": "ITEM_DRESS",
+      "name": "Dress",
       "type": "item_type",
-      "description": "Casual athletic-style shoes.",
-      "aliases": [
-        "sneaker",
-        "sneakers",
-        "giày thể thao"
-      ]
+      "description": "One-piece dress or gown used as a main outfit item.",
+      "aliases": ["váy", "đầm", "dress", "váy đầm"]
     },
     {
-      "id": "ITEM_CLUTCH",
-      "name": "Clutch",
+      "id": "ITEM_SKIRT",
+      "name": "Skirt",
       "type": "item_type",
-      "description": "Small hand-held bag for party outfits.",
-      "aliases": [
-        "clutch",
-        "túi cầm tay",
-        "ví dự tiệc"
-      ]
-    },
-    {
-      "id": "ITEM_EARRINGS",
-      "name": "Earrings",
-      "type": "item_type",
-      "description": "Earrings or small jewelry accessories.",
-      "aliases": [
-        "bông tai",
-        "khuyên tai",
-        "earrings"
-      ]
+      "description": "Skirt worn as a bottom, casual or office.",
+      "aliases": ["chân váy", "skirt", "chân váy công sở"]
     },
     {
       "id": "STYLE_KOREAN_CASUAL",
       "name": "Korean Casual",
       "type": "style",
       "description": "Minimal, soft, clean Korean-inspired casual style.",
-      "aliases": [
-        "style Hàn",
-        "phong cách Hàn",
-        "gu Hàn Quốc",
-        "korean casual"
-      ]
+      "aliases": ["style Hàn", "phong cách Hàn", "gu Hàn Quốc", "korean casual"]
     },
     {
       "id": "STYLE_MENS_CASUAL",
@@ -120,13 +126,8 @@
       "type": "style",
       "description": "Relaxed, practical casual styling for men's everyday and travel outfits.",
       "aliases": [
-        "nam",
-        "đồ nam",
-        "outfit nam",
-        "men casual",
-        "mens casual",
-        "male outfit",
-        "phong cách nam"
+        "nam", "đồ nam", "outfit nam", "men casual", "mens casual",
+        "male outfit", "phong cách nam", "mens casual male outfit"
       ]
     },
     {
@@ -134,661 +135,526 @@
       "name": "Clean Relaxed",
       "type": "style",
       "description": "Simple, neat, light, comfortable styling with regular fits and easy colors.",
-      "aliases": [
-        "nhẹ nhàng",
-        "thoải mái",
-        "clean relaxed",
-        "gọn gàng",
-        "minimal relaxed",
-        "dễ mặc"
-      ]
+      "aliases": ["nhẹ nhàng", "thoải mái", "clean relaxed", "gọn gàng", "minimal relaxed", "dễ mặc"]
     },
     {
       "id": "STYLE_FEMININE",
       "name": "Feminine",
       "type": "style",
-      "description": "Soft and romantic feminine style.",
+      "description": "Soft and romantic feminine styling for women's everyday outfits.",
       "aliases": [
-        "nữ tính",
-        "dịu dàng",
-        "feminine"
+        "nữ tính", "dịu dàng", "feminine", "nữ", "con gái", "phụ nữ",
+        "women casual", "female outfit", "feminine casual female outfit"
       ]
+    },
+    {
+      "id": "STYLE_OFFICE_SMART",
+      "name": "Office Smart",
+      "type": "style",
+      "description": "Polished, tailored styling suitable for office/workplace wear.",
+      "aliases": ["công sở", "chỉn chu", "lịch sự", "smart casual", "office smart"]
+    },
+    {
+      "id": "OCCASION_OFFICE",
+      "name": "Office / Work",
+      "type": "occasion",
+      "description": "Office work, going to the workplace, business-casual settings.",
+      "aliases": ["công sở", "đi làm", "đi làm văn phòng", "office", "work", "văn phòng", "workwear"]
+    },
+    {
+      "id": "OCCASION_SPORT",
+      "name": "Sport / Workout",
+      "type": "occasion",
+      "description": "Gym, running, or general workout / sport activity.",
+      "aliases": ["thể thao", "tập gym", "chạy bộ", "tập luyện", "vận động", "sport", "workout", "gym"]
+    },
+    {
+      "id": "OCCASION_HOMEWEAR",
+      "name": "Home / Loungewear",
+      "type": "occasion",
+      "description": "Staying at home, relaxing, sleepwear-adjacent loungewear.",
+      "aliases": ["mặc nhà", "ở nhà", "đồ mặc nhà", "loungewear", "relax ở nhà", "đồ ngủ"]
+    },
+    {
+      "id": "OCCASION_DAILY_BASIC",
+      "name": "Daily Basic",
+      "type": "occasion",
+      "description": "Everyday casual: school, hanging out, walking around, no specific dress code.",
+      "aliases": ["hằng ngày", "đi học", "đi chơi", "dạo phố", "thường ngày", "basic", "casual daily"]
     },
     {
       "id": "OCCASION_PARTY",
       "name": "Party",
       "type": "occasion",
       "description": "Evening party, birthday party, dinner, or night out.",
-      "aliases": [
-        "đi tiệc",
-        "tiệc",
-        "party",
-        "dự tiệc",
-        "sinh nhật"
-      ]
+      "aliases": ["đi tiệc", "tiệc", "party", "dự tiệc", "sinh nhật"]
     },
     {
       "id": "OCCASION_BEACH_TRAVEL",
       "name": "Beach Travel",
       "type": "occasion",
       "description": "Beach or coastal travel setting.",
-      "aliases": [
-        "đi biển",
-        "du lịch biển",
-        "biển",
-        "beach travel",
-        "Vũng Tàu",
-        "Nha Trang",
-        "Phú Quốc"
-      ]
+      "aliases": ["đi biển", "du lịch biển", "biển", "beach travel", "Vũng Tàu", "Nha Trang", "Phú Quốc"]
     },
     {
       "id": "BODY_PETITE",
       "name": "Petite",
       "type": "body_context",
       "description": "Short or petite height context.",
-      "aliases": [
-        "hơi thấp",
-        "thấp",
-        "người thấp",
-        "petite"
-      ]
+      "aliases": ["hơi thấp", "thấp", "người thấp", "petite"]
     },
     {
       "id": "BODY_STOCKY",
       "name": "Stocky / Solid Build",
       "type": "body_context",
       "description": "Solid, broad, or heavier build that benefits from regular fit and clean vertical lines.",
-      "aliases": [
-        "đậm người",
-        "hơi mập",
-        "stocky",
-        "solid build",
-        "1m7 80kg",
-        "80kg"
-      ]
+      "aliases": ["đậm người", "hơi mập", "stocky", "solid build", "1m7 80kg", "80kg"]
     },
     {
       "id": "USER_MALE",
       "name": "Male User",
       "type": "user_context",
       "description": "The outfit request is for a male user or masculine wardrobe.",
-      "aliases": [
-        "nam",
-        "con trai",
-        "đàn ông",
-        "male",
-        "man",
-        "men"
-      ]
+      "aliases": ["nam", "con trai", "đàn ông", "male", "man", "men"]
+    },
+    {
+      "id": "USER_FEMALE",
+      "name": "Female User",
+      "type": "user_context",
+      "description": "The outfit request is for a female user or feminine wardrobe.",
+      "aliases": ["nữ", "con gái", "phụ nữ", "female", "woman", "women", "feminine casual female outfit"]
     },
     {
       "id": "PREF_MODEST",
       "name": "Modest Coverage",
       "type": "preference",
       "description": "Preference for not-too-revealing clothes.",
-      "aliases": [
-        "không quá hở",
-        "kín đáo",
-        "modest"
-      ]
+      "aliases": ["không quá hở", "kín đáo", "modest"]
     },
     {
       "id": "PREF_COMFORTABLE",
       "name": "Comfortable",
       "type": "preference",
       "description": "Preference for relaxed, breathable, easy-to-wear clothes that support movement.",
-      "aliases": [
-        "thoải mái",
-        "dễ chịu",
-        "dễ mặc",
-        "comfort",
-        "comfortable",
-        "relaxed fit"
-      ]
+      "aliases": ["thoải mái", "dễ chịu", "dễ mặc", "comfort", "comfortable", "relaxed fit"]
     },
     {
       "id": "FABRIC_BREATHABLE",
       "name": "Breathable Fabric",
       "type": "material_property",
       "description": "Lightweight and cool fabric for hot weather.",
-      "aliases": [
-        "mát",
-        "thoáng",
-        "thoáng mát",
-        "breathable"
-      ]
+      "aliases": ["mát", "thoáng", "thoáng mát", "breathable"]
     },
     {
       "id": "COLOR_NEUTRAL",
       "name": "Neutral Colors",
       "type": "color",
-      "description": "White, black, beige, cream, grey, and camel tones.",
-      "aliases": [
-        "màu trung tính",
-        "neutral",
-        "trắng",
-        "đen",
-        "be"
-      ]
+      "description": "White, black, beige, cream, grey, and navy tones — the dominant palette in the real catalog.",
+      "aliases": ["màu trung tính", "neutral", "trắng", "đen", "be", "xám", "navy"]
     },
     {
       "id": "COLOR_PASTEL",
       "name": "Pastel Colors",
       "type": "color",
       "description": "Soft light pink, lavender, sky blue, or mint tones.",
-      "aliases": [
-        "pastel",
-        "màu pastel",
-        "hồng nhạt",
-        "xanh nhạt"
-      ]
-    },
-    {
-      "id": "COLOR_METALLIC",
-      "name": "Metallic Colors",
-      "type": "color",
-      "description": "Silver, gold, champagne, and metallic accents.",
-      "aliases": [
-        "ánh kim",
-        "bạc",
-        "vàng champagne",
-        "metallic"
-      ]
+      "aliases": ["pastel", "màu pastel", "hồng nhạt", "xanh nhạt"]
     }
   ],
   "edges": [
-    {
-      "source": "ITEM_DRESS",
-      "target": "ITEM_HEELS",
-      "relation": "PAIRS_WITH",
-      "weight": 0.9,
-      "explanation": "Dress-based party outfits usually need refined shoes."
-    },
-    {
-      "source": "ITEM_DRESS",
-      "target": "ITEM_CLUTCH",
-      "relation": "PAIRS_WITH",
-      "weight": 0.78,
-      "explanation": "A small clutch supports a dress without competing with it."
-    },
-    {
-      "source": "ITEM_DRESS",
-      "target": "ITEM_EARRINGS",
-      "relation": "PAIRS_WITH",
-      "weight": 0.72,
-      "explanation": "Small earrings add a clean accent to dress outfits."
-    },
-    {
-      "source": "ITEM_SHIRT",
-      "target": "ITEM_WIDE_LEG_PANTS",
-      "relation": "PAIRS_WITH",
-      "weight": 0.86,
-      "explanation": "A shirt and wide-leg pants create a relaxed smart-casual base."
-    },
-    {
-      "source": "ITEM_SHIRT",
-      "target": "ITEM_SHORTS",
-      "relation": "PAIRS_WITH",
-      "weight": 0.74,
-      "explanation": "A shirt and shorts work for warm beach contexts."
-    },
-    {
-      "source": "OCCASION_PARTY",
-      "target": "ITEM_DRESS",
-      "relation": "PREFERS",
-      "weight": 0.9,
-      "explanation": "Dresses are a strong main item for party contexts."
-    },
-    {
-      "source": "OCCASION_PARTY",
-      "target": "ITEM_HEELS",
-      "relation": "PREFERS",
-      "weight": 0.86,
-      "explanation": "Heels make party outfits more polished."
-    },
-    {
-      "source": "OCCASION_PARTY",
-      "target": "ITEM_SNEAKERS",
-      "relation": "AVOIDS",
-      "weight": 0.75,
-      "explanation": "Sneakers can make a party outfit too casual."
-    },
-    {
-      "source": "OCCASION_PARTY",
-      "target": "COLOR_METALLIC",
-      "relation": "PREFERS",
-      "weight": 0.8,
-      "explanation": "Metallic accents elevate evening looks."
-    },
-    {
-      "source": "OCCASION_BEACH_TRAVEL",
-      "target": "FABRIC_BREATHABLE",
-      "relation": "PREFERS",
-      "weight": 0.95,
-      "explanation": "Beach outfits should stay lightweight and breathable."
-    },
-    {
-      "source": "OCCASION_BEACH_TRAVEL",
-      "target": "ITEM_SANDAL",
-      "relation": "PREFERS",
-      "weight": 0.88,
-      "explanation": "Sandals are practical for beach travel."
-    },
-    {
-      "source": "OCCASION_BEACH_TRAVEL",
-      "target": "ITEM_WIDE_LEG_PANTS",
-      "relation": "PREFERS",
-      "weight": 0.76,
-      "explanation": "Wide-leg linen pants work well in beach travel outfits."
-    },
-    {
-      "source": "STYLE_KOREAN_CASUAL",
-      "target": "ITEM_SHIRT",
-      "relation": "PREFERS",
-      "weight": 0.82,
-      "explanation": "Clean shirts fit Korean casual styling."
-    },
-    {
-      "source": "STYLE_KOREAN_CASUAL",
-      "target": "ITEM_WIDE_LEG_PANTS",
-      "relation": "PREFERS",
-      "weight": 0.84,
-      "explanation": "Wide-leg pants are a common Korean casual silhouette."
-    },
-    {
-      "source": "STYLE_KOREAN_CASUAL",
-      "target": "ITEM_SNEAKERS",
-      "relation": "PREFERS",
-      "weight": 0.72,
-      "explanation": "White sneakers keep Korean casual outfits easy and clean."
-    },
-    {
-      "source": "STYLE_KOREAN_CASUAL",
-      "target": "COLOR_NEUTRAL",
-      "relation": "PREFERS",
-      "weight": 0.88,
-      "explanation": "Neutral colors are central to Korean casual style."
-    },
-    {
-      "source": "STYLE_FEMININE",
-      "target": "ITEM_DRESS",
-      "relation": "PREFERS",
-      "weight": 0.86,
-      "explanation": "Dresses support a soft feminine look."
-    },
-    {
-      "source": "STYLE_FEMININE",
-      "target": "COLOR_PASTEL",
-      "relation": "PREFERS",
-      "weight": 0.78,
-      "explanation": "Pastels reinforce a soft feminine palette."
-    },
-    {
-      "source": "PREF_MODEST",
-      "target": "ITEM_SHORTS",
-      "relation": "AVOIDS",
-      "weight": 0.82,
-      "explanation": "Shorts may conflict with modest coverage preferences."
-    },
-    {
-      "source": "STYLE_MENS_CASUAL",
-      "target": "ITEM_SHIRT",
-      "relation": "PREFERS",
-      "weight": 0.86,
-      "explanation": "A clean shirt is an easy main item for men casual travel outfits."
-    },
-    {
-      "source": "STYLE_MENS_CASUAL",
-      "target": "ITEM_SHORTS",
-      "relation": "PREFERS",
-      "weight": 0.82,
-      "explanation": "Shorts work well for relaxed men casual beach outfits."
-    },
-    {
-      "source": "STYLE_MENS_CASUAL",
-      "target": "ITEM_SANDAL",
-      "relation": "PREFERS",
-      "weight": 0.78,
-      "explanation": "Sandals keep men beach outfits practical and relaxed."
-    },
-    {
-      "source": "STYLE_MENS_CASUAL",
-      "target": "ITEM_DRESS",
-      "relation": "AVOIDS",
-      "weight": 0.86,
-      "explanation": "Dress products usually do not match a masculine casual outfit request."
-    },
-    {
-      "source": "STYLE_CLEAN_RELAXED",
-      "target": "ITEM_SHIRT",
-      "relation": "PREFERS",
-      "weight": 0.84,
-      "explanation": "Simple shirts support a clean relaxed outfit."
-    },
-    {
-      "source": "STYLE_CLEAN_RELAXED",
-      "target": "COLOR_NEUTRAL",
-      "relation": "PREFERS",
-      "weight": 0.82,
-      "explanation": "Neutral colors keep relaxed outfits clean and easy to wear."
-    },
-    {
-      "source": "STYLE_CLEAN_RELAXED",
-      "target": "FABRIC_BREATHABLE",
-      "relation": "PREFERS",
-      "weight": 0.8,
-      "explanation": "Breathable materials make relaxed outfits comfortable."
-    },
-    {
-      "source": "PREF_COMFORTABLE",
-      "target": "FABRIC_BREATHABLE",
-      "relation": "PREFERS",
-      "weight": 0.92,
-      "explanation": "Comfortable outfits should prioritize breathable fabrics."
-    },
-    {
-      "source": "PREF_COMFORTABLE",
-      "target": "ITEM_SNEAKERS",
-      "relation": "PREFERS",
-      "weight": 0.78,
-      "explanation": "Sneakers are a reliable comfortable footwear choice."
-    },
-    {
-      "source": "PREF_COMFORTABLE",
-      "target": "ITEM_HEELS",
-      "relation": "AVOIDS",
-      "weight": 0.9,
-      "explanation": "Heels reduce comfort for walking-focused outfits."
-    },
-    {
-      "source": "BODY_STOCKY",
-      "target": "ITEM_SHIRT",
-      "relation": "PREFERS",
-      "weight": 0.78,
-      "explanation": "Regular-fit shirts create a clean line for solid builds."
-    },
-    {
-      "source": "BODY_STOCKY",
-      "target": "COLOR_NEUTRAL",
-      "relation": "PREFERS",
-      "weight": 0.72,
-      "explanation": "Neutral color blocking keeps the silhouette clean."
-    },
-    {
-      "source": "USER_MALE",
-      "target": "STYLE_MENS_CASUAL",
-      "relation": "PREFERS",
-      "weight": 0.95,
-      "explanation": "Male outfit requests should prefer masculine casual styling unless the user asks otherwise."
-    }
+    { "source": "ITEM_DRESS", "target": "ITEM_SKIRT", "relation": "PAIRS_WITH", "weight": 0.5,
+      "explanation": "Both are dress-family bottoms; rarely combined in the same outfit but share styling context." },
+    { "source": "ITEM_SHIRT", "target": "ITEM_DRESS_PANTS", "relation": "PAIRS_WITH", "weight": 0.9,
+      "explanation": "A shirt and tailored dress pants form a clean office outfit base." },
+    { "source": "ITEM_SHIRT", "target": "ITEM_KAKI_PANTS", "relation": "PAIRS_WITH", "weight": 0.82,
+      "explanation": "Shirt and kaki pants make a smart-casual combination." },
+    { "source": "ITEM_BLOUSE", "target": "ITEM_DRESS_PANTS", "relation": "PAIRS_WITH", "weight": 0.86,
+      "explanation": "A blouse with tailored pants is a classic feminine office look." },
+    { "source": "ITEM_BLOUSE", "target": "ITEM_SKIRT", "relation": "PAIRS_WITH", "weight": 0.84,
+      "explanation": "Blouse and skirt pairing suits feminine office/daily outfits." },
+    { "source": "ITEM_POLO", "target": "ITEM_KAKI_PANTS", "relation": "PAIRS_WITH", "weight": 0.84,
+      "explanation": "Polo shirt and kaki pants are a classic smart-casual base." },
+    { "source": "ITEM_TSHIRT", "target": "ITEM_JEANS", "relation": "PAIRS_WITH", "weight": 0.88,
+      "explanation": "T-shirt and jeans are the default easy daily-basic combination." },
+    { "source": "ITEM_TSHIRT", "target": "ITEM_SHORTS", "relation": "PAIRS_WITH", "weight": 0.8,
+      "explanation": "T-shirt and shorts work for warm casual or beach contexts." },
+    { "source": "ITEM_HOODIE", "target": "ITEM_JOGGER", "relation": "PAIRS_WITH", "weight": 0.9,
+      "explanation": "Hoodie and jogger pants are the standard sport/loungewear pairing." },
+    { "source": "ITEM_TANKTOP", "target": "ITEM_LEGGING", "relation": "PAIRS_WITH", "weight": 0.86,
+      "explanation": "Tank top and leggings suit workout outfits." },
+    { "source": "ITEM_TANKTOP", "target": "ITEM_JOGGER", "relation": "PAIRS_WITH", "weight": 0.78,
+      "explanation": "Tank top and jogger pants work for relaxed sport/home outfits." },
+    { "source": "ITEM_SWEATER", "target": "ITEM_JEANS", "relation": "PAIRS_WITH", "weight": 0.8,
+      "explanation": "A thin sweater over jeans is an easy cool-weather casual look." },
+    { "source": "ITEM_JACKET", "target": "ITEM_JEANS", "relation": "PAIRS_WITH", "weight": 0.82,
+      "explanation": "A jacket layered over jeans forms a casual daily outfit." },
+
+    { "source": "OCCASION_OFFICE", "target": "ITEM_SHIRT", "relation": "PREFERS", "weight": 0.88,
+      "explanation": "A structured shirt is a strong main item for office outfits." },
+    { "source": "OCCASION_OFFICE", "target": "ITEM_BLOUSE", "relation": "PREFERS", "weight": 0.86,
+      "explanation": "Blouses are a strong feminine main item for office outfits." },
+    { "source": "OCCASION_OFFICE", "target": "ITEM_DRESS_PANTS", "relation": "PREFERS", "weight": 0.86,
+      "explanation": "Tailored pants support a polished office look." },
+    { "source": "OCCASION_OFFICE", "target": "ITEM_SKIRT", "relation": "PREFERS", "weight": 0.78,
+      "explanation": "Office skirts are a valid feminine office bottom choice." },
+    { "source": "OCCASION_OFFICE", "target": "ITEM_HOODIE", "relation": "AVOIDS", "weight": 0.85,
+      "explanation": "Hoodies read as too casual for an office setting." },
+    { "source": "OCCASION_OFFICE", "target": "ITEM_TANKTOP", "relation": "AVOIDS", "weight": 0.85,
+      "explanation": "Tank tops are too casual/revealing for an office setting." },
+    { "source": "OCCASION_OFFICE", "target": "ITEM_SHORTS", "relation": "AVOIDS", "weight": 0.88,
+      "explanation": "Shorts are not appropriate office wear." },
+    { "source": "OCCASION_OFFICE", "target": "COLOR_NEUTRAL", "relation": "PREFERS", "weight": 0.8,
+      "explanation": "Neutral colors keep office outfits polished and professional." },
+
+    { "source": "OCCASION_SPORT", "target": "ITEM_TANKTOP", "relation": "PREFERS", "weight": 0.84,
+      "explanation": "Tank tops give freedom of movement for workouts." },
+    { "source": "OCCASION_SPORT", "target": "ITEM_TSHIRT", "relation": "PREFERS", "weight": 0.8,
+      "explanation": "A plain t-shirt is a practical workout top." },
+    { "source": "OCCASION_SPORT", "target": "ITEM_JOGGER", "relation": "PREFERS", "weight": 0.86,
+      "explanation": "Jogger pants support movement during workouts." },
+    { "source": "OCCASION_SPORT", "target": "ITEM_LEGGING", "relation": "PREFERS", "weight": 0.86,
+      "explanation": "Leggings are a standard workout/yoga bottom." },
+    { "source": "OCCASION_SPORT", "target": "ITEM_SHORTS", "relation": "PREFERS", "weight": 0.78,
+      "explanation": "Shorts keep sport outfits cool and mobile." },
+    { "source": "OCCASION_SPORT", "target": "ITEM_DRESS_PANTS", "relation": "AVOIDS", "weight": 0.85,
+      "explanation": "Tailored dress pants restrict movement for sport activities." },
+    { "source": "OCCASION_SPORT", "target": "FABRIC_BREATHABLE", "relation": "PREFERS", "weight": 0.92,
+      "explanation": "Sport outfits need breathable, sweat-friendly fabric." },
+
+    { "source": "OCCASION_HOMEWEAR", "target": "ITEM_TSHIRT", "relation": "PREFERS", "weight": 0.82,
+      "explanation": "A soft t-shirt is easy loungewear." },
+    { "source": "OCCASION_HOMEWEAR", "target": "ITEM_TANKTOP", "relation": "PREFERS", "weight": 0.76,
+      "explanation": "Tank tops are relaxed and simple for staying at home." },
+    { "source": "OCCASION_HOMEWEAR", "target": "ITEM_JOGGER", "relation": "PREFERS", "weight": 0.86,
+      "explanation": "Jogger pants are comfortable for staying home." },
+    { "source": "OCCASION_HOMEWEAR", "target": "ITEM_SHORTS", "relation": "PREFERS", "weight": 0.74,
+      "explanation": "Shorts are relaxed and simple loungewear." },
+    { "source": "OCCASION_HOMEWEAR", "target": "ITEM_DRESS_PANTS", "relation": "AVOIDS", "weight": 0.8,
+      "explanation": "Tailored dress pants are too formal/stiff for staying home." },
+
+    { "source": "OCCASION_DAILY_BASIC", "target": "ITEM_TSHIRT", "relation": "PREFERS", "weight": 0.84,
+      "explanation": "T-shirts are the default daily-basic top." },
+    { "source": "OCCASION_DAILY_BASIC", "target": "ITEM_POLO", "relation": "PREFERS", "weight": 0.76,
+      "explanation": "Polo shirts elevate a daily-basic outfit slightly." },
+    { "source": "OCCASION_DAILY_BASIC", "target": "ITEM_JEANS", "relation": "PREFERS", "weight": 0.84,
+      "explanation": "Jeans are the default daily-basic bottom." },
+    { "source": "OCCASION_DAILY_BASIC", "target": "ITEM_KAKI_PANTS", "relation": "PREFERS", "weight": 0.76,
+      "explanation": "Kaki pants are a clean daily-basic bottom option." },
+
+    { "source": "OCCASION_PARTY", "target": "ITEM_DRESS", "relation": "PREFERS", "weight": 0.9,
+      "explanation": "Dresses are a strong main item for party contexts." },
+    { "source": "OCCASION_PARTY", "target": "ITEM_JOGGER", "relation": "AVOIDS", "weight": 0.8,
+      "explanation": "Jogger pants make a party outfit too casual." },
+    { "source": "OCCASION_PARTY", "target": "ITEM_TANKTOP", "relation": "AVOIDS", "weight": 0.7,
+      "explanation": "A plain tank top alone is usually too casual for a party." },
+
+    { "source": "OCCASION_BEACH_TRAVEL", "target": "FABRIC_BREATHABLE", "relation": "PREFERS", "weight": 0.95,
+      "explanation": "Beach outfits should stay lightweight and breathable." },
+    { "source": "OCCASION_BEACH_TRAVEL", "target": "ITEM_SHORTS", "relation": "PREFERS", "weight": 0.86,
+      "explanation": "Shorts are practical for beach travel." },
+    { "source": "OCCASION_BEACH_TRAVEL", "target": "ITEM_SHIRT", "relation": "PREFERS", "weight": 0.76,
+      "explanation": "A light linen shirt works well for beach travel." },
+    { "source": "OCCASION_BEACH_TRAVEL", "target": "ITEM_TANKTOP", "relation": "PREFERS", "weight": 0.7,
+      "explanation": "Tank tops are cool and simple for hot beach weather." },
+
+    { "source": "STYLE_KOREAN_CASUAL", "target": "ITEM_TSHIRT", "relation": "PREFERS", "weight": 0.82,
+      "explanation": "Simple t-shirts fit Korean casual styling." },
+    { "source": "STYLE_KOREAN_CASUAL", "target": "ITEM_KAKI_PANTS", "relation": "PREFERS", "weight": 0.8,
+      "explanation": "Kaki pants are a common Korean casual silhouette." },
+    { "source": "STYLE_KOREAN_CASUAL", "target": "COLOR_NEUTRAL", "relation": "PREFERS", "weight": 0.88,
+      "explanation": "Neutral colors are central to Korean casual style." },
+
+    { "source": "STYLE_FEMININE", "target": "ITEM_DRESS", "relation": "PREFERS", "weight": 0.86,
+      "explanation": "Dresses support a soft feminine look." },
+    { "source": "STYLE_FEMININE", "target": "ITEM_BLOUSE", "relation": "PREFERS", "weight": 0.84,
+      "explanation": "Blouses reinforce a soft feminine top choice." },
+    { "source": "STYLE_FEMININE", "target": "ITEM_SKIRT", "relation": "PREFERS", "weight": 0.8,
+      "explanation": "Skirts support a feminine silhouette." },
+    { "source": "STYLE_FEMININE", "target": "COLOR_PASTEL", "relation": "PREFERS", "weight": 0.78,
+      "explanation": "Pastels reinforce a soft feminine palette." },
+
+    { "source": "STYLE_OFFICE_SMART", "target": "ITEM_SHIRT", "relation": "PREFERS", "weight": 0.86,
+      "explanation": "Shirts are the base of office-smart styling." },
+    { "source": "STYLE_OFFICE_SMART", "target": "ITEM_DRESS_PANTS", "relation": "PREFERS", "weight": 0.86,
+      "explanation": "Tailored pants are the base office-smart bottom." },
+    { "source": "STYLE_OFFICE_SMART", "target": "ITEM_HOODIE", "relation": "AVOIDS", "weight": 0.85,
+      "explanation": "Hoodies conflict with office-smart styling." },
+
+    { "source": "PREF_MODEST", "target": "ITEM_SHORTS", "relation": "AVOIDS", "weight": 0.82,
+      "explanation": "Shorts may conflict with modest coverage preferences." },
+    { "source": "PREF_MODEST", "target": "ITEM_TANKTOP", "relation": "AVOIDS", "weight": 0.78,
+      "explanation": "Tank tops may conflict with modest coverage preferences." },
+
+    { "source": "STYLE_MENS_CASUAL", "target": "ITEM_SHIRT", "relation": "PREFERS", "weight": 0.86,
+      "explanation": "A clean shirt is an easy main item for men casual outfits." },
+    { "source": "STYLE_MENS_CASUAL", "target": "ITEM_TSHIRT", "relation": "PREFERS", "weight": 0.84,
+      "explanation": "T-shirts are an easy men casual daily main item." },
+    { "source": "STYLE_MENS_CASUAL", "target": "ITEM_SHORTS", "relation": "PREFERS", "weight": 0.8,
+      "explanation": "Shorts work well for relaxed men casual outfits." },
+    { "source": "STYLE_MENS_CASUAL", "target": "ITEM_JEANS", "relation": "PREFERS", "weight": 0.8,
+      "explanation": "Jeans are a reliable men casual bottom." },
+    { "source": "STYLE_MENS_CASUAL", "target": "ITEM_DRESS", "relation": "AVOIDS", "weight": 0.86,
+      "explanation": "Dress products usually do not match a masculine casual outfit request." },
+    { "source": "STYLE_MENS_CASUAL", "target": "ITEM_BLOUSE", "relation": "AVOIDS", "weight": 0.8,
+      "explanation": "Blouse products are a feminine item and usually do not match a masculine outfit request." },
+    { "source": "STYLE_MENS_CASUAL", "target": "ITEM_SKIRT", "relation": "AVOIDS", "weight": 0.8,
+      "explanation": "Skirt products are a feminine item and usually do not match a masculine outfit request." },
+
+    { "source": "STYLE_CLEAN_RELAXED", "target": "ITEM_TSHIRT", "relation": "PREFERS", "weight": 0.84,
+      "explanation": "Simple t-shirts support a clean relaxed outfit." },
+    { "source": "STYLE_CLEAN_RELAXED", "target": "COLOR_NEUTRAL", "relation": "PREFERS", "weight": 0.82,
+      "explanation": "Neutral colors keep relaxed outfits clean and easy to wear." },
+    { "source": "STYLE_CLEAN_RELAXED", "target": "FABRIC_BREATHABLE", "relation": "PREFERS", "weight": 0.8,
+      "explanation": "Breathable materials make relaxed outfits comfortable." },
+
+    { "source": "PREF_COMFORTABLE", "target": "FABRIC_BREATHABLE", "relation": "PREFERS", "weight": 0.92,
+      "explanation": "Comfortable outfits should prioritize breathable fabrics." },
+    { "source": "PREF_COMFORTABLE", "target": "ITEM_JOGGER", "relation": "PREFERS", "weight": 0.8,
+      "explanation": "Jogger pants are a reliable comfortable bottom choice." },
+    { "source": "PREF_COMFORTABLE", "target": "ITEM_DRESS_PANTS", "relation": "AVOIDS", "weight": 0.75,
+      "explanation": "Tailored dress pants reduce comfort compared to relaxed fits." },
+
+    { "source": "BODY_STOCKY", "target": "ITEM_SHIRT", "relation": "PREFERS", "weight": 0.78,
+      "explanation": "Regular-fit shirts create a clean line for solid builds." },
+    { "source": "BODY_STOCKY", "target": "ITEM_TANKTOP", "relation": "AVOIDS", "weight": 0.6,
+      "explanation": "Tight tank tops can be less flattering for solid/stocky builds." },
+    { "source": "BODY_STOCKY", "target": "COLOR_NEUTRAL", "relation": "PREFERS", "weight": 0.72,
+      "explanation": "Neutral color blocking keeps the silhouette clean." },
+
+    { "source": "USER_MALE", "target": "STYLE_MENS_CASUAL", "relation": "PREFERS", "weight": 0.95,
+      "explanation": "Male outfit requests should prefer masculine casual styling unless the user asks otherwise." },
+    { "source": "USER_FEMALE", "target": "STYLE_FEMININE", "relation": "PREFERS", "weight": 0.95,
+      "explanation": "Female outfit requests should prefer feminine styling unless the user asks otherwise." }
   ],
   "rules": [
     {
-      "id": "rule_item_dress_targets",
-      "concept_id": "ITEM_DRESS",
-      "type": "preferred_targets",
-      "priority": 0.95,
+      "id": "rule_item_dress_targets", "concept_id": "ITEM_DRESS", "type": "preferred_targets", "priority": 0.95,
+      "payload": { "targets": [
+        { "item": "dress", "role": "main", "required": true, "priority": 0.95 }
+      ] }
+    },
+    {
+      "id": "rule_item_dress_exclusions", "concept_id": "ITEM_DRESS", "type": "excluded_items", "priority": 0.9,
+      "payload": { "items": [ { "when_main": "dress", "exclude": ["top", "bottom"] } ] }
+    },
+    {
+      "id": "rule_item_dress_style", "concept_id": "ITEM_DRESS", "type": "style_rule", "priority": 0.86,
+      "payload": { "rule": "Dress-based outfits should keep the dress as the main visual piece; do not add a separate top or bottom." }
+    },
+    {
+      "id": "rule_item_skirt_targets", "concept_id": "ITEM_SKIRT", "type": "preferred_targets", "priority": 0.85,
+      "payload": { "targets": [
+        { "item": "bottom", "role": "main", "required": true, "priority": 0.85 },
+        { "item": "top", "role": "support", "required": true, "priority": 0.8 }
+      ] }
+    },
+    {
+      "id": "rule_item_shirt_targets", "concept_id": "ITEM_SHIRT", "type": "preferred_targets", "priority": 0.9,
+      "payload": { "targets": [
+        { "item": "top", "role": "main", "required": true, "priority": 0.9 },
+        { "item": "bottom", "role": "support", "required": true, "priority": 0.85 }
+      ] }
+    },
+    {
+      "id": "rule_item_shirt_exclusions", "concept_id": "ITEM_SHIRT", "type": "excluded_items", "priority": 0.78,
+      "payload": { "items": [ { "when_main": "top", "exclude": ["dress"] } ] }
+    },
+    {
+      "id": "rule_item_tshirt_targets", "concept_id": "ITEM_TSHIRT", "type": "preferred_targets", "priority": 0.88,
+      "payload": { "targets": [
+        { "item": "top", "role": "main", "required": true, "priority": 0.88 },
+        { "item": "bottom", "role": "support", "required": true, "priority": 0.82 }
+      ] }
+    },
+    {
+      "id": "rule_item_polo_targets", "concept_id": "ITEM_POLO", "type": "preferred_targets", "priority": 0.84,
+      "payload": { "targets": [
+        { "item": "top", "role": "main", "required": true, "priority": 0.84 },
+        { "item": "bottom", "role": "support", "required": true, "priority": 0.8 }
+      ] }
+    },
+    {
+      "id": "rule_item_jacket_targets", "concept_id": "ITEM_JACKET", "type": "preferred_targets", "priority": 0.8,
+      "payload": { "targets": [
+        { "item": "top", "role": "main_or_support", "required": false, "priority": 0.78 },
+        { "item": "bottom", "role": "support", "required": true, "priority": 0.75 }
+      ] }
+    },
+    {
+      "id": "rule_item_sweater_targets", "concept_id": "ITEM_SWEATER", "type": "preferred_targets", "priority": 0.8,
+      "payload": { "targets": [
+        { "item": "top", "role": "main", "required": true, "priority": 0.8 },
+        { "item": "bottom", "role": "support", "required": true, "priority": 0.76 }
+      ] }
+    },
+    {
+      "id": "rule_item_hoodie_targets", "concept_id": "ITEM_HOODIE", "type": "preferred_targets", "priority": 0.84,
+      "payload": { "targets": [
+        { "item": "top", "role": "main", "required": true, "priority": 0.84 },
+        { "item": "bottom", "role": "support", "required": true, "priority": 0.8 }
+      ] }
+    },
+    {
+      "id": "rule_item_blouse_targets", "concept_id": "ITEM_BLOUSE", "type": "preferred_targets", "priority": 0.84,
+      "payload": { "targets": [
+        { "item": "top", "role": "main", "required": true, "priority": 0.84 },
+        { "item": "bottom", "role": "support", "required": true, "priority": 0.8 }
+      ] }
+    },
+    {
+      "id": "rule_item_tanktop_targets", "concept_id": "ITEM_TANKTOP", "type": "preferred_targets", "priority": 0.78,
+      "payload": { "targets": [
+        { "item": "top", "role": "main", "required": true, "priority": 0.78 },
+        { "item": "bottom", "role": "support", "required": true, "priority": 0.74 }
+      ] }
+    },
+    {
+      "id": "rule_item_jeans_targets", "concept_id": "ITEM_JEANS", "type": "preferred_targets", "priority": 0.85,
+      "payload": { "targets": [
+        { "item": "bottom", "role": "main", "required": true, "priority": 0.85 },
+        { "item": "top", "role": "support", "required": true, "priority": 0.8 }
+      ] }
+    },
+    {
+      "id": "rule_item_kaki_pants_targets", "concept_id": "ITEM_KAKI_PANTS", "type": "preferred_targets", "priority": 0.8,
+      "payload": { "targets": [
+        { "item": "bottom", "role": "main", "required": true, "priority": 0.8 },
+        { "item": "top", "role": "support", "required": true, "priority": 0.78 }
+      ] }
+    },
+    {
+      "id": "rule_item_dress_pants_targets", "concept_id": "ITEM_DRESS_PANTS", "type": "preferred_targets", "priority": 0.84,
+      "payload": { "targets": [
+        { "item": "bottom", "role": "main", "required": true, "priority": 0.84 },
+        { "item": "top", "role": "support", "required": true, "priority": 0.82 }
+      ] }
+    },
+    {
+      "id": "rule_item_shorts_targets", "concept_id": "ITEM_SHORTS", "type": "preferred_targets", "priority": 0.78,
+      "payload": { "targets": [
+        { "item": "bottom", "role": "main", "required": true, "priority": 0.78 },
+        { "item": "top", "role": "support", "required": true, "priority": 0.74 }
+      ] }
+    },
+    {
+      "id": "rule_item_jogger_targets", "concept_id": "ITEM_JOGGER", "type": "preferred_targets", "priority": 0.82,
+      "payload": { "targets": [
+        { "item": "bottom", "role": "main", "required": true, "priority": 0.82 },
+        { "item": "top", "role": "support", "required": true, "priority": 0.78 }
+      ] }
+    },
+    {
+      "id": "rule_item_legging_targets", "concept_id": "ITEM_LEGGING", "type": "preferred_targets", "priority": 0.8,
+      "payload": { "targets": [
+        { "item": "bottom", "role": "main", "required": true, "priority": 0.8 },
+        { "item": "top", "role": "support", "required": true, "priority": 0.76 }
+      ] }
+    },
+    {
+      "id": "rule_office_targets", "concept_id": "OCCASION_OFFICE", "type": "preferred_targets", "priority": 0.88,
+      "payload": { "targets": [
+        { "item": "top", "role": "main", "required": true, "priority": 0.88 },
+        { "item": "bottom", "role": "support", "required": true, "priority": 0.86 }
+      ] }
+    },
+    {
+      "id": "rule_office_occasion", "concept_id": "OCCASION_OFFICE", "type": "occasion_rule", "priority": 0.9,
+      "payload": { "rule": "Office outfits should look polished and neat: pair a shirt/blouse with tailored dress pants or an office skirt; avoid hoodies, tank tops, and shorts." }
+    },
+    {
+      "id": "rule_sport_targets", "concept_id": "OCCASION_SPORT", "type": "preferred_targets", "priority": 0.86,
+      "payload": { "targets": [
+        { "item": "top", "role": "main", "required": true, "priority": 0.84 },
+        { "item": "bottom", "role": "support", "required": true, "priority": 0.84 }
+      ] }
+    },
+    {
+      "id": "rule_sport_occasion", "concept_id": "OCCASION_SPORT", "type": "occasion_rule", "priority": 0.9,
+      "payload": { "rule": "Sport/workout outfits should prioritize breathable fabric and freedom of movement: tank top or t-shirt with jogger, legging, or shorts." }
+    },
+    {
+      "id": "rule_homewear_targets", "concept_id": "OCCASION_HOMEWEAR", "type": "preferred_targets", "priority": 0.82,
+      "payload": { "targets": [
+        { "item": "top", "role": "main", "required": true, "priority": 0.8 },
+        { "item": "bottom", "role": "support", "required": true, "priority": 0.8 }
+      ] }
+    },
+    {
+      "id": "rule_homewear_occasion", "concept_id": "OCCASION_HOMEWEAR", "type": "occasion_rule", "priority": 0.86,
+      "payload": { "rule": "Home/loungewear outfits should stay soft and relaxed: t-shirt or tank top with jogger pants or shorts; avoid tailored dress pants." }
+    },
+    {
+      "id": "rule_daily_basic_targets", "concept_id": "OCCASION_DAILY_BASIC", "type": "preferred_targets", "priority": 0.84,
+      "payload": { "targets": [
+        { "item": "top", "role": "main", "required": true, "priority": 0.84 },
+        { "item": "bottom", "role": "support", "required": true, "priority": 0.82 }
+      ] }
+    },
+    {
+      "id": "rule_daily_basic_occasion", "concept_id": "OCCASION_DAILY_BASIC", "type": "occasion_rule", "priority": 0.82,
+      "payload": { "rule": "Daily-basic outfits should be simple and easy to repeat: t-shirt or polo with jeans or kaki pants." }
+    },
+    {
+      "id": "rule_party_targets", "concept_id": "OCCASION_PARTY", "type": "preferred_targets", "priority": 0.88,
+      "payload": { "targets": [
+        { "item": "dress", "role": "main", "required": true, "priority": 0.88 }
+      ] }
+    },
+    {
+      "id": "rule_party_occasion", "concept_id": "OCCASION_PARTY", "type": "occasion_rule", "priority": 0.9,
+      "payload": { "rule": "Party outfits should look polished and intentional; prefer a dress as the main piece over separates." }
+    },
+    {
+      "id": "rule_beach_targets", "concept_id": "OCCASION_BEACH_TRAVEL", "type": "preferred_targets", "priority": 0.86,
+      "payload": { "targets": [
+        { "item": "top", "role": "main_or_support", "required": false, "priority": 0.72 },
+        { "item": "bottom", "role": "support", "required": true, "priority": 0.82 }
+      ] }
+    },
+    {
+      "id": "rule_beach_occasion", "concept_id": "OCCASION_BEACH_TRAVEL", "type": "occasion_rule", "priority": 0.9,
+      "payload": { "rule": "Beach travel outfits should prioritize breathable fabric and relaxed silhouettes: light shirt or tank top with shorts." }
+    },
+    {
+      "id": "rule_modest", "concept_id": "PREF_MODEST", "type": "modesty_rule", "priority": 0.86,
+      "payload": { "rule": "Avoid very short or revealing pieces (shorts, tank tops) when the user asks for modest coverage." }
+    },
+    {
+      "id": "rule_petite", "concept_id": "BODY_PETITE", "type": "body_rule", "priority": 0.8,
+      "payload": { "rule": "For petite users, prefer cleaner vertical lines and avoid heavy oversized proportions." }
+    },
+    {
+      "id": "rule_mens_casual_targets", "concept_id": "STYLE_MENS_CASUAL", "type": "preferred_targets", "priority": 0.88,
+      "payload": { "targets": [
+        { "item": "top", "role": "main", "required": true, "priority": 0.86 },
+        { "item": "bottom", "role": "support", "required": true, "priority": 0.84 }
+      ] }
+    },
+    {
+      "id": "rule_feminine_targets", "concept_id": "STYLE_FEMININE", "type": "preferred_targets", "priority": 0.86,
+      "payload": { "targets": [
+        { "item": "dress", "role": "main_or_support", "required": false, "priority": 0.8 },
+        { "item": "top", "role": "main_or_support", "required": false, "priority": 0.78 },
+        { "item": "bottom", "role": "support", "required": false, "priority": 0.76 }
+      ] }
+    },
+    {
+      "id": "rule_office_smart_style", "concept_id": "STYLE_OFFICE_SMART", "type": "style_rule", "priority": 0.86,
+      "payload": { "rule": "Office-smart outfits should use structured shirts/blouses and tailored pants/skirts in neutral colors; avoid hoodies and tank tops." }
+    },
+    {
+      "id": "rule_clean_relaxed_style", "concept_id": "STYLE_CLEAN_RELAXED", "type": "style_rule", "priority": 0.84,
+      "payload": { "rule": "Clean relaxed outfits should use simple colors, breathable fabrics, and regular fits rather than overly tight or bulky pieces." }
+    },
+    {
+      "id": "rule_comfortable_preference", "concept_id": "PREF_COMFORTABLE", "type": "preferred_item_types", "priority": 0.84,
       "payload": {
-        "targets": [
-          {
-            "item": "dress",
-            "role": "main",
-            "required": true,
-            "priority": 0.95
-          },
-          {
-            "item": "shoes",
-            "role": "support",
-            "required": true,
-            "priority": 0.85
-          },
-          {
-            "item": "bag",
-            "role": "optional",
-            "required": false,
-            "priority": 0.62
-          },
-          {
-            "item": "accessory",
-            "role": "optional",
-            "required": false,
-            "priority": 0.58
-          }
-        ]
+        "items": ["tshirt", "jogger", "shorts", "sneakers"],
+        "prefer_items": ["breathable_fabric", "regular_fit"]
       }
     },
     {
-      "id": "rule_item_dress_exclusions",
-      "concept_id": "ITEM_DRESS",
-      "type": "excluded_items",
-      "priority": 0.9,
-      "payload": {
-        "items": [
-          {
-            "when_main": "dress",
-            "exclude": [
-              "top",
-              "bottom"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "rule_item_dress_style",
-      "concept_id": "ITEM_DRESS",
-      "type": "style_rule",
-      "priority": 0.86,
-      "payload": {
-        "rule": "Dress-based outfits should keep the dress as the main visual piece."
-      }
-    },
-    {
-      "id": "rule_item_shirt_targets",
-      "concept_id": "ITEM_SHIRT",
-      "type": "preferred_targets",
-      "priority": 0.9,
-      "payload": {
-        "targets": [
-          {
-            "item": "top",
-            "role": "main",
-            "required": true,
-            "priority": 0.9
-          },
-          {
-            "item": "bottom",
-            "role": "support",
-            "required": true,
-            "priority": 0.85
-          },
-          {
-            "item": "shoes",
-            "role": "optional",
-            "required": false,
-            "priority": 0.55
-          }
-        ]
-      }
-    },
-    {
-      "id": "rule_item_shirt_exclusions",
-      "concept_id": "ITEM_SHIRT",
-      "type": "excluded_items",
-      "priority": 0.78,
-      "payload": {
-        "items": [
-          {
-            "when_main": "top",
-            "exclude": [
-              "dress"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "rule_party_targets",
-      "concept_id": "OCCASION_PARTY",
-      "type": "preferred_targets",
-      "priority": 0.88,
-      "payload": {
-        "targets": [
-          {
-            "item": "dress",
-            "role": "main",
-            "required": true,
-            "priority": 0.88
-          },
-          {
-            "item": "shoes",
-            "role": "support",
-            "required": true,
-            "priority": 0.82
-          },
-          {
-            "item": "bag",
-            "role": "optional",
-            "required": false,
-            "priority": 0.72
-          },
-          {
-            "item": "accessory",
-            "role": "optional",
-            "required": false,
-            "priority": 0.65
-          }
-        ]
-      }
-    },
-    {
-      "id": "rule_party_occasion",
-      "concept_id": "OCCASION_PARTY",
-      "type": "occasion_rule",
-      "priority": 0.9,
-      "payload": {
-        "rule": "Party outfits should look polished and intentional; metallic accents are allowed."
-      }
-    },
-    {
-      "id": "rule_beach_targets",
-      "concept_id": "OCCASION_BEACH_TRAVEL",
-      "type": "preferred_targets",
-      "priority": 0.86,
-      "payload": {
-        "targets": [
-          {
-            "item": "top",
-            "role": "main_or_support",
-            "required": false,
-            "priority": 0.7
-          },
-          {
-            "item": "bottom",
-            "role": "support",
-            "required": true,
-            "priority": 0.82
-          },
-          {
-            "item": "shoes",
-            "role": "support",
-            "required": false,
-            "priority": 0.64
-          }
-        ]
-      }
-    },
-    {
-      "id": "rule_beach_occasion",
-      "concept_id": "OCCASION_BEACH_TRAVEL",
-      "type": "occasion_rule",
-      "priority": 0.9,
-      "payload": {
-        "rule": "Beach outfits should prioritize breathable fabric, relaxed silhouettes, and easy shoes."
-      }
-    },
-    {
-      "id": "rule_modest",
-      "concept_id": "PREF_MODEST",
-      "type": "modesty_rule",
-      "priority": 0.86,
-      "payload": {
-        "rule": "Avoid very short or revealing pieces when the user asks for modest coverage."
-      }
-    },
-    {
-      "id": "rule_petite",
-      "concept_id": "BODY_PETITE",
-      "type": "body_rule",
-      "priority": 0.8,
-      "payload": {
-        "rule": "For petite users, prefer cleaner vertical lines and avoid heavy oversized proportions."
-      }
-    },
-    {
-      "id": "rule_mens_casual_targets",
-      "concept_id": "STYLE_MENS_CASUAL",
-      "type": "preferred_targets",
-      "priority": 0.88,
-      "payload": {
-        "targets": [
-          {
-            "item": "top",
-            "role": "main",
-            "required": true,
-            "priority": 0.86
-          },
-          {
-            "item": "bottom",
-            "role": "support",
-            "required": true,
-            "priority": 0.84
-          },
-          {
-            "item": "shoes",
-            "role": "support",
-            "required": false,
-            "priority": 0.7
-          }
-        ]
-      }
-    },
-    {
-      "id": "rule_clean_relaxed_style",
-      "concept_id": "STYLE_CLEAN_RELAXED",
-      "type": "style_rule",
-      "priority": 0.84,
-      "payload": {
-        "rule": "Clean relaxed outfits should use simple colors, breathable fabrics, and regular fits rather than overly tight or bulky pieces."
-      }
-    },
-    {
-      "id": "rule_comfortable_preference",
-      "concept_id": "PREF_COMFORTABLE",
-      "type": "preferred_item_types",
-      "priority": 0.84,
-      "payload": {
-        "items": [
-          "shirt",
-          "shorts",
-          "sneakers",
-          "sandal"
-        ],
-        "prefer_items": [
-          "breathable_fabric",
-          "regular_fit"
-        ]
-      }
-    },
-    {
-      "id": "rule_stocky_body",
-      "concept_id": "BODY_STOCKY",
-      "type": "body_rule",
-      "priority": 0.82,
-      "payload": {
-        "rule": "For solid builds, prefer regular fit, clean vertical lines, and avoid overly tight or oversized proportions."
-      }
+      "id": "rule_stocky_body", "concept_id": "BODY_STOCKY", "type": "body_rule", "priority": 0.82,
+      "payload": { "rule": "For solid builds, prefer regular fit, clean vertical lines, and avoid overly tight or oversized proportions." }
     }
   ]
 }

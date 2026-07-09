@@ -105,17 +105,17 @@ class RecommendationPipeline:
                     "product_id": item.product_id,
                     "target": item.target or candidate_targets.get(item.product_id),
                     "name": product.name,
-                    "category": product.category,
-                    "color": product.color,
-                    "size": product.size,
+                    "categories": product.category_names,
+                    "target_demographic": product.target_demographic,
+                    "color": product.colors,
+                    "size": product.sizes,
                     "material": product.material,
-                    "price": product.price,
-                    "image_url": product.image_url,
-                    "product_url": product.product_url,
+                    "base_price": product.base_price,
+                    "image_url": product.primary_image_url,
                     "reason": item.reason,
                 })
 
-            total_price = sum(i["price"] for i in items if i["price"] is not None)
+            total_price = sum(i["base_price"] for i in items if i["base_price"] is not None)
             result.append({
                 "day": day.day,
                 "context": day.context,

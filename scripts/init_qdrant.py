@@ -34,9 +34,8 @@ def _search_text(product: dict[str, Any]) -> str:
         product.get("search_text", ""),
         product.get("name", ""),
         product.get("description", ""),
-        product.get("category", ""),
-        product.get("brand", ""),
-        " ".join(product.get("color", [])),
+        " ".join(c.get("name", "") for c in product.get("categories", [])),
+        " ".join(v.get("color", "") for v in product.get("variants", [])),
         " ".join(product.get("tags", [])),
     ]
     return " ".join(part for part in parts if part).strip()
@@ -104,8 +103,8 @@ async def _upsert_products(
 
 async def _create_payload_indexes(client: httpx.AsyncClient, collection: str) -> None:
     for field_name, field_schema in {
-        "price": "float",
-        "category": "keyword",
+        "base_price": "float",
+        "slot": "keyword",
     }.items():
         response = await client.put(
             f"{settings.qdrant_url.rstrip('/')}/collections/{collection}/index",

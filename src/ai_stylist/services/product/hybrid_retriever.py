@@ -100,8 +100,8 @@ class HybridProductRetriever:
         )
         return target, [
             candidate for candidate in candidates
-            if _matches_price(candidate.light_metadata.get("price"), price_min, price_max)
-            and _matches_target(candidate.light_metadata.get("category"), target)
+            if _matches_price(candidate.light_metadata.get("base_price"), price_min, price_max)
+            and _matches_target(candidate.light_metadata.get("slot"), target)
         ]
 
     async def _search_qdrant(
@@ -194,9 +194,9 @@ def _score_candidate(candidate: ProductSearchCandidate) -> None:
 def _qdrant_filter(target: str, price_min: float | None, price_max: float | None) -> dict[str, Any] | None:
     must: list[dict[str, Any]] = []
 
-    categories = _target_categories(target)
-    if categories:
-        must.append({"key": "category", "match": {"any": categories}})
+    slots = _target_categories(target)
+    if slots:
+        must.append({"key": "slot", "match": {"any": slots}})
 
     price_range: dict[str, float] = {}
     if price_min is not None:
@@ -204,7 +204,7 @@ def _qdrant_filter(target: str, price_min: float | None, price_max: float | None
     if price_max is not None:
         price_range["lte"] = float(price_max)
     if price_range:
-        must.append({"key": "price", "range": price_range})
+        must.append({"key": "base_price", "range": price_range})
 
     if not must:
         return None
@@ -227,11 +227,11 @@ def _matches_price(price: Any, price_min: float | None, price_max: float | None)
     return True
 
 
-def _matches_target(category: Any, target: str) -> bool:
-    categories = _target_categories(target)
-    if not categories:
+def _matches_target(slot: Any, target: str) -> bool:
+    slots = _target_categories(target)
+    if not slots:
         return True
-    return str(category or "").lower() in categories
+    return str(slot or "").lower() in slots
 
 
 def _target_categories(target: str) -> list[str]:
@@ -250,16 +250,16 @@ def _target_categories(target: str) -> list[str]:
 
 
 def _light_metadata(product: dict[str, Any]) -> dict[str, Any]:
+    variants = product.get("variants", [])
     return {
         "name": product.get("name"),
         "description": product.get("description"),
-        "category": product.get("category"),
-        "brand": product.get("brand"),
-        "color": product.get("color", []),
-        "size": product.get("size", []),
-        "material": product.get("material"),
-        "price": product.get("price"),
-        "stock_status": product.get("stock_status"),
-        "rating": product.get("rating"),
+        "slot": product.get("slot"),
+        "categories": [c.get("name") for c in product.get("categories", [])],
+        "color": list(dict.fromkeys(v.get("color") for v in variants if v.get("color"))),
+        "size": list(dict.fromkeys(v.get("size") for v in variants if v.get("size"))),
+        "material": next((v.get("material") for v in variants if v.get("material")), None),
+        "base_price": product.get("base_price"),
+        "status": product.get("status"),
         "tags": product.get("tags", []),
     }

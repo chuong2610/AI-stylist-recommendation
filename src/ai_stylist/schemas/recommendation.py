@@ -12,11 +12,11 @@ class OutfitRequest(BaseModel):
 class OutfitItem(BaseModel):
     product_id: str
     name: str
-    category: str
+    categories: list[str] = []
+    target_demographic: str | None = None
     target: str | None = None
-    price: float | None = None
+    base_price: float | None = None
     image_url: str | None = None
-    product_url: str | None = None
     reason: str | None = None
 
 

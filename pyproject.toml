@@ -31,6 +31,7 @@ dev = [
 
 [dependency-groups]
 dev = [
+    "openpyxl>=3.1.5",
     "pytest>=8.0.0",
     "pytest-asyncio>=0.23.0",
 ]
@@ -41,3 +42,13 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/ai_stylist"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "."]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+testpaths = ["tests"]
+markers = [
+    "e2e: end-to-end tests that call the real Gemini/Neo4j/Qdrant/product-service stack",
+]

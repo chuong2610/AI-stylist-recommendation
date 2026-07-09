@@ -25,11 +25,11 @@ async def recommend_outfit(body: OutfitRequest):
             OutfitItem(
                 product_id=item["product_id"],
                 name=item["name"],
-                category=item["category"],
+                categories=item.get("categories", []),
+                target_demographic=item.get("target_demographic"),
                 target=item.get("target"),
-                price=item.get("price"),
+                base_price=item.get("base_price"),
                 image_url=item.get("image_url"),
-                product_url=item.get("product_url"),
                 reason=item.get("reason"),
             )
             for item in day_plan.get("items", [])
