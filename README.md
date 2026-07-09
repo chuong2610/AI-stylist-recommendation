@@ -11,7 +11,7 @@ AI Stylist is a FastAPI service for fashion chat, product search, and outfit rec
 - Qdrant concept vector index from `scripts/seeds/knowledge_graph.json`
 - Neo4j knowledge graph for concepts, aliases, edges, and rules
 - Qdrant product vector index from `scripts/seeds/products.json`
-- Product Service client with local seed fallback for product hydration/search
+- Product Service client that calls the real Java `product-service` REST API (`GET /api/v1/products`, `/{id}`) for product hydration/search, falling back to the local seed when the service is unreachable
 - PostgreSQL for sessions, messages, and LangGraph checkpoint/memory data
 
 ## Requirements
@@ -46,6 +46,7 @@ NEO4J_PASSWORD=stylist123
 QDRANT_URL=http://localhost:6333
 QDRANT_CONCEPT_COLLECTION=ai_stylist_concepts
 QDRANT_PRODUCT_COLLECTION=ai_stylist_products
+PRODUCT_SERVICE_BASE_URL=http://localhost:8083
 ```
 
 ## Start Infrastructure
@@ -75,9 +76,11 @@ What they do:
 
 - `init_concepts.py`: recreates the Qdrant concept collection from `knowledge_graph.json`
 - `init_graphdb.py --clear`: recreates the Neo4j fashion KG from `knowledge_graph.json`
-- `init_qdrant.py --recreate`: recreates product vectors from `products.json` and creates payload indexes for `price` and `category`
+- `init_qdrant.py --recreate`: recreates product vectors from `products.json` and creates payload indexes for `base_price` and `slot`
 
-Re-run concept init when concept text or aliases change. Re-run product Qdrant init when product text, product price, product category, or embedding logic changes.
+Re-run concept init when concept text or aliases change. Re-run product Qdrant init when product text, price, category, or embedding logic changes.
+
+Product data (`scripts/seeds/products.json`) mirrors the real Java `product-service` catalog (50 products, `SM-PRD-001`..`050`) — see `src/ai_stylist/clients/product_client.py` for how it's fetched from the live service (with this seed as fallback) and `scripts/seeds/knowledge_graph.json` for the matching fashion rules.
 
 ## Run API
 
@@ -155,11 +158,21 @@ Approved sources are upserted into Neo4j and merged into the Qdrant concept coll
 3. Concepts are resolved semantically from the Qdrant concept collection.
 4. Resolved concept IDs are used to read rules from Neo4j.
 5. Gemini generates target-specific product search terms.
-6. Qdrant vector search retrieves product candidates and can filter by `category` and `price`.
+6. Qdrant vector search retrieves product candidates and can filter by `slot` and `base_price`.
 7. Product Service text search is merged with vector candidates.
 8. Gemini selects final outfit items from candidates and writes reasons.
 9. Product Service batch fetch hydrates selected product details.
-10. API returns summary, outfit items, product URLs/images, and debug metadata.
+10. API returns summary, outfit items, images, and debug metadata.
+
+## End-to-End Tests
+
+`tests/` contains a pytest suite that exercises the real stack (Gemini + Neo4j + Qdrant + product-service, no mocks) across 16 recommendation/retrieval scenarios. Requires infrastructure running and seeded (see above).
+
+```powershell
+uv run pytest tests/ -v
+```
+
+Results (expected vs. actual per case) are rendered into `tests/test_cases.xlsx` automatically at the end of the run. See `tests/data/test_cases.py` for the test case matrix and `tests/test_recommendation_pipeline.py` for the assertions.
 
 ## Useful Checks
 
