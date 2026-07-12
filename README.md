@@ -36,13 +36,13 @@ Set at least:
 GEMINI_API_KEY=your_key_here
 FIRECRAWL_API_KEY=your_firecrawl_key_here
 POSTGRES_HOST=localhost
-POSTGRES_PORT=5432
+POSTGRES_PORT=5433
 POSTGRES_DB=ai_stylist
 POSTGRES_USER=stylist
 POSTGRES_PASSWORD=stylist123
 NEO4J_URI=bolt://localhost:7687
 NEO4J_USER=neo4j
-NEO4J_PASSWORD=stylist123
+NEO4J_PASSWORD=password
 QDRANT_URL=http://localhost:6333
 QDRANT_CONCEPT_COLLECTION=ai_stylist_concepts
 QDRANT_PRODUCT_COLLECTION=ai_stylist_products
@@ -51,6 +51,16 @@ PRODUCT_SERVICE_BASE_URL=http://localhost:8083
 
 ## Start Infrastructure
 
+Neo4j, Qdrant, and product-service are **not** started by this repo — they're the Java BE's
+shared containers. Start those first, from the BE repo:
+
+```powershell
+docker compose -f docker-compose.infra.yml up -d
+```
+
+Then start this repo's own Postgres (chat sessions/messages only — a separate DB from Java's,
+remapped to host port 5433 to avoid colliding with the Java stack's postgres on 5432):
+
 ```powershell
 docker compose up -d
 ```
@@ -58,9 +68,9 @@ docker compose up -d
 Services:
 
 - API: `http://localhost:8000` after starting the app
-- Postgres: `localhost:5432`
-- Neo4j Browser: `http://localhost:7474`
-- Qdrant: `http://localhost:6333`
+- Postgres (this repo): `localhost:5433`
+- Neo4j Browser (Java BE stack): `http://localhost:7474`
+- Qdrant (Java BE stack): `http://localhost:6333`
 
 ## Initialize Data
 

@@ -1,3 +1,8 @@
+# Neo4j and Qdrant are NOT started here: this service uses the real Java BE stack's
+# shared containers (stylemind-neo4j, stylemind-qdrant from BE/docker-compose.infra.yml),
+# which must already be running. This compose file only owns Postgres, which stores
+# ai_stylist's own chat sessions/messages (a separate DB from Java's business schemas)
+# and is remapped to host port 5433 to avoid colliding with Java's shared postgres on 5432.
 services:
   postgres:
     image: postgres:16
@@ -7,7 +12,7 @@ services:
       POSTGRES_USER: stylist
       POSTGRES_PASSWORD: stylist123
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/01_init.sql:ro
@@ -17,34 +22,5 @@ services:
       timeout: 5s
       retries: 5
 
-  neo4j:
-    image: neo4j:5-community
-    container_name: ai_stylist_neo4j
-    environment:
-      NEO4J_AUTH: neo4j/stylist123
-      NEO4J_PLUGINS: '["apoc"]'
-      NEO4J_dbms_security_procedures_unrestricted: apoc.*
-    ports:
-      - "7474:7474"
-      - "7687:7687"
-    volumes:
-      - neo4j_data:/data
-    healthcheck:
-      test: ["CMD", "wget", "-O", "/dev/null", "-q", "http://localhost:7474"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-
-  qdrant:
-    image: qdrant/qdrant:v1.12.4
-    container_name: ai_stylist_qdrant
-    ports:
-      - "6333:6333"
-      - "6334:6334"
-    volumes:
-      - qdrant_data:/qdrant/storage
-
 volumes:
   postgres_data:
-  neo4j_data:
-  qdrant_data:

@@ -1,5 +1,6 @@
 import uuid
 from datetime import datetime
+from typing import Any
 
 from pydantic import BaseModel, Field, HttpUrl, model_validator
 
@@ -34,6 +35,7 @@ class IngestedEdge(BaseModel):
     target: str
     relation: str
     weight: float
+    explanation: str | None = None
 
 
 class IngestedRule(BaseModel):
@@ -41,6 +43,7 @@ class IngestedRule(BaseModel):
     concept_id: str
     type: str
     priority: float
+    payload: dict[str, Any] = Field(default_factory=dict)
 
 
 class KnowledgeIngestResponse(BaseModel):
@@ -75,3 +78,35 @@ class KnowledgeSourceDetail(KnowledgeSourceSummary):
     concepts: list[IngestedConcept]
     edges: list[IngestedEdge]
     rules: list[IngestedRule]
+
+
+class GraphConcept(BaseModel):
+    id: str
+    name: str
+    type: str
+    description: str = ""
+    aliases: list[str] = Field(default_factory=list)
+    ingested: bool = False
+    source_ids: list[str] = Field(default_factory=list)
+
+
+class GraphEdge(BaseModel):
+    source: str
+    target: str
+    relation: str
+    weight: float = 1.0
+    explanation: str | None = None
+
+
+class GraphRule(BaseModel):
+    id: str
+    concept_id: str
+    type: str
+    priority: float = 1.0
+    payload: dict[str, Any] = Field(default_factory=dict)
+
+
+class KnowledgeGraphOverview(BaseModel):
+    concepts: list[GraphConcept]
+    edges: list[GraphEdge]
+    rules: list[GraphRule]

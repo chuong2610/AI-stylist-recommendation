@@ -95,6 +95,7 @@ async def recommend_outfit(
             "styling_tip": day_plan.get("styling_tip", ""),
             "items": [
                 {
+                    "product_id": item.get("product_id"),
                     "name": item["name"],
                     "target": item.get("target"),
                     "categories": item.get("categories", []),

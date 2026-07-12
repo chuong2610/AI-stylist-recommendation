@@ -4,17 +4,18 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
-    # PostgreSQL
+    # PostgreSQL (own sessions/messages DB, host port 5433 to avoid clashing with
+    # the Java BE's shared postgres container on 5432 — see docker-compose.yml)
     postgres_host: str = "localhost"
-    postgres_port: int = 5432
+    postgres_port: int = 5433
     postgres_db: str = "ai_stylist"
     postgres_user: str = "stylist"
     postgres_password: str = "stylist123"
 
-    # Neo4j
+    # Neo4j (real Java BE stack's shared container, see BE/docker-compose.infra.yml)
     neo4j_uri: str = "bolt://localhost:7687"
     neo4j_user: str = "neo4j"
-    neo4j_password: str = "stylist123"
+    neo4j_password: str = "password"
 
     # Gemini
     gemini_api_key: str = ""

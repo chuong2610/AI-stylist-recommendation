@@ -1,6 +1,6 @@
 import uuid
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ai_stylist.db.postgres import get_db
@@ -21,6 +21,17 @@ router = APIRouter(prefix="/sessions", tags=["chat"])
 async def create_session(body: SessionCreate, db: AsyncSession = Depends(get_db)):
     svc = SessionService(db)
     return await svc.create_session(user_id=body.user_id, title=body.title)
+
+
+@router.get("", response_model=list[SessionResponse])
+async def list_sessions(
+    user_id: str = Query(..., min_length=1),
+    limit: int = Query(20, ge=1, le=100),
+    offset: int = Query(0, ge=0),
+    db: AsyncSession = Depends(get_db),
+):
+    svc = SessionService(db)
+    return await svc.list_sessions(user_id, limit=limit, offset=offset)
 
 
 @router.get("/{session_id}", response_model=SessionResponse)

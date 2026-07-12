@@ -30,7 +30,11 @@ class MessageResponse(BaseModel):
     role: str
     content: str
     intent: str | None
-    metadata: dict[str, Any] | None = Field(None, alias="metadata_")
+    # Reads the ORM attribute metadata_ (SQLAlchemy reserves .metadata) but
+    # serializes as plain "metadata" in API responses.
+    metadata: dict[str, Any] | None = Field(
+        None, validation_alias="metadata_", serialization_alias="metadata"
+    )
     created_at: datetime
 
     model_config = {"from_attributes": True, "populate_by_name": True}

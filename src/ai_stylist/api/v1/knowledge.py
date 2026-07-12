@@ -10,6 +10,7 @@ from ai_stylist.schemas.knowledge import (
     IngestedConcept,
     IngestedEdge,
     IngestedRule,
+    KnowledgeGraphOverview,
     KnowledgeIngestRequest,
     KnowledgeIngestResponse,
     KnowledgeSourceDetail,
@@ -38,6 +39,12 @@ async def ingest_knowledge(body: KnowledgeIngestRequest, db: AsyncSession = Depe
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     return _source_response(source, concept_vectors_upserted=0)
+
+
+@router.get("/graph", response_model=KnowledgeGraphOverview)
+async def get_knowledge_graph():
+    svc = KnowledgeIngestionService()
+    return await svc.graph_overview()
 
 
 @router.get("/sources", response_model=list[KnowledgeSourceSummary])
@@ -143,13 +150,25 @@ def _concepts(extraction: dict) -> list[IngestedConcept]:
 
 def _edges(extraction: dict) -> list[IngestedEdge]:
     return [
-        IngestedEdge(source=e["source"], target=e["target"], relation=e["relation"], weight=e["weight"])
+        IngestedEdge(
+            source=e["source"],
+            target=e["target"],
+            relation=e["relation"],
+            weight=e["weight"],
+            explanation=e.get("explanation"),
+        )
         for e in extraction["edges"]
     ]
 
 
 def _rules(extraction: dict) -> list[IngestedRule]:
     return [
-        IngestedRule(id=r["id"], concept_id=r["concept_id"], type=r["type"], priority=r["priority"])
+        IngestedRule(
+            id=r["id"],
+            concept_id=r["concept_id"],
+            type=r["type"],
+            priority=r["priority"],
+            payload=r.get("payload") or {},
+        )
         for r in extraction["rules"]
     ]

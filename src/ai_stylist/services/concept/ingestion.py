@@ -73,6 +73,51 @@ class KGExtraction(BaseModel):
     rules: list[KGRule] = Field(default_factory=list)
 
 
+class KGRulePayload(BaseModel):
+    """Typed rule payload for the LLM call. Gemini structured output cannot fill
+    a free-form dict field (its schema collapses to a property-less object and
+    always comes back empty), so the payload fields the prompts ask for are
+    spelled out here. Converted back to a plain dict for storage."""
+
+    advice: str | None = None
+    rationale: str | None = None
+    colors: list[str] = Field(default_factory=list)
+    items: list[str] = Field(default_factory=list)
+    avoid_items: list[str] = Field(default_factory=list)
+    contexts: list[str] = Field(default_factory=list)
+    constraints: list[str] = Field(default_factory=list)
+    pairings: list[str] = Field(default_factory=list)
+    examples: list[str] = Field(default_factory=list)
+
+
+class KGRuleDraft(BaseModel):
+    id: str
+    concept_id: str
+    type: str
+    priority: float = Field(default=1.0, ge=0.0, le=1.0)
+    payload: KGRulePayload = Field(default_factory=KGRulePayload)
+
+
+class KGExtractionDraft(BaseModel):
+    concepts: list[KGConcept] = Field(default_factory=list)
+    edges: list[KGEdge] = Field(default_factory=list)
+    rules: list[KGRuleDraft] = Field(default_factory=list)
+
+
+def _draft_to_extraction(draft: KGExtractionDraft) -> KGExtraction:
+    rules = [
+        KGRule(
+            id=rule.id,
+            concept_id=rule.concept_id,
+            type=rule.type,
+            priority=rule.priority,
+            payload={k: v for k, v in rule.payload.model_dump().items() if v not in (None, "", [])},
+        )
+        for rule in draft.rules
+    ]
+    return KGExtraction(concepts=draft.concepts, edges=draft.edges, rules=rules)
+
+
 class KnowledgeIngestionService:
     def __init__(self, gemini: GeminiClient | None = None):
         self._gemini = gemini or GeminiClient()
@@ -258,7 +303,7 @@ Fashion knowledge:
 """
         result = await self._gemini.generate_structured(
             prompt=prompt,
-            response_schema=KGExtraction,
+            response_schema=KGExtractionDraft,
             system_instruction=(
                 "You are a fashion knowledge graph curator. "
                 "Extract factual styling concepts, preferences, exclusions, pairings, and rules. "
@@ -266,9 +311,11 @@ Fashion knowledge:
             ),
             temperature=0.1,
         )
-        if isinstance(result, KGExtraction):
-            return result
-        return KGExtraction(**result) if isinstance(result, dict) else KGExtraction()
+        if isinstance(result, dict):
+            result = KGExtractionDraft(**result)
+        if isinstance(result, KGExtractionDraft):
+            return _draft_to_extraction(result)
+        return KGExtraction()
 
     async def _run_gap_fill_prompt(
         self,
@@ -314,7 +361,7 @@ Fashion knowledge:
 """
         result = await self._gemini.generate_structured(
             prompt=prompt,
-            response_schema=KGExtraction,
+            response_schema=KGExtractionDraft,
             system_instruction=(
                 "You are a fashion knowledge graph curator doing a gap-filling pass. "
                 "Only add what is missing from the already-captured list. "
@@ -322,9 +369,57 @@ Fashion knowledge:
             ),
             temperature=0.1,
         )
-        if isinstance(result, KGExtraction):
-            return result
-        return KGExtraction(**result) if isinstance(result, dict) else KGExtraction()
+        if isinstance(result, dict):
+            result = KGExtractionDraft(**result)
+        if isinstance(result, KGExtractionDraft):
+            return _draft_to_extraction(result)
+        return KGExtraction()
+
+    async def graph_overview(self) -> dict[str, list[dict[str, Any]]]:
+        """Full dump of the live Neo4j KG (concepts + edges + rules) for the admin UI."""
+        driver = await get_driver()
+        async with driver.session() as session:
+            result = await session.run(
+                """
+                MATCH (c:Concept)
+                RETURN c.id AS id, c.name AS name, c.type AS type,
+                       coalesce(c.description, '') AS description,
+                       coalesce(c.aliases, []) AS aliases,
+                       coalesce(c.ingested, false) AS ingested,
+                       coalesce(c.source_ids, []) AS source_ids
+                ORDER BY c.type, c.name
+                """
+            )
+            concepts = [dict(record) async for record in result]
+
+            result = await session.run(
+                """
+                MATCH (source:Concept)-[rel]->(target:Concept)
+                WHERE type(rel) <> 'HAS_RULE'
+                RETURN source.id AS source, target.id AS target, type(rel) AS relation,
+                       coalesce(rel.weight, 1.0) AS weight, rel.explanation AS explanation
+                """
+            )
+            edges = [dict(record) async for record in result]
+
+            result = await session.run(
+                """
+                MATCH (concept:Concept)-[:HAS_RULE]->(rule:Rule)
+                RETURN rule.id AS id, concept.id AS concept_id, rule.type AS type,
+                       coalesce(rule.priority, 1.0) AS priority, rule.payload_json AS payload_json
+                """
+            )
+            rules = []
+            async for record in result:
+                row = dict(record)
+                payload_json = row.pop("payload_json", None)
+                try:
+                    row["payload"] = json.loads(payload_json) if payload_json else {}
+                except (json.JSONDecodeError, TypeError):
+                    row["payload"] = {}
+                rules.append(row)
+
+        return {"concepts": concepts, "edges": edges, "rules": rules}
 
     async def _existing_concept_ids(self) -> set[str]:
         driver = await get_driver()
