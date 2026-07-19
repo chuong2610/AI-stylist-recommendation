@@ -97,7 +97,17 @@ class AgentService:
 
 
 def _extract_tool_result(messages: list) -> tuple[str | None, dict | None]:
-    for msg in reversed(messages):
+    # Only look at messages produced in the current turn (after the newest
+    # HumanMessage). `messages` is the full checkpointer-restored history, so
+    # scanning all of it would resurface a recommend_outfit result from an
+    # earlier turn whenever the current turn doesn't call any tool.
+    last_human_idx = next(
+        (i for i in range(len(messages) - 1, -1, -1) if isinstance(messages[i], HumanMessage)),
+        -1,
+    )
+    current_turn = messages[last_human_idx + 1:]
+
+    for msg in reversed(current_turn):
         if isinstance(msg, ToolMessage):
             tool_name = getattr(msg, "name", None) or _infer_tool_name(msg.content)
             if tool_name == "recommend_outfit":
