@@ -35,6 +35,7 @@ class Settings(BaseSettings):
     product_service_base_url: str = "http://localhost:8083"
     product_service_timeout: int = 10
     product_service_products_path: str = "/api/v1/products"
+    product_service_categories_path: str = "/api/v1/categories"
 
     # Seed JSON used only by init scripts and local metadata hydration.
     product_seed_path: str = "scripts/seeds/products.json"

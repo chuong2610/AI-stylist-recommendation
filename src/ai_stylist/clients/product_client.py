@@ -20,18 +20,19 @@ from ai_stylist.config import settings
 from ai_stylist.schemas.product import Category, Product, ProductImage, ProductVariant
 
 
-def _derive_slot(category_names: list[str]) -> str:
-    """
-    Recommendation-slot classification (top/bottom/dress/...). Java's category
-    taxonomy has no such field, so it's inferred from Vietnamese category names.
-    """
-    lowered = [name.lower() for name in category_names]
-    if any(name.startswith("áo") for name in lowered):
-        return "top"
-    if any("đầm" in name for name in lowered):
-        return "dress"
-    if any(name.startswith("quần") or "chân váy" in name for name in lowered):
-        return "bottom"
+_SLUG_TO_SLOT = {
+    "ao": "top",
+    "quan": "bottom",
+    "dam": "dress",
+    "chan-vay": "bottom",
+}
+
+
+def _slot_from_categories(categories: list[dict]) -> str:
+    for category in categories:
+        slug = category.get("slug")
+        if slug in _SLUG_TO_SLOT:
+            return _SLUG_TO_SLOT[slug]
     return "product"
 
 
@@ -46,14 +47,15 @@ def _dict_to_product(d: dict) -> Product:
         categories=[Category(**c) for c in d.get("categories", [])],
         variants=[ProductVariant(**v) for v in d.get("variants", [])],
         images=[ProductImage(**img) for img in d.get("images", [])],
-        slot=d.get("slot") or _derive_slot([c.get("name", "") for c in d.get("categories", [])]),
+        slot=d.get("slot", "product"),
     )
 
 
-def _java_product_to_dict(data: dict) -> dict:
+def _java_product_to_dict(data: dict, slug_by_id: dict) -> dict:
     """Maps a Java ProductResponse JSON object (camelCase) to the internal seed shape."""
     categories = [
-        {"name": c["name"]} for c in data.get("categories") or [] if c.get("name")
+        {"name": c["name"], "slug": slug_by_id.get(c.get("id"))}
+        for c in data.get("categories") or [] if c.get("name")
     ]
     return {
         "product_id": data["id"],
@@ -85,7 +87,7 @@ def _java_product_to_dict(data: dict) -> dict:
             }
             for v in data.get("variants") or []
         ],
-        "slot": _derive_slot([c["name"] for c in categories]),
+        "slot": _slot_from_categories(categories),
     }
 
 
@@ -120,7 +122,32 @@ class ProductServiceClient:
     def __init__(self):
         self._base_url = settings.product_service_base_url.rstrip("/")
         self._products_path = settings.product_service_products_path
+        self._categories_path = settings.product_service_categories_path
         self._timeout = settings.product_service_timeout
+        self._slug_by_id: dict | None = None
+
+    async def _get_slug_by_id(self) -> dict:
+        """Category id -> slug, fetched from Product Service once and cached for this client's lifetime."""
+        if self._slug_by_id is not None:
+            return self._slug_by_id
+
+        slug_by_id: dict = {}
+        try:
+            async with httpx.AsyncClient(timeout=self._timeout) as client:
+                resp = await client.get(f"{self._base_url}{self._categories_path}")
+                resp.raise_for_status()
+                data = _unwrap_api_response(resp.json())
+            if isinstance(data, list):
+                slug_by_id = {
+                    c["id"]: c["slug"]
+                    for c in data
+                    if isinstance(c, dict) and c.get("id") is not None and c.get("slug")
+                }
+        except Exception:
+            pass
+
+        self._slug_by_id = slug_by_id
+        return slug_by_id
 
     async def batch_fetch(self, product_ids: list[str]) -> list[Product]:
         if not product_ids:
@@ -128,6 +155,7 @@ class ProductServiceClient:
 
         fetched: dict[str, Product] = {}
         try:
+            slug_by_id = await self._get_slug_by_id()
             async with httpx.AsyncClient(timeout=self._timeout) as client:
                 responses = await asyncio.gather(
                     *(
@@ -141,7 +169,7 @@ class ProductServiceClient:
                     continue
                 data = _unwrap_api_response(resp.json())
                 if isinstance(data, dict):
-                    fetched[pid] = _dict_to_product(_java_product_to_dict(data))
+                    fetched[pid] = _dict_to_product(_java_product_to_dict(data, slug_by_id))
         except Exception:
             pass
 
@@ -165,6 +193,7 @@ class ProductServiceClient:
             return []
 
         try:
+            slug_by_id = await self._get_slug_by_id()
             async with httpx.AsyncClient(timeout=self._timeout) as client:
                 resp = await client.get(
                     f"{self._base_url}{self._products_path}",
@@ -180,7 +209,7 @@ class ProductServiceClient:
         for index, item in enumerate(content[:limit]):
             if not isinstance(item, dict) or "id" not in item:
                 continue
-            hit = _java_product_to_dict(item)
+            hit = _java_product_to_dict(item, slug_by_id)
             hit["_score"] = max(0.0, 1.0 - (index / max(limit, 1)))
             hits.append(hit)
         return hits
