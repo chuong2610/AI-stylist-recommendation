@@ -34,7 +34,7 @@ class AgentService:
         self._db = db
         self._session_svc = SessionService(db)
 
-    async def handle(self, session_id: uuid.UUID, user_message: str, user_id: str = "anonymous") -> dict[str, Any]:
+    async def handle(self, session_id: uuid.UUID, user_message: str, user_id: str ) -> dict[str, Any]:
         """
         Gửi message tới LangGraph ReAct agent.
 
