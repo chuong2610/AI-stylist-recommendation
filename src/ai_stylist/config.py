@@ -4,10 +4,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
-    # PostgreSQL (own sessions/messages DB, host port 5433 to avoid clashing with
+    # PostgreSQL (own sessions/messages DB, host port 5430 to avoid clashing with
     # the Java BE's shared postgres container on 5432 — see docker-compose.yml)
     postgres_host: str = "localhost"
-    postgres_port: int = 5433
+    postgres_port: int = 5430
     postgres_db: str = "ai_stylist"
     postgres_user: str = "stylist"
     postgres_password: str = "stylist123"
@@ -36,6 +36,7 @@ class Settings(BaseSettings):
     product_service_timeout: int = 10
     product_service_products_path: str = "/api/v1/products"
     product_service_categories_path: str = "/api/v1/categories"
+    internal_token: str = "sm-secret-internal-service-token-key-2026"
 
     # Seed JSON used only by init scripts and local metadata hydration.
     product_seed_path: str = "scripts/seeds/products.json"

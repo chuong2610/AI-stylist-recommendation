@@ -17,6 +17,7 @@ from ai_stylist.db.neo4j import close_driver
 from ai_stylist.services.agent.checkpointer import setup_checkpointer, close_checkpointer
 from ai_stylist.services.agent.store import setup_store, close_store
 from ai_stylist.api.v1.router import api_router
+from ai_stylist.api.internal.products import router as internal_products_router
 
 logging.basicConfig(level=settings.log_level.upper())
 logger = logging.getLogger(__name__)
@@ -53,6 +54,7 @@ app.add_middleware(
 )
 
 app.include_router(api_router)
+app.include_router(internal_products_router)
 
 
 @app.get("/health")

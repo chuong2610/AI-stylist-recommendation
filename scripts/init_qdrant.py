@@ -8,7 +8,6 @@ import argparse
 import asyncio
 import json
 import sys
-import uuid
 from pathlib import Path
 from typing import Any
 
@@ -19,6 +18,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 from ai_stylist.config import settings
 from ai_stylist.services.llm.gemini_client import GeminiClient
 from ai_stylist.services.product.bm25_encoder import encode_documents
+from ai_stylist.services.product.qdrant_sync import build_search_text, product_point_id
 
 
 def _load_products(path_value: str) -> list[dict[str, Any]]:
@@ -28,18 +28,6 @@ def _load_products(path_value: str) -> list[dict[str, Any]]:
         products = data.get("products", [])
         return products if isinstance(products, list) else []
     return data if isinstance(data, list) else []
-
-
-def _search_text(product: dict[str, Any]) -> str:
-    parts = [
-        product.get("search_text", ""),
-        product.get("name", ""),
-        product.get("description", ""),
-        " ".join(c.get("name", "") for c in product.get("categories", [])),
-        " ".join(v.get("color", "") for v in product.get("variants", [])),
-        " ".join(product.get("tags", [])),
-    ]
-    return " ".join(part for part in parts if part).strip()
 
 
 async def _collection_exists(client: httpx.AsyncClient, collection: str) -> bool:
@@ -86,9 +74,9 @@ async def _upsert_products(
     points = []
     for product, vector, sparse_vector in zip(products, vectors, sparse_vectors):
         product_id = str(product["product_id"])
-        payload = {**product, "search_text": _search_text(product)}
+        payload = {**product, "search_text": build_search_text(product)}
         points.append({
-            "id": str(uuid.uuid5(uuid.NAMESPACE_URL, f"ai-stylist-product:{product_id}")),
+            "id": product_point_id(product_id),
             "vector": {"dense": vector, "bm25": sparse_vector},
             "payload": payload,
         })
@@ -127,7 +115,7 @@ async def main() -> None:
     if not products:
         raise ValueError(f"No products found in {args.seed}")
 
-    search_texts = [_search_text(product) for product in products]
+    search_texts = [build_search_text(product) for product in products]
     vectors = await GeminiClient().embed_texts(search_texts)
     if not vectors:
         raise ValueError("No embeddings generated for products")

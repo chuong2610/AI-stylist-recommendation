@@ -180,6 +180,16 @@ class ProductServiceClient:
 
         return [fetched[pid] for pid in product_ids if pid in fetched]
 
+    async def fetch_live(self, product_id: str) -> Product:
+        slug_by_id = await self._get_slug_by_id()
+        async with httpx.AsyncClient(timeout=self._timeout) as client:
+            response = await client.get(f"{self._base_url}{self._products_path}/{product_id}")
+            response.raise_for_status()
+            data = _unwrap_api_response(response.json())
+        if not isinstance(data, dict):
+            raise ValueError(f"Unexpected Product Service response for product {product_id}")
+        return _dict_to_product(_java_product_to_dict(data, slug_by_id))
+
     def _seed_batch_fetch(self, product_ids: list[str]) -> list[Product]:
         products_by_id = {p["product_id"]: p for p in _load_catalog_seed()}
         return [
