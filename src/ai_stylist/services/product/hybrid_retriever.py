@@ -8,6 +8,7 @@ from ai_stylist.clients.product_client import ProductServiceClient
 from ai_stylist.config import settings
 from ai_stylist.services.llm.gemini_client import GeminiClient
 from ai_stylist.services.llm.search_term_generator import TargetSearchTerms
+from ai_stylist.services.product.bm25_encoder import encode_query
 
 
 class ProductSearchCandidate(BaseModel):
@@ -26,10 +27,10 @@ class HybridProductRetriever:
     Product retrieval through real hybrid search.
 
     Sources:
-    - Qdrant semantic vector search over product embeddings.
-    - Product Service text search over the live product catalog.
-
-    There is no local lexical index or local cosine search path.
+    - Qdrant: dense (Gemini embedding) + sparse (local BM25 via fastembed)
+      vectors, fused server-side with RRF in a single query.
+    - Product Service: substring text search over the live product catalog
+      (Java's endpoint has no ranking of its own; scored by result order).
     """
 
     def __init__(self, gemini: GeminiClient, product_client: ProductServiceClient | None = None):
@@ -86,7 +87,7 @@ class HybridProductRetriever:
         price_min: float | None,
         price_max: float | None,
     ) -> tuple[str, list[ProductSearchCandidate]]:
-        qdrant_task = self._search_qdrant(qdrant_client, target, vector, limit, price_min, price_max)
+        qdrant_task = self._search_qdrant(qdrant_client, target, term, vector, limit, price_min, price_max)
         text_task = self._product_client.search_text(term, target, limit)
         qdrant_results, text_results = await asyncio.gather(qdrant_task, text_task)
 
@@ -108,29 +109,48 @@ class HybridProductRetriever:
         self,
         client: httpx.AsyncClient,
         target: str,
+        term: str,
         vector: list[float],
         limit: int,
         price_min: float | None = None,
         price_max: float | None = None,
     ) -> list[dict[str, Any]]:
-        body: dict[str, Any] = {
-            "vector": vector,
+        # Sparse encoding is a CPU-bound onnxruntime call (fastembed), so it's
+        # pushed off the event loop rather than awaited inline.
+        sparse_vector = await asyncio.to_thread(encode_query, term)
+        qdrant_filter = _qdrant_filter(target, price_min, price_max)
+
+        dense_prefetch: dict[str, Any] = {
+            "query": vector,
+            "using": "dense",
             "limit": limit,
-            "with_payload": True,
             "score_threshold": settings.qdrant_score_threshold,
         }
-        qdrant_filter = _qdrant_filter(target, price_min, price_max)
+        sparse_prefetch: dict[str, Any] = {
+            "query": sparse_vector,
+            "using": "bm25",
+            "limit": limit,
+        }
         if qdrant_filter:
-            body["filter"] = qdrant_filter
+            dense_prefetch["filter"] = qdrant_filter
+            sparse_prefetch["filter"] = qdrant_filter
+
+        body: dict[str, Any] = {
+            "prefetch": [dense_prefetch, sparse_prefetch],
+            "query": {"fusion": "rrf"},
+            "limit": limit,
+            "with_payload": True,
+        }
 
         response = await client.post(
-            f"{self._base_url}/collections/{self._collection}/points/search",
+            f"{self._base_url}/collections/{self._collection}/points/query",
             json=body,
         )
         response.raise_for_status()
         payload = response.json()
-        result = payload.get("result", [])
-        return result if isinstance(result, list) else []
+        result = payload.get("result", {})
+        points = result.get("points", []) if isinstance(result, dict) else []
+        return points if isinstance(points, list) else []
 
 
 def _candidate_from_qdrant(target: str, query: str, point: dict[str, Any]) -> ProductSearchCandidate:

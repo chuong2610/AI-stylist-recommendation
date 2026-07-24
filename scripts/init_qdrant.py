@@ -18,6 +18,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from ai_stylist.config import settings
 from ai_stylist.services.llm.gemini_client import GeminiClient
+from ai_stylist.services.product.bm25_encoder import encode_documents
 
 
 def _load_products(path_value: str) -> list[dict[str, Any]]:
@@ -68,10 +69,8 @@ async def _create_collection(
     response = await client.put(
         f"{base_url}/collections/{collection}",
         json={
-            "vectors": {
-                "size": vector_size,
-                "distance": "Cosine",
-            }
+            "vectors": {"dense": {"size": vector_size, "distance": "Cosine"}},
+            "sparse_vectors": {"bm25": {"modifier": "idf"}},
         },
     )
     response.raise_for_status()
@@ -82,14 +81,15 @@ async def _upsert_products(
     collection: str,
     products: list[dict[str, Any]],
     vectors: list[list[float]],
+    sparse_vectors: list[dict[str, Any]],
 ) -> None:
     points = []
-    for product, vector in zip(products, vectors):
+    for product, vector, sparse_vector in zip(products, vectors, sparse_vectors):
         product_id = str(product["product_id"])
         payload = {**product, "search_text": _search_text(product)}
         points.append({
             "id": str(uuid.uuid5(uuid.NAMESPACE_URL, f"ai-stylist-product:{product_id}")),
-            "vector": vector,
+            "vector": {"dense": vector, "bm25": sparse_vector},
             "payload": payload,
         })
 
@@ -131,10 +131,11 @@ async def main() -> None:
     vectors = await GeminiClient().embed_texts(search_texts)
     if not vectors:
         raise ValueError("No embeddings generated for products")
+    sparse_vectors = encode_documents(search_texts)
 
     async with httpx.AsyncClient(timeout=settings.qdrant_timeout) as client:
         await _create_collection(client, args.collection, len(vectors[0]), args.recreate)
-        await _upsert_products(client, args.collection, products, vectors)
+        await _upsert_products(client, args.collection, products, vectors, sparse_vectors)
         await _create_payload_indexes(client, args.collection)
 
     print(f"Initialized Qdrant collection '{args.collection}' with {len(products)} product(s).")
