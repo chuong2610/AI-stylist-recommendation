@@ -10,8 +10,8 @@ AI Stylist is a FastAPI service for fashion chat, product search, and outfit rec
 - Concept seed from `scripts/seeds/knowledge_graph.json`
 - Qdrant concept vector index from `scripts/seeds/knowledge_graph.json`
 - Neo4j knowledge graph for concepts, aliases, edges, and rules
-- Qdrant product vector index from `scripts/seeds/products.json`
-- Product Service client that calls the real Java `product-service` REST API (`GET /api/v1/products`, `/{id}`) for product hydration/search, falling back to the local seed when the service is unreachable
+- Qdrant product index from `scripts/seeds/products.json`: dense (Gemini embedding) + sparse (local BM25 via `fastembed`) vectors, fused server-side with RRF on every search
+- Product Service client that calls the real Java `product-service` REST API (`GET /api/v1/products`, `/{id}`, `/api/v1/categories`) for product hydration/search and category-slug-based `slot` classification, falling back to the local seed when the service is unreachable
 - PostgreSQL for sessions, messages, and LangGraph checkpoint/memory data
 
 ## Requirements
@@ -36,7 +36,7 @@ Set at least:
 GEMINI_API_KEY=your_key_here
 FIRECRAWL_API_KEY=your_firecrawl_key_here
 POSTGRES_HOST=localhost
-POSTGRES_PORT=5433
+POSTGRES_PORT=5430
 POSTGRES_DB=ai_stylist
 POSTGRES_USER=stylist
 POSTGRES_PASSWORD=stylist123
@@ -59,7 +59,7 @@ docker compose -f docker-compose.infra.yml up -d
 ```
 
 Then start this repo's own Postgres (chat sessions/messages only — a separate DB from Java's,
-remapped to host port 5433 to avoid colliding with the Java stack's postgres on 5432):
+remapped to host port 5430 to avoid colliding with the Java stack's postgres on 5432):
 
 ```powershell
 docker compose up -d
@@ -68,7 +68,7 @@ docker compose up -d
 Services:
 
 - API: `http://localhost:8000` after starting the app
-- Postgres (this repo): `localhost:5433`
+- Postgres (this repo): `localhost:5430`
 - Neo4j Browser (Java BE stack): `http://localhost:7474`
 - Qdrant (Java BE stack): `http://localhost:6333`
 
@@ -86,9 +86,9 @@ What they do:
 
 - `init_concepts.py`: recreates the Qdrant concept collection from `knowledge_graph.json`
 - `init_graphdb.py --clear`: recreates the Neo4j fashion KG from `knowledge_graph.json`
-- `init_qdrant.py --recreate`: recreates product vectors from `products.json` and creates payload indexes for `base_price` and `slot`
+- `init_qdrant.py --recreate`: recreates the product collection (dense + BM25 sparse vectors) from `products.json` and creates payload indexes for `base_price` and `slot`. First run downloads the local `Qdrant/bm25` sparse-encoder model via `fastembed` (cached afterward, no LLM call).
 
-Re-run concept init when concept text or aliases change. Re-run product Qdrant init when product text, price, category, or embedding logic changes.
+Re-run concept init when concept text or aliases change. Re-run product Qdrant init when product text, price, category, or embedding logic changes. This is a breaking schema change if the collection predates the dense+sparse split — an old single-vector collection can't be upserted into without `--recreate`.
 
 Product data (`scripts/seeds/products.json`) mirrors the real Java `product-service` catalog (50 products, `SM-PRD-001`..`050`) — see `src/ai_stylist/clients/product_client.py` for how it's fetched from the live service (with this seed as fallback) and `scripts/seeds/knowledge_graph.json` for the matching fashion rules.
 
@@ -114,10 +114,9 @@ Invoke-RestMethod http://localhost:8000/health
 
 - `POST /api/v1/sessions`
 - `POST /api/v1/sessions/{session_id}/messages`
-- `POST /api/v1/recommendations/outfit`
 - `POST /api/v1/knowledge/ingest`
 
-The chat API routes user messages through the LangGraph agent. The direct recommendation API runs the outfit pipeline without the chat tool loop.
+The chat API routes user messages through the LangGraph agent, which calls the outfit recommendation pipeline as a tool (`recommend_outfit`, see Agent Tools below). There is no standalone recommendation endpoint outside the chat flow.
 
 ## Knowledge Ingestion API
 
@@ -163,13 +162,13 @@ Approved sources are upserted into Neo4j and merged into the Qdrant concept coll
 
 ## Current Data Flow
 
-1. User message enters the chat API or direct recommendation API.
+1. User message enters the chat API.
 2. Intent is extracted by Gemini into a structured `ExtractedIntent`.
 3. Concepts are resolved semantically from the Qdrant concept collection.
 4. Resolved concept IDs are used to read rules from Neo4j.
 5. Gemini generates target-specific product search terms.
-6. Qdrant vector search retrieves product candidates and can filter by `slot` and `base_price`.
-7. Product Service text search is merged with vector candidates.
+6. Qdrant retrieves product candidates via a single hybrid query (dense Gemini embedding + local BM25 sparse vector, fused with RRF), filtered by `slot` and `base_price`.
+7. Product Service text search (substring match, no ranking of its own) is merged in as a secondary signal alongside the Qdrant candidates.
 8. Gemini selects final outfit items from candidates and writes reasons.
 9. Product Service batch fetch hydrates selected product details.
 10. API returns summary, outfit items, images, and debug metadata.

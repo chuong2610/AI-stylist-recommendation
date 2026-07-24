@@ -2,7 +2,7 @@
 # shared containers (stylemind-neo4j, stylemind-qdrant from BE/docker-compose.infra.yml),
 # which must already be running. This compose file only owns Postgres, which stores
 # ai_stylist's own chat sessions/messages (a separate DB from Java's business schemas)
-# and is remapped to host port 5433 to avoid colliding with Java's shared postgres on 5432.
+# and is remapped to host port 5430 to avoid colliding with Java's shared postgres on 5432.
 services:
   postgres:
     image: postgres:16
